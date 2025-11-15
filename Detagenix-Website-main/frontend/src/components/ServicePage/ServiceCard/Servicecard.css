@@ -1,0 +1,141 @@
+.services-section {
+  padding: 60px 0;
+  background-color: #0f172a;
+}
+
+/* ✅ Desktop: exactly 2 columns */
+/* .services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1rem;
+  max-width: 1200px;  
+  margin: auto;
+} */
+
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ✅ pushes button to bottom */
+  align-items: center;
+  gap: 0.5rem;
+  padding: 30px;
+  background: #122D41;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  /* height: 550px; ✅ make all cards same height in grid */
+}
+.service-card-content h3{
+    font-size: 2.2rem;
+    font-weight:500;
+    padding-bottom: 2rem;
+}
+.service-card-content p{
+    
+    font-weight:500;
+   
+}
+.service-card img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;         
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.service-card-content {
+  flex-grow: 1; /* ✅ content takes remaining space, pushes button down */
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 22px rgba(79,195,247,0.35);
+}
+
+
+
+
+.learn-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4fc3f7;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.learn-more::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #4fc3f7;
+  transition: width 0.3s ease-in-out;
+}
+
+.learn-more:hover {
+  color: #29b6f6;
+  transform: translateX(4px);
+}
+
+.learn-more:hover::after {
+  width: 100%;
+}
+
+/* ✅ RESPONSIVE */
+@media (max-width: 768px) {
+
+  /* Smaller padding for mobile */
+  .services-section {
+    padding: 2rem 1rem;
+  }
+
+  /* ✅ Switch to 1 column */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+    gap: 1.2rem;
+  }
+
+  /* ✅ Reduce card padding on mobile */
+  .service-card {
+    padding: 20px;
+    height: 260px;
+  }
+  .service-card img {
+  width: 50%;
+  height: 7rem;
+  object-fit: cover;         
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.service-card-content h3{
+    font-size: 20px;
+    padding-bottom: 1rem;
+}.service-card-content p{
+    font-size: 12px;
+}
+  /* ✅ Image adjusts better on small screens */
+  /* .service-card img {
+    width: 85%;
+  } */
+}
+
+/* Extra small screens ✅ */
+@media (max-width: 480px) {
+  .service-card {
+    padding: 18px;
+    
+  }
+
+  .learn-more {
+    font-size: 14px;
+  }
+}

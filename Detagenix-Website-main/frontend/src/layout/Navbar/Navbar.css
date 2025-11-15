@@ -1,0 +1,136 @@
+.detagenix-navbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #122D41;
+  padding: 12px 0;
+}
+
+.nav-container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo a {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+.nav-logo img.logo-image {
+  height: 60px;
+}
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.nav-menu li a {
+  color: #d3d3d3;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.1s , text-decoration-color 0.1s ;
+  transition-delay: 0.05s;
+}
+
+.nav-menu li a:hover {
+  color: #4fc3f7;
+  text-decoration: underline;
+}
+/* Container */
+.nav-auth {
+  display: flex;
+  align-items: center;
+}
+
+/* User icon button */
+.user-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: #4fc3f7;
+  border-radius: 50%;        /* ✅ Makes it a circle */
+  transition: all 0.3s ease;
+}
+.nav-auth img{
+    width: 60px;
+}
+/* User icon image */
+/* .user-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  filter: brightness(0) invert(1); /* ✅ Makes icons white on blue bg */
+/* } */ */
+
+/* Hover effect */
+.user-btn:hover {
+  background: #29b6f6;
+  box-shadow: 0 0 10px rgba(79, 195, 247, 0.6);
+  transform: translateY(-2px);
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none; /* hide by default */
+    position: absolute;
+    top: 70px;  /* below navbar */
+    left: 0;
+    width: 100%;
+    background: #0c1b3d;
+    flex-direction: column;
+    gap: 0;
+    z-index: 999;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu li {
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .nav-menu li a {
+    font-size: 18px;
+    color: #d3d3d3;
+    text-decoration: none;
+  }
+
+  .nav-menu li a:hover {
+    color: #4fc3f7;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide login/user icon on mobile */
+  .nav-auth {
+    display: none;
+  }
+}
+
+

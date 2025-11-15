@@ -1,0 +1,109 @@
+body {
+  background: #0f172a !important;
+  color: #e5e7eb !important; /* ✅ soft white text */
+}
+
+/* Main Container */
+.blog-detail-container {
+  width: 90%;
+  max-width: 850px;
+  margin: auto;
+  padding-bottom: 40px;
+}
+
+/* Banner Image */
+.blog-detail-banner {
+  width: 100%;
+  height: 100%; /* ✅ full width for better look */
+  aspect-ratio: 16/9;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.blog-detail-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+/* Meta Info */
+.blog-detail-meta {
+  font-size: 15px;
+  color: #cbd5e1; /* ✅ visible light grey */
+  margin-bottom: 15px;
+}
+
+.blog-detail-meta span {
+  font-weight: 600;
+  color: #ffffff; /* ✅ highlight author + date */
+}
+
+/* Tags */
+.blog-detail-tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.blog-detail-tag {
+  background: #1e293b; /* ✅ dark grey chip */
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #f1f5f9; /* ✅ white text */
+  border: 1px solid #334155;
+}
+
+/* Blog Content */
+.blog-detail-content {
+  font-size: 18px;
+  line-height: 1.75;
+  color: #e2e8f0; /* ✅ lighter text for readability */
+  margin-bottom: 40px;
+}
+
+.blog-detail-content p {
+  margin-bottom: 20px;
+  color: #e2e8f0; /* ✅ ensure all p tags visible */
+}
+
+.blog-detail-content h2,
+.blog-detail-content h3,
+.blog-detail-content h4 {
+  color: #ffffff; /* ✅ headings bright white */
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+/* Links inside content */
+.blog-detail-content a {
+  color: #38bdf8; /* ✅ visible blue */
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Prev / Next Navigation */
+.blog-detail-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.nav-btn {
+  padding: 10px 16px;
+  background: #1e293b; /* ✅ dark button */
+  color: #f8fafc;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.2s;
+  border: 1px solid #334155; /* ✅ border for clarity */
+}
+
+.nav-btn:hover {
+  background: #334155;
+  opacity: 1;
+}
