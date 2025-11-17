@@ -7,8 +7,8 @@ import authRoutes from "./src/routes/authRoutes.js";
 import jobRoutes from "./src/routes/jobRoutes.js";
 import applicationRoutes from "./src/routes/applicationRoutes.js";
 import contactRoutes from "./src/routes/contactRoutes.js";
-
-import serviceRoutes from "./src/routes/serviceRoutes.js"; 
+import serviceRoutes from "./src/routes/serviceRoutes.js";
+import adminRoutes from "./src/routes/adminRoutes.js"; 
 
 dotenv.config();
 connectDB();
@@ -27,6 +27,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/services", serviceRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 app.use("/uploads", express.static("uploads"));

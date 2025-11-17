@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
 import Navbar from "./layout/Navbar/Navbar.jsx";
 import Footer from "./layout/Footer/Footer.jsx";
@@ -15,12 +15,16 @@ import BookServiceForm from "./components/ServicePage/BookServiceForm.jsx";
 import Technology from "./pages/Technology/Technology.jsx";
 import Industry from "./pages/Industry/Industries.jsx";
 import ChatBot from "./components/Chatbot/Chatbot.jsx";
+import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
+
 function App() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname === "/admin";
   
   return (
     <>
-      <Navbar />
-      <ChatBot />
+      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <ChatBot />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Service />} />
@@ -35,8 +39,9 @@ function App() {
         <Route path="/blog/:slug" element={<BlogDetailPage />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/policy" element={<PrivacyPolicy />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   );
 }
