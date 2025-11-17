@@ -2,10 +2,40 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Career.css";
 
 function Careers() {
+  const [openings, setOpenings] = useState([]);
+  const [loadingJobs, setLoadingJobs] = useState(true);
   
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchJobs();
   }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+      const response = await fetch(`${BASE_URL}/api/jobs`);
+      if (response.ok) {
+        const jobs = await response.json();
+        // Transform backend job data to match UI format
+        const transformedJobs = jobs.map(job => ({
+          id: job._id,
+          title: job.title,
+          type: job.type || "Full-time",
+          duration: job.duration || "N/A",
+          location: job.location,
+          stipend: job.stipend || "Competitive",
+          desc: job.description,
+        }));
+        setOpenings(transformedJobs);
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      // Fallback to empty array if fetch fails
+      setOpenings([]);
+    } finally {
+      setLoadingJobs(false);
+    }
+  };
 
   const [form, setForm] = useState({
     name: "",
@@ -38,37 +68,6 @@ function Careers() {
   function handleMessageBlur() {
     if (!form.message) setMessagePlaceholder("");
   }
-
-  // Sample openings
-  const openings = [
-    {
-      id: "intern-frontend-001",
-      title: "Frontend Intern (React)",
-      type: "Internship",
-      duration: "6 months",
-      location: "On-site (Indore)",
-      stipend: "Paid",
-      desc: "Work with the frontend team to build responsive React apps and UIs.",
-    },
-    {
-      id: "se-002",
-      title: "Software Engineer - Backend",
-      type: "Full-time",
-      duration: "N/A",
-      location: "Remote / On-site",
-      stipend: "Competitive",
-      desc: "Design and implement APIs, microservices and DB schemas.",
-    },
-    {
-      id: "ml-intern-003",
-      title: "ML Intern",
-      type: "Internship",
-      duration: "3-6 months",
-      location: "On-site (Indore)",
-      stipend: "Paid",
-      desc: "Assist on ML model experiments and data pipelines.",
-    },
-  ];
 
   // Testimonials sample
   const testimonials = [
@@ -204,7 +203,7 @@ function Careers() {
 
     try {
       // ✅ Use BASE_URL from .env
-      const res = await fetch(`${BASE_URL}/applications/apply`, {
+      const res = await fetch(`${BASE_URL}/api/applications/apply`, {
         method: "POST",
         body: fd,
       });

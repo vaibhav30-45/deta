@@ -32,8 +32,10 @@ const AdminDashboard = () => {
 
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
+  const [showJobForm, setShowJobForm] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
   const [editingService, setEditingService] = useState(null);
+  const [editingJob, setEditingJob] = useState(null);
 
   const [blogForm, setBlogForm] = useState({
     title: "",
@@ -50,6 +52,15 @@ const AdminDashboard = () => {
     description: "",
     icon: "",
     link: "",
+  });
+
+  const [jobForm, setJobForm] = useState({
+    title: "",
+    type: "Full-time",
+    duration: "N/A",
+    location: "",
+    stipend: "Competitive",
+    description: "",
   });
 
   const fetchData = async () => {
@@ -175,6 +186,55 @@ const AdminDashboard = () => {
         alert("Failed to delete service");
       }
     }
+  };
+
+  const handleCreateJob = async () => {
+    if (!jobForm.title || !jobForm.location || !jobForm.description) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    try {
+      if (editingJob) {
+        await axios.put(`${BASE_URL}/api/jobs/${editingJob._id}`, jobForm);
+        alert("Job updated successfully");
+      } else {
+        await axios.post(`${BASE_URL}/api/jobs`, jobForm);
+        alert("Job created successfully");
+      }
+      setJobForm({
+        title: "",
+        type: "Full-time",
+        duration: "N/A",
+        location: "",
+        stipend: "Competitive",
+        description: "",
+      });
+      setEditingJob(null);
+      setShowJobForm(false);
+      fetchData();
+    } catch (err) {
+      console.error("Error saving job:", err);
+      alert(err.response?.data?.error || "Failed to save job");
+    }
+  };
+
+  const handleDeleteJob = async (id) => {
+    if (window.confirm("Are you sure you want to delete this job?")) {
+      try {
+        await axios.delete(`${BASE_URL}/api/jobs/${id}`);
+        alert("Job deleted successfully");
+        fetchData();
+      } catch (err) {
+        alert("Failed to delete job");
+      }
+    }
+  };
+
+  const handleEditJob = (job) => {
+    setJobForm(job);
+    setEditingJob(job);
+    setShowJobForm(true);
   };
 
   const StatCard = ({ icon: Icon, title, value, color }) => (
@@ -387,11 +447,125 @@ const AdminDashboard = () => {
 
         {/* Jobs Tab */}
         {activeTab === "jobs" && (
-          <DataTable
-            data={data.jobs}
-            columns={["_id", "title", "description", "location", "createdAt"]}
-            title="All Job Listings"
-          />
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+              <h2 className="section-title">Job Openings Management</h2>
+              <button
+                className="btn-add"
+                onClick={() => {
+                  setJobForm({ title: "", type: "Full-time", duration: "N/A", location: "", stipend: "Competitive", description: "" });
+                  setEditingJob(null);
+                  setShowJobForm(true);
+                }}
+                style={{ display: "flex", alignItems: "center", gap: "8px", backgroundColor: "#007bff", color: "white", padding: "10px 20px", border: "none", borderRadius: "5px", cursor: "pointer" }}
+              >
+                <FaPlus /> Add New Job
+              </button>
+            </div>
+
+            {showJobForm && (
+              <div className="form-modal" style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px", marginBottom: "20px", border: "1px solid #dee2e6" }}>
+                <h3>{editingJob ? "Edit Job" : "Create New Job"}</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+                  <input
+                    type="text"
+                    placeholder="Job Title"
+                    value={jobForm.title}
+                    onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
+                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                  />
+                  <select
+                    value={jobForm.type}
+                    onChange={(e) => setJobForm({ ...jobForm, type: e.target.value })}
+                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                  >
+                    <option value="Internship">Internship</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Duration (e.g., 6 months, 3-6 months)"
+                    value={jobForm.duration}
+                    onChange={(e) => setJobForm({ ...jobForm, duration: e.target.value })}
+                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    value={jobForm.location}
+                    onChange={(e) => setJobForm({ ...jobForm, location: e.target.value })}
+                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Stipend (e.g., Paid, Competitive)"
+                    value={jobForm.stipend}
+                    onChange={(e) => setJobForm({ ...jobForm, stipend: e.target.value })}
+                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                  />
+                </div>
+                <textarea
+                  placeholder="Job Description"
+                  value={jobForm.description}
+                  onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
+                  style={{ width: "100%", padding: "10px", border: "1px solid #ddd", borderRadius: "4px", marginTop: "15px", fontFamily: "inherit", minHeight: "100px" }}
+                />
+                <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+                  <button
+                    onClick={handleCreateJob}
+                    style={{ backgroundColor: "#28a745", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", flex: 1 }}
+                  >
+                    {editingJob ? "Update Job" : "Create Job"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowJobForm(false);
+                      setEditingJob(null);
+                      setJobForm({ title: "", type: "Full-time", duration: "N/A", location: "", stipend: "Competitive", description: "" });
+                    }}
+                    style={{ backgroundColor: "#6c757d", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", flex: 1 }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="jobs-list" style={{ display: "grid", gap: "15px" }}>
+              {data.jobs && data.jobs.length > 0 ? (
+                data.jobs.map((job) => (
+                  <div key={job._id} style={{ backgroundColor: "white", padding: "15px", borderRadius: "8px", border: "1px solid #dee2e6", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
+                      <div style={{ flex: 1 }}>
+                        <h4 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#333" }}>{job.title}</h4>
+                        <p style={{ margin: "5px 0", color: "#666", fontSize: "14px" }}><strong>Type:</strong> {job.type} | <strong>Duration:</strong> {job.duration}</p>
+                        <p style={{ margin: "5px 0", color: "#666", fontSize: "14px" }}><strong>Location:</strong> {job.location} | <strong>Stipend:</strong> {job.stipend}</p>
+                        <p style={{ margin: "8px 0", color: "#555", fontSize: "13px", lineHeight: "1.5" }}>{job.description.substring(0, 150)}...</p>
+                        <p style={{ margin: "5px 0", fontSize: "12px", color: "#999" }}>Posted: {new Date(job.postedAt).toLocaleDateString()}</p>
+                      </div>
+                      <div style={{ display: "flex", gap: "8px", marginLeft: "10px" }}>
+                        <button
+                          onClick={() => handleEditJob(job)}
+                          style={{ backgroundColor: "#0d6efd", color: "white", padding: "8px 12px", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center", gap: "5px", fontSize: "12px" }}
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteJob(job._id)}
+                          style={{ backgroundColor: "#dc3545", color: "white", padding: "8px 12px", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center", gap: "5px", fontSize: "12px" }}
+                        >
+                          <FaTrash /> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p style={{ textAlign: "center", color: "#999", padding: "30px" }}>No jobs posted yet. Create one to get started!</p>
+              )}
+            </div>
+          </div>
         )}
 
         {/* Bookings Tab */}
@@ -574,12 +748,8 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-      </div>
-    </div>
-  );
-};
 
-export default AdminDashboard;        {/* Services Tab */}
+        {/* Services Tab */}
         {activeTab === "services" && (
           <div className="section-with-form">
             <div className="form-header">
@@ -703,3 +873,9 @@ export default AdminDashboard;        {/* Services Tab */}
             </div>
           </div>
         )}
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboard;

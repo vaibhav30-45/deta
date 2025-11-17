@@ -26,7 +26,7 @@ function Contactus() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${BASE_URL}/contact`, formData);
+      await axios.post(`${BASE_URL}/api/contact`, formData);
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 4000);
       setFormData({ name: "", email: "", message: "" });
