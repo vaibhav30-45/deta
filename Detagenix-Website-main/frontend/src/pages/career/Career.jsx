@@ -16,8 +16,19 @@ function Careers() {
       const response = await fetch(`${BASE_URL}/api/jobs`);
       if (response.ok) {
         const jobs = await response.json();
+        // Normalize response (some backends return wrappers)
+        let jobsArr = jobs;
+        if (!Array.isArray(jobsArr) && jobsArr.value && Array.isArray(jobsArr.value)) jobsArr = jobsArr.value;
+
+        // Sort newest-first by createdAt / postedAt / date
+        jobsArr = jobsArr.slice().sort((a, b) => {
+          const da = new Date(a.createdAt || a.postedAt || a.date || 0).getTime();
+          const db = new Date(b.createdAt || b.postedAt || b.date || 0).getTime();
+          return db - da;
+        });
+
         // Transform backend job data to match UI format
-        const transformedJobs = jobs.map(job => ({
+        const transformedJobs = jobsArr.map(job => ({
           id: job._id,
           title: job.title,
           type: job.type || "Full-time",

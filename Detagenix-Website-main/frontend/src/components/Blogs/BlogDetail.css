@@ -107,3 +107,13 @@ body {
   background: #334155;
   opacity: 1;
 }
+
+.blog-detail-status {
+  text-align: center;
+  color: #cbd5f5;
+  margin: 20px 0;
+}
+
+.blog-detail-status.warning {
+  color: #ffb347;
+}

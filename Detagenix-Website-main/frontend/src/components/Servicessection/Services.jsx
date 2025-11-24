@@ -1,19 +1,26 @@
 import "./Services.css";
 
 const Services = ({ service, title, desc, icon, link, onLearnMore }) => {
-  // ✅ If the component receives a `service` object (Services Page)
   const cardData = service
     ? {
-        title: service.title,
-        desc: service.subtitle || service.desc,
-        icon: service.icon,
+        title: service.title || service.name,
+        desc:
+          service.subtitle ||
+          service.desc ||
+          service.description ||
+          "New bespoke service curated by Detagenix.",
+        icon:
+          service.icon ||
+          "https://via.placeholder.com/80?text=DG",
         onClick: onLearnMore,
+        link: service.link,
       }
     : {
         title,
         desc,
         icon,
         onClick: null,
+        link,
       };
 
   return (
@@ -36,8 +43,8 @@ const Services = ({ service, title, desc, icon, link, onLearnMore }) => {
   )}
 
   {/* Link ONLY in homepage */}
-  {!cardData.onClick && link && (
-    <a className="learn-more" href={link}>
+  {!cardData.onClick && cardData.link && (
+    <a className="learn-more" href={cardData.link}>
       Learn More →
     </a>
   )}

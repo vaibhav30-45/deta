@@ -1,5 +1,6 @@
 import "./Home.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Testimonial from "../../components/Testimonial/Testimonial";
 
 import Techslider from "../../components/Techslider/Techslider";
@@ -12,10 +13,36 @@ import About from "../About/Aboutus.jsx";
 
 
 const Home = () => {
-  
+  const [homepageServices, setHomepageServices] = useState(servicesData);
+  const [servicesLoading, setServicesLoading] = useState(true);
+  const [servicesError, setServicesError] = useState("");
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
   useEffect(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data } = await axios.get(`${BASE_URL}/api/blog-services`);
+        if (Array.isArray(data) && data.length > 0) {
+          setHomepageServices(data);
+        } else {
+          setHomepageServices(servicesData);
+        }
+        setServicesError("");
+      } catch (err) {
+        console.error("Failed to load homepage services:", err);
+        setHomepageServices(servicesData);
+        setServicesError("Showing default services while the admin list loads.");
+      } finally {
+        setServicesLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, [BASE_URL]);
   // Stats data for the highlights section
   const navigate = useNavigate();
   const stats = [
@@ -98,15 +125,17 @@ const Home = () => {
       {/* ✅ SERVICES SECTION */}
       <section className="services-section">
       <h1>Our Services</h1>
+      {servicesLoading ? (
+        <p className="services-status">Loading services...</p>
+      ) : servicesError ? (
+        <p className="services-status warning">{servicesError}</p>
+      ) : null}
 
       <div className="service-grids">
-        {servicesData.map((service, index) => (
+        {homepageServices.map((service, index) => (
           <Services 
-            key={index}
-            title={service.title}
-            desc={service.desc}
-            icon={service.icon}
-            link={service.link}
+            key={service._id || service.id || index}
+            service={service}
           />
         ))}
       </div>

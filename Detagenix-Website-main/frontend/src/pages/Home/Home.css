@@ -150,6 +150,15 @@
   text-align: center;
   padding: 1.5rem 0 3rem 0;
 }
+.services-status {
+  text-align: center;
+  color: #cbd5f5;
+  margin-bottom: 1.5rem;
+}
+
+.services-status.warning {
+  color: #ffb347;
+}
 .services-section p {
   color: #ffffff;
   

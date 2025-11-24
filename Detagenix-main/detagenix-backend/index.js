@@ -17,10 +17,15 @@ connectDB();
 
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors({
-  origin: "http://localhost:3000", // frontend port
-  credentials: true
-}));
+// CORS: allow frontend dev servers (3000 and 3001) and any FRONTEND_URL from env
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const allowedOrigins = [FRONTEND_URL, "http://localhost:3001"];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes

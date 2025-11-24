@@ -4,7 +4,11 @@ import Job from "../models/Job.js";
 // 🟢 Admin: Create Job
 export const createJob = async (req, res) => {
   try {
-    const job = await Job.create(req.body);
+    // ensure timestamps exist
+    const payload = { ...req.body };
+    if (!payload.createdAt) payload.createdAt = new Date();
+    if (!payload.postedAt) payload.postedAt = payload.createdAt;
+    const job = await Job.create(payload);
     res.status(201).json({ message: "Job created successfully", job });
   } catch (error) {
     res.status(500).json({ message: "Error creating job", error: error.message });
@@ -14,7 +18,8 @@ export const createJob = async (req, res) => {
 // 🟡 Get All Jobs (Public)
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ postedAt: -1 });
+    // Return jobs sorted by creation time (newest first)
+    const jobs = await Job.find().sort({ createdAt: -1, postedAt: -1 });
     res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ message: "Error fetching jobs", error: error.message });

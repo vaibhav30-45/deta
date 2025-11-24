@@ -43,3 +43,12 @@
     place-content: center;
   }
 }
+
+.blog-status {
+  color: #cbd5f5;
+  margin-bottom: 20px;
+}
+
+.blog-status.error {
+  color: #ff6b6b;
+}
