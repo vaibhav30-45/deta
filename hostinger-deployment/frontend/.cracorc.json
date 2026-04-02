@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    {
+      "plugin": {
+        "overrideWebpackConfig": ({ webpackConfig }) => {
+          webpackConfig.optimization.minimizer = webpackConfig.optimization.minimizer.filter(
+            plugin => plugin.constructor.name !== 'CssMinimizerPlugin'
+          );
+          return webpackConfig;
+        }
+      }
+    }
+  ]
+}

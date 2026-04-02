@@ -12,7 +12,7 @@ const ProjectModal = ({ project, onClose }) => {
         <img src={project.image} alt={project.title} className="project-modal-img" />
 
         <h2>{project.title}</h2>
-        <p className="project-description">{project. description}</p>
+        <p className="project-description">{project.description}</p>
 
         
         <h3>Tech Stack</h3>

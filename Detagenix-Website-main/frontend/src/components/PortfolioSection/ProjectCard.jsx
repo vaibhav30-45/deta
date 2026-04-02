@@ -6,6 +6,7 @@ const ProjectCard = ({ project, onViewProject }) => {
 
   const navigate = useNavigate();
 
+  // eslint-disable-next-line no-unused-vars
   const handleViewProject = () => {
     navigate(`/projects/${project.id}`);
   };

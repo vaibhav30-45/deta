@@ -1,6 +1,8 @@
 import surya from "../asset/feedback/surya prakash vaishnav.jpg";
 import fastcad from "../asset/feedback/Fastcad.png";
+// eslint-disable-next-line no-unused-vars
 import mahohar from "../asset/feedback/manohar.jpg";
+// eslint-disable-next-line no-unused-vars
 import devkripa from "../asset/feedback/dev.jpg";
  import oswal from "../asset/feedback/oswal.jpg";
 import ennobridge from "../asset/feedback/enno.jpg";

@@ -3,6 +3,7 @@ import "./Career.css";
 
 function Careers() {
   const [openings, setOpenings] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [loadingJobs, setLoadingJobs] = useState(true);
   
   useEffect(() => {

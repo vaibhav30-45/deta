@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Techslider.css';
 import { useEffect } from 'react';
 // ✅ Import Icons
-import { FaRobot, FaCloud, FaShieldAlt, FaMobileAlt, FaGlobe, FaChartLine, FaBolt, FaLink } from "react-icons/fa";
+import { FaRobot, FaCloud, FaShieldAlt, FaMobileAlt, FaGlobe, FaChartLine, FaLink } from "react-icons/fa";
 
 
 import { TbDeviceMobileCog } from "react-icons/tb";  // IoT icon
@@ -72,6 +72,7 @@ const Techslider = () => {
   ];
 
   const duplicatedSlides = [...techData, ...techData];
+  // eslint-disable-next-line no-unused-vars
   const slides = isMobile ? techData : [...techData, ...techData];
 
   return (

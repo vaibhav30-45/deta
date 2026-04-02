@@ -1,0 +1,438 @@
+/* =========================================================
+   ✅ HERO SECTION (Fully Responsive)
+   ========================================================= */
+.hero-video-section {
+  position: relative;
+  height: 90vh;
+  min-height: 450px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Video */
+.hero-background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+/* Dark Layer */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+/* Buttons */
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 50px !important; /* ✅ Perfect cylindrical shape */
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+  background: #ffffff !important;
+  color: #007bff !important;
+  border: none !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.about-section {
+  padding: 70px 0;
+  background:#0f172a !important;
+}
+
+.about-container {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.about-image img {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.about-content {
+  flex: 1;
+}
+
+.about-content h2 {
+  font-size: 36px;
+  color: #ffffff;
+  margin-bottom: 25px;
+  margin-left: 6rem;
+  text-align: left;
+}
+
+.about-content p {
+  font-size: 25px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.about-btn {
+  padding: 12px 28px;
+  background: #0078ff;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  
+}
+
+.about-btn:hover {
+  background: #005fcc;
+}
+
+
+
+
+/* =========================================================
+   ✅ SERVICE SECTION
+   ========================================================= */
+
+.services-section h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  text-align: center;
+  padding: 1.5rem 0 3rem 0;
+}
+.services-status {
+  text-align: center;
+  color: #cbd5f5;
+  margin-bottom: 1.5rem;
+}
+
+.services-status.warning {
+  color: #ffb347;
+}
+.services-section p {
+  color: #ffffff;
+  
+}
+.service-grids {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 2rem;
+  max-width: 1200px;
+  
+  margin: 0 auto;
+}
+
+/* =========================================================
+   ✅ STATS SECTION (Very Responsive)
+   ========================================================= */
+.stats-bar {
+  margin: 5rem auto;
+  width: 80%;
+  overflow: hidden;
+  background: #0f172a;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.stats-slider {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.stats-track {
+  display: flex;
+  animation: scroll 25s linear infinite;
+}
+
+.stat-item {
+  min-width: 200px;
+  text-align: center;
+  margin: 0 40px;
+  flex-shrink: 0;
+  background-color: white;
+  color: #0f172a;
+  padding: 30px;
+  border-radius: 15px;
+}
+.stats-bar h1{
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #00bfff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  font-size: 2.5rem;
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+/* Keyframes for infinite scroll */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ----------------------------------- */
+/* RESPONSIVE DESIGN BREAKPOINTS       */
+/* ----------------------------------- */
+
+@media (max-width: 1024px) {
+  .stat-item {
+    min-width: 160px;
+    margin: 0 25px;
+  }
+
+  .stat-icon {
+    font-size: 1.8rem;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+
+  .stats-track {
+    animation: scroll 30s linear infinite; /* slower */
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-item {
+    min-width: 140px;
+    margin: 0 20px;
+  }
+
+  .stat-icon {
+    font-size: 1.6rem;
+  }
+
+  .stat-number {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .stats-track {
+    animation: scroll 35s linear infinite; /* even slower for readability */
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-item {
+    min-width: 120px;
+    margin: 0 15px;
+  }
+
+  .stat-icon {
+    font-size: 1.4rem;
+  }
+
+  .stat-number {
+    font-size: 1.1rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stats-track {
+    animation: scroll 40s linear infinite;
+  }
+}
+
+/* =========================================================
+   ✅ RESPONSIVENESS (TABLET)
+   ========================================================= */
+@media (max-width: 992px) {
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+}
+
+/* =========================================================
+   ✅ RESPONSIVENESS (MOBILE)
+   ========================================================= */
+@media (max-width: 768px) {
+
+  /* Hero Section */
+  .hero-video-section {
+    height: 100vh !important;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem !important;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 0px !important;
+    font-size: 1rem;
+    margin: 2px;
+  }
+  .hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.about-content h2 {
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: 0;
+}
+
+.about-content p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+.about-btn {
+  display: block;
+  margin: 0 auto;
+}
+.service-grids {
+  display: grid;
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 1.2rem;
+  }
+  /* Stats Section */
+  .stats-bar {
+    padding: 2rem 1rem;
+  }
+
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-item {
+    padding: 1.3rem;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+}
+
+/* =========================================================
+   ✅ VERY SMALL DEVICES (Phones < 480px)
+   ========================================================= */
+@media (max-width: 480px) {
+  
+  .hero-video-section {
+    height: 65vh;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+}

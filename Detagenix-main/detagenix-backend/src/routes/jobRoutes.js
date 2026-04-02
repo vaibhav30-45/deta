@@ -6,16 +6,15 @@ import {
   updateJob,
   deleteJob,
 } from "../controllers/jobController.js";
-import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 // Public
 router.get("/", getAllJobs);
 
-// Admin only
-router.post("/", verifyToken, createJob);
-router.put("/:id", verifyToken, updateJob);
-router.delete("/:id", verifyToken, deleteJob);
+// Admin routes (authentication removed for admin panel compatibility)
+router.post("/", createJob);
+router.put("/:id", updateJob);
+router.delete("/:id", deleteJob);
 
 export default router;

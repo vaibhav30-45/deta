@@ -89,7 +89,14 @@
   font-weight: 500;
 }
 
-.refresh-btn {
+.header-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.refresh-btn,
+.logout-btn {
   background: linear-gradient(135deg, #00bfff 0%, #0080ff 100%);
   border: none;
   color: white;
@@ -105,12 +112,22 @@
   white-space: nowrap;
 }
 
-.refresh-btn:hover {
+.logout-btn {
+  background: linear-gradient(135deg, #ff4757 0%, #ff3838 100%);
+}
+
+.refresh-btn:hover,
+.logout-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(0, 191, 255, 0.4);
 }
 
-.refresh-btn:active {
+.logout-btn:hover {
+  box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
+}
+
+.refresh-btn:active,
+.logout-btn:active {
   transform: translateY(0);
 }
 

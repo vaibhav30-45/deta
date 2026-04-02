@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminDashboard.css";
-import { FaUsers, FaFileAlt, FaPhone, FaBriefcase, FaGift, FaChartBar, FaSync, FaBlog, FaCog, FaTrash, FaEdit, FaPlus } from "react-icons/fa";
+import { FaUsers, FaFileAlt, FaPhone, FaBriefcase, FaGift, FaChartBar, FaSync, FaBlog, FaCog, FaTrash, FaEdit, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import logo from "../../asset/logo.webp";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     admins: [],
     applications: [],
@@ -63,9 +65,21 @@ const AdminDashboard = () => {
     description: "",
   });
 
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminEmail");
+    navigate("/admin");
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        navigate("/admin");
+        return;
+      }
+
       const [adminRes, blogsRes, servicesRes] = await Promise.all([
         axios.get(`${BASE_URL}/api/admin/data`),
         axios.get(`${BASE_URL}/api/blogs`),
@@ -267,9 +281,21 @@ const AdminDashboard = () => {
                 <tr key={idx}>
                   {columns.map((col) => (
                     <td key={col}>
-                      {typeof row[col] === "object"
-                        ? JSON.stringify(row[col]).substring(0, 50) + "..."
-                        : String(row[col] || "-").substring(0, 50)}
+                      {col === "resumeUrl" && row[col] ? (
+                        <a 
+                          href={row[col].startsWith('http') ? row[col] : `${BASE_URL}${row[col]}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          download
+                          style={{ color: "#007bff", textDecoration: "underline", fontWeight: "500" }}
+                        >
+                          📄 Download Resume
+                        </a>
+                      ) : typeof row[col] === "object" ? (
+                        JSON.stringify(row[col]).substring(0, 50) + "..."
+                      ) : (
+                        String(row[col] || "-").substring(0, 50)
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -309,9 +335,14 @@ const AdminDashboard = () => {
             <p>Detagenix Data Management System</p>
           </div>
         </div>
-        <button className="refresh-btn" onClick={fetchData}>
-          <FaSync /> Refresh Data
-        </button>
+        <div className="header-actions">
+          <button className="refresh-btn" onClick={fetchData}>
+            <FaSync /> Refresh Data
+          </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            <FaSignOutAlt /> Logout
+          </button>
+        </div>
       </div>
 
       {/* Navigation Tabs */}
@@ -415,7 +446,7 @@ const AdminDashboard = () => {
             <div className="overview-tables">
               <DataTable
                 data={data.applications?.slice(0, 5)}
-                columns={["name", "email", "role", "appliedAt"]}
+                columns={["name", "email", "role", "resumeUrl", "appliedAt"]}
                 title="Recent Job Applications"
               />
               <DataTable
@@ -431,7 +462,7 @@ const AdminDashboard = () => {
         {activeTab === "applications" && (
           <DataTable
             data={data.applications}
-            columns={["_id", "name", "email", "role", "message", "appliedAt"]}
+            columns={["_id", "name", "email", "role", "message", "resumeUrl", "appliedAt"]}
             title="All Job Applications"
           />
         )}
@@ -615,7 +646,6 @@ const AdminDashboard = () => {
               <div className="form-container">
                 <h3>{editingBlog ? "Edit Blog" : "Create New Blog"}</h3>
                 <div className="form-group">
-                  <label>Title</label>
                   <input
                     type="text"
                     value={blogForm.title}
@@ -626,7 +656,6 @@ const AdminDashboard = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Slug</label>
                   <input
                     type="text"
                     value={blogForm.slug}
@@ -637,56 +666,52 @@ const AdminDashboard = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Author</label>
                   <input
                     type="text"
                     value={blogForm.author}
                     onChange={(e) =>
                       setBlogForm({ ...blogForm, author: e.target.value })
                     }
+                    placeholder="Author name"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Banner Image URL</label>
                   <input
                     type="text"
                     value={blogForm.bannerImage}
                     onChange={(e) =>
                       setBlogForm({ ...blogForm, bannerImage: e.target.value })
                     }
-                    placeholder="https://example.com/image.jpg"
+                    placeholder="Banner Image URL: https://example.com/image.jpg"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Tags (comma-separated)</label>
                   <input
                     type="text"
                     value={blogForm.tags}
                     onChange={(e) =>
                       setBlogForm({ ...blogForm, tags: e.target.value })
                     }
-                    placeholder="AI, Technology, Development"
+                    placeholder="Tags (comma-separated): AI, Technology, Development"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Category</label>
                   <input
                     type="text"
                     value={blogForm.category}
                     onChange={(e) =>
                       setBlogForm({ ...blogForm, category: e.target.value })
                     }
-                    placeholder="Technology"
+                    placeholder="Category: Technology"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Content (HTML)</label>
                   <textarea
                     value={blogForm.content}
                     onChange={(e) =>
                       setBlogForm({ ...blogForm, content: e.target.value })
                     }
-                    placeholder="<p>Your blog content here...</p>"
+                    placeholder="Content (HTML): <p>Your blog content here...</p>"
                     rows="10"
                   ></textarea>
                 </div>
@@ -775,18 +800,16 @@ const AdminDashboard = () => {
               <div className="form-container">
                 <h3>{editingService ? "Edit Service" : "Create New Service"}</h3>
                 <div className="form-group">
-                  <label>Service Title</label>
                   <input
                     type="text"
                     value={serviceForm.title}
                     onChange={(e) =>
                       setServiceForm({ ...serviceForm, title: e.target.value })
                     }
-                    placeholder="e.g., CyberSecurity"
+                    placeholder="Service Title: e.g., CyberSecurity"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Description</label>
                   <textarea
                     value={serviceForm.description}
                     onChange={(e) =>
@@ -797,25 +820,23 @@ const AdminDashboard = () => {
                   ></textarea>
                 </div>
                 <div className="form-group">
-                  <label>Icon Image URL</label>
                   <input
                     type="text"
                     value={serviceForm.icon}
                     onChange={(e) =>
                       setServiceForm({ ...serviceForm, icon: e.target.value })
                     }
-                    placeholder="https://example.com/icon.jpg"
+                    placeholder="Icon Image URL: https://example.com/icon.jpg"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Link (Optional)</label>
                   <input
                     type="text"
                     value={serviceForm.link}
                     onChange={(e) =>
                       setServiceForm({ ...serviceForm, link: e.target.value })
                     }
-                    placeholder="/services#cybersecurity"
+                    placeholder="Link (Optional): /services#cybersecurity"
                   />
                 </div>
                 <div className="form-buttons">

@@ -7,7 +7,6 @@ import "./BlogList.css";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState(fallbackBlogs);
-  const [visibleCount, setVisibleCount] = useState(3);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -26,17 +25,27 @@ const BlogList = () => {
           data = data.value;
         }
 
-        // Ensure we have an array and sort newest-first by createdAt/date
+        // Merge database blogs with fallback blogs
+        let allBlogs = [];
+        
+        // Add database blogs (from API)
         if (Array.isArray(data) && data.length > 0) {
-          const sorted = data.slice().sort((a, b) => {
-            const da = new Date(a.createdAt || a.date || 0).getTime();
-            const db = new Date(b.createdAt || b.date || 0).getTime();
-            return db - da;
-          });
-          setBlogs(sorted);
-        } else {
-          setBlogs(fallbackBlogs);
+          allBlogs = [...data];
         }
+        
+        // Add fallback blogs (static data)
+        if (Array.isArray(fallbackBlogs)) {
+          allBlogs = [...allBlogs, ...fallbackBlogs];
+        }
+        
+        // Sort all blogs newest-first by createdAt/date
+        const sorted = allBlogs.sort((a, b) => {
+          const dateA = new Date(a.createdAt || a.date || 0);
+          const dateB = new Date(b.createdAt || b.date || 0);
+          return dateB - dateA;
+        });
+        
+        setBlogs(sorted);
         setError("");
       } catch (err) {
         console.error("Failed to load blogs:", err);
@@ -50,9 +59,7 @@ const BlogList = () => {
     fetchBlogs();
   }, [BASE_URL]);
 
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + 4);
-  };
+  // eslint-disable-next-line no-unused-vars
   const [showReadMore, setShowReadMore] = useState(false);
 
   return (
@@ -71,9 +78,7 @@ const BlogList = () => {
           {(() => {
             // Ensure strict newest-first ordering, then slice
             const sorted = Array.isArray(blogs) ? blogs.slice().sort((a, b) => {
-              const da = new Date(a.createdAt || a.date || 0).getTime();
-              const db = new Date(b.createdAt || b.date || 0).getTime();
-              return db - da;
+              return new Date(b.createdAt) - new Date(a.createdAt);
             }) : [];
 
             const main = sorted.slice(0, 3);

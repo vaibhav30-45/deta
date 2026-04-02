@@ -2,14 +2,11 @@ import "./Home.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Testimonial from "../../components/Testimonial/Testimonial";
-
-import Techslider from "../../components/Techslider/Techslider";
 import { useNavigate } from "react-router-dom";
-import PortfolioSection from '../../components/PortfolioSection/PortfolioSection';
+import Techslider from "../../components/Techslider/Techslider";
 import Services from "../../components/Servicessection/Services.jsx";
 import  servicesData  from "../../data/servicesData.js";
-import aboutusImage from "../../asset/culture2.png"; 
-import About from "../About/Aboutus.jsx";
+import aboutusImage from "../../asset/culture2.png";
 
 
 const Home = () => {

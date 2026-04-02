@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
-import { FaLinkedin, FaInstagram, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 
@@ -129,10 +129,10 @@ const Footer = () => {
               </ul>
 
               <div className="footer-social">
-                <a href="https://www.linkedin.com/company/detagenix/" target="_blank">
+                <a href="https://www.linkedin.com/company/detagenix/" target="_blank" rel="noreferrer">
                   <FaLinkedin />
                 </a>
-                <a href="https://www.instagram.com/detagenix_/?igsh=djVpcjZheDV4MXU2&utm_source=qr#" target="_blank">
+                <a href="https://www.instagram.com/detagenix_/?igsh=djVpcjZheDV4MXU2&utm_source=qr#" target="_blank" rel="noreferrer">
                   <FaInstagram />
                 </a>
               </div>
