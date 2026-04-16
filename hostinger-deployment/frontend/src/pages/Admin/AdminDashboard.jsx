@@ -55,6 +55,7 @@ const AdminDashboard = () => {
     icon: "",
     link: "",
   });
+  const [enquiry, setEnquiries] = useState([]);
 
   const [jobForm, setJobForm] = useState({
     title: "",
@@ -80,15 +81,18 @@ const AdminDashboard = () => {
         return;
       }
 
-      const [adminRes, blogsRes, servicesRes] = await Promise.all([
+      const [adminRes, blogsRes, servicesRes, enquiryRes] = await Promise.all([
         axios.get(`${BASE_URL}/api/admin/data`),
         axios.get(`${BASE_URL}/api/blogs`),
         axios.get(`${BASE_URL}/api/blog-services`),
+        axios.get(`${BASE_URL}/api/enquiry`)
       ]);
+      console.log("Enquiry Data:", enquiryRes.data);
 
       setData(adminRes.data);
       setBlogs(blogsRes.data);
       setBlogServices(servicesRes.data);
+      setEnquiries(enquiryRes.data);
 
       setStats({
         totalAdmins: adminRes.data.admins?.length || 0,
@@ -97,6 +101,7 @@ const AdminDashboard = () => {
         totalJobs: adminRes.data.jobs?.length || 0,
         totalUsers: adminRes.data.users?.length || 0,
         totalBookings: adminRes.data.bookings?.length || 0,
+        totalEnquiries: enquiryRes.data?.length || 0
       });
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -280,23 +285,25 @@ const AdminDashboard = () => {
               data.map((row, idx) => (
                 <tr key={idx}>
                   {columns.map((col) => (
-                    <td key={col}>
-                      {col === "resumeUrl" && row[col] ? (
-                        <a 
-                          href={row[col].startsWith('http') ? row[col] : `${BASE_URL}${row[col]}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          download
-                          style={{ color: "#007bff", textDecoration: "underline", fontWeight: "500" }}
-                        >
-                          📄 Download Resume
-                        </a>
-                      ) : typeof row[col] === "object" ? (
-                        JSON.stringify(row[col]).substring(0, 50) + "..."
-                      ) : (
-                        String(row[col] || "-").substring(0, 50)
-                      )}
-                    </td>
+                   <td key={col}>
+  {col === "resumeUrl" && row[col] ? (
+    <a 
+      href={row[col].startsWith('http') ? row[col] : `${BASE_URL}${row[col]}`} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      download
+      style={{ color: "#007bff", textDecoration: "underline", fontWeight: "500" }}
+    >
+      📄 Download Resume
+    </a>
+  ) : col === "createdAt" ? (
+    new Date(row[col]).toLocaleString()
+  ) : typeof row[col] === "object" ? (
+    JSON.stringify(row[col]).substring(0, 50) + "..."
+  ) : (
+    String(row[col] || "-").substring(0, 50)
+  )}
+</td>
                   ))}
                 </tr>
               ))
@@ -365,6 +372,12 @@ const AdminDashboard = () => {
         >
           <FaPhone /> Contacts
         </button>
+        <button
+  className={`nav-btn ${activeTab === "enquiry" ? "active" : ""}`}
+  onClick={() => setActiveTab("enquiry")}
+>
+  📩 Enquiries
+</button>
         <button
           className={`nav-btn ${activeTab === "jobs" ? "active" : ""}`}
           onClick={() => setActiveTab("jobs")}
@@ -440,6 +453,12 @@ const AdminDashboard = () => {
                 value={stats.totalAdmins}
                 color="#e74c3c"
               />
+              <StatCard
+  icon={FaPhone}
+  title="Enquiries"
+  value={stats.totalEnquiries}
+  color="#ff9800"
+/>
             </div>
 
             {/* Quick Overview Tables */}
@@ -454,6 +473,18 @@ const AdminDashboard = () => {
                 columns={["name", "email", "message", "createdAt"]}
                 title="Recent Contact Messages"
               />
+              <DataTable
+  data={enquiry?.slice(0, 5) || []}
+  columns={[
+    "full_name",
+    "email",
+    "phone",
+    "project_type",
+    "budget",
+    "timeline"
+  ]}
+  title="Recent Enquiries"
+/>
             </div>
           </div>
         )}
@@ -894,6 +925,25 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
+        {activeTab === "enquiry" && (
+  <DataTable
+    data={enquiry}
+    columns={[
+      "_id",
+      "full_name",
+      "email",
+      "phone",
+      "company_name",
+      "project_type",
+      "description",
+      "budget",
+      "timeline",
+      "goal",
+      "createdAt"
+    ]}
+    title="All Enquiries"
+  />
+)}
       </div>
     </div>
   );

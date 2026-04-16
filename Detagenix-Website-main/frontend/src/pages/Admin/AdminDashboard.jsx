@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminDashboard.css";
+import Testimonials from "../../components/Testimonial/Testimonials";
 import { FaUsers, FaFileAlt, FaPhone, FaBriefcase, FaGift, FaChartBar, FaSync, FaBlog, FaCog, FaTrash, FaEdit, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import logo from "../../asset/logo.webp";
+import { Editor } from "@tinymce/tinymce-react";
+import { FaQuoteRight } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -15,11 +18,13 @@ const AdminDashboard = () => {
     services: [],
     users: [],
     bookings: [],
+    Testimonials: [],
   });
 
   const [blogs, setBlogs] = useState([]);
   const [blogServices, setBlogServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [enquiries, setEnquiries] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
   const [stats, setStats] = useState({
     totalAdmins: 0,
@@ -28,6 +33,8 @@ const AdminDashboard = () => {
     totalJobs: 0,
     totalUsers: 0,
     totalBookings: 0,
+    totalTestimonials: 0,
+    totalEnquiries: 0,
   });
 
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
@@ -40,14 +47,17 @@ const AdminDashboard = () => {
   const [editingJob, setEditingJob] = useState(null);
 
   const [blogForm, setBlogForm] = useState({
-    title: "",
-    slug: "",
-    author: "Detagenix Team",
-    bannerImage: "",
-    tags: "",
-    category: "",
-    content: "",
-  });
+  title: "",
+  slug: "",
+  author: "Detagenix Team",
+  bannerImage: "",
+  tags: "",
+  category: "",
+  content: [
+    { type: "heading", value: "" },
+    { type: "paragraph", value: "" }
+  ]
+});
 
   const [serviceForm, setServiceForm] = useState({
     title: "",
@@ -72,6 +82,8 @@ const AdminDashboard = () => {
   };
 
   const fetchData = async () => {
+     console.log("fetchData called 🔥");
+  
     setLoading(true);
     try {
       const token = localStorage.getItem("adminToken");
@@ -80,16 +92,19 @@ const AdminDashboard = () => {
         return;
       }
 
-      const [adminRes, blogsRes, servicesRes] = await Promise.all([
+      const [adminRes, blogsRes, servicesRes, enquiriesRes] = await Promise.all([
         axios.get(`${BASE_URL}/api/admin/data`),
         axios.get(`${BASE_URL}/api/blogs`),
         axios.get(`${BASE_URL}/api/blog-services`),
+        axios.get(`${BASE_URL}/api/enquiry`) 
       ]);
+      
+      console.log("Enquiry Data:", enquiriesRes.data); 
 
       setData(adminRes.data);
       setBlogs(blogsRes.data);
       setBlogServices(servicesRes.data);
-
+      setEnquiries(enquiriesRes.data);
       setStats({
         totalAdmins: adminRes.data.admins?.length || 0,
         totalApplications: adminRes.data.applications?.length || 0,
@@ -97,6 +112,7 @@ const AdminDashboard = () => {
         totalJobs: adminRes.data.jobs?.length || 0,
         totalUsers: adminRes.data.users?.length || 0,
         totalBookings: adminRes.data.bookings?.length || 0,
+        
       });
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -107,7 +123,8 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    fetchData();
+     console.log("Component Loaded ✅");
+  fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -369,8 +386,15 @@ const AdminDashboard = () => {
           className={`nav-btn ${activeTab === "jobs" ? "active" : ""}`}
           onClick={() => setActiveTab("jobs")}
         >
+        
           <FaBriefcase /> Jobs
         </button>
+        <button
+  className={`nav-btn ${activeTab === "enquiries" ? "active" : ""}`}
+  onClick={() => setActiveTab("enquiries")}
+>
+  📩 Enquiries
+</button>
         <button
           className={`nav-btn ${activeTab === "bookings" ? "active" : ""}`}
           onClick={() => setActiveTab("bookings")}
@@ -395,6 +419,12 @@ const AdminDashboard = () => {
         >
           <FaCog /> Services
         </button>
+        <button
+  className={`nav-btn ${activeTab === "testimonials" ? "active" : ""}`}
+  onClick={() => setActiveTab("testimonials")}
+>
+  <FaQuoteRight /> Testimonials
+</button>
       </div>
 
       {/* Dashboard Content */}
@@ -624,19 +654,22 @@ const AdminDashboard = () => {
               <h2 className="section-title">Manage Blogs</h2>
               <button
                 className="add-btn"
-                onClick={() => {
-                  setShowBlogForm(!showBlogForm);
-                  setEditingBlog(null);
-                  setBlogForm({
-                    title: "",
-                    slug: "",
-                    author: "Detagenix Team",
-                    bannerImage: "",
-                    tags: "",
-                    category: "",
-                    content: "",
-                  });
-                }}
+             onClick={() => {
+  setShowBlogForm(true);
+  setEditingBlog(null);
+  setBlogForm({
+    title: "",
+    slug: "",
+    author: "Detagenix Team",
+    bannerImage: "",
+    tags: "",
+    category: "",
+    content: [
+      { type: "heading", value: "" },
+      { type: "paragraph", value: "" }
+    ]
+  });
+}}
               >
                 <FaPlus /> Add New Blog
               </button>
@@ -705,16 +738,31 @@ const AdminDashboard = () => {
                     placeholder="Category: Technology"
                   />
                 </div>
-                <div className="form-group">
-                  <textarea
-                    value={blogForm.content}
-                    onChange={(e) =>
-                      setBlogForm({ ...blogForm, content: e.target.value })
-                    }
-                    placeholder="Content (HTML): <p>Your blog content here...</p>"
-                    rows="10"
-                  ></textarea>
-                </div>
+               <div className="form-group">
+  <label>Blog Content</label>
+
+  <Editor
+    apiKey="vls4npqn6e2dtdv8mw43rk3w1txinqmt5m1vdn8h56dx1130"
+    value={blogForm.content}
+    init={{
+      height: 400,
+      menubar: true,
+     plugins: [
+      "advlist", "autolink", "lists", "link", "image",
+      "charmap", "preview", "anchor", "searchreplace",
+      "visualblocks", "code", "fullscreen",
+      "insertdatetime", "media", "table", "help", "wordcount"
+    ],
+      toolbar:
+        "undo redo | formatselect | bold italic | \
+        alignleft aligncenter alignright | \
+        bullist numlist | link image | code fullscreen",
+    }}
+    onEditorChange={(content) =>
+      setBlogForm({ ...blogForm, content })
+    }
+  />
+</div>
                 <div className="form-buttons">
                   <button className="submit-btn" onClick={handleCreateBlog}>
                     {editingBlog ? "Update Blog" : "Create Blog"}
@@ -753,7 +801,7 @@ const AdminDashboard = () => {
                             bannerImage: blog.bannerImage,
                             tags: blog.tags.join(", "),
                             category: blog.category,
-                            content: blog.content,
+                            content: blog.content || ""
                           });
                           setShowBlogForm(true);
                         }}
@@ -894,6 +942,23 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
+        {activeTab === "enquiries" && (
+  <DataTable
+    data={enquiries}
+    columns={[
+      "_id",
+      "full_name",
+      "email",
+      "phone",
+      "project_type",
+      "budget",
+      "timeline",
+      "createdAt"
+    ]}
+    title="All Enquiries"
+  />
+)}
+        {activeTab === "testimonials" && <Testimonials />}
       </div>
     </div>
   );

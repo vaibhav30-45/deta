@@ -140,9 +140,9 @@ const Home = () => {
 
      
       {/* ✅ HIGHLIGHTS/STATS SECTION */}
-      <section className="stats-bar">
+      <section className="stats-bar" >
         <h1>Numbers That Define Us</h1>
-  <div className="stats-slider">
+  <div className="stats-slider fade-edges" >
     <div className="stats-track">
       {[...stats, ...stats].map((stat, index) => ( // duplicate for infinite loop
         <div key={index} className="stat-item">

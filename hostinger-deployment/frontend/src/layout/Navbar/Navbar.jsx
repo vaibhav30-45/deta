@@ -9,6 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="detagenix-navbar">
+      
       <div className="nav-container">
 
         {/* Logo */}
@@ -39,8 +40,78 @@ const Navbar = () => {
   <li><Link to="/policy" onClick={() => setIsOpen(false)}>Privacy Policy</Link></li> */}
 </ul>
         {/* <div className="nav-auth"> <Link to="/login" className="user-btn"> <img src={avatar} alt="User" className="user-icon" /> </Link> </div> */}
-
+           <div className="nav-actions">
+  <button className="enquire-btn" onClick={() => setIsOpenForm(true)}>
+    Enquire Now
+  </button>
+</div>
       </div>
+      {isOpenForm && (
+  <div className="modal-overlay">
+    <div className="modal-form">
+      <button className="close-btn" onClick={() => setIsOpenForm(false)}>×</button>
+
+      <h2>Let’s Build Your Project 🚀</h2>
+
+      <form>
+        {/* Basic Info */}
+        <input type="text" placeholder="Full Name *" required />
+        <input type="email" placeholder="Email *" required />
+        <input type="tel" placeholder="Phone *" required />
+        <input type="text" placeholder="Company Name (Optional)" />
+
+        {/* Project Type */}
+        <select required>
+          <option value="">Select Project Type *</option>
+          <option>Website</option>
+          <option>Mobile App</option>
+          <option>SaaS / Software</option>
+          <option>E-commerce</option>
+          <option>CRM / ERP</option>
+          <option>Other</option>
+        </select>
+
+        {/* Description */}
+        <textarea
+          placeholder="Briefly describe your project requirements"
+          required
+        ></textarea>
+
+        {/* Budget */}
+        <select required>
+          <option value="">Select Budget *</option>
+          <option>₹10K – ₹50K</option>
+          <option>₹50K – ₹2L</option>
+          <option>₹2L – ₹10L</option>
+          <option>₹10L+</option>
+        </select>
+
+        {/* Timeline */}
+        <select required>
+          <option value="">Select Timeline *</option>
+          <option>ASAP</option>
+          <option>1–2 Weeks</option>
+          <option>1 Month</option>
+          <option>Flexible</option>
+        </select>
+
+        {/* Goal */}
+        <select required>
+          <option value="">Project Goal *</option>
+          <option>Generate leads</option>
+          <option>Sell products</option>
+          <option>Automate business</option>
+          <option>Build MVP</option>
+          <option>Scale existing system</option>
+        </select>
+
+        <button type="submit" className="submit-btn">
+          Get Free Consultation
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     </nav>
   );
 };

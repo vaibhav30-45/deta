@@ -8,7 +8,9 @@ const blogSchema = new mongoose.Schema({
   bannerImage: { type: String, required: true },
   tags: [{ type: String }],
   category: { type: String, required: true },
-  content: { type: String, required: true },
+ content: {
+  type: String
+},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

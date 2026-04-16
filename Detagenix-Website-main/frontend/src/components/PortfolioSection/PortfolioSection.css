@@ -1,6 +1,7 @@
 .portfolio-section {
-  padding: 5rem 2rem 0 2rem;
+  padding: 5rem 2rem 5rem 2rem; /* 👈 bottom padding add karo */
   background: #0f172a;
+  margin-bottom: 0;
 }
 
 .container {

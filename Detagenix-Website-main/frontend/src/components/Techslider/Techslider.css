@@ -29,9 +29,41 @@
   position: relative;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  background: #1e293b;
+  background: transparent; 
+}
+.slider-container::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
 }
 
+.slider-container::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to left,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
 .slider-track {
   display: flex;
   height: 100%;

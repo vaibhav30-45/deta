@@ -10,7 +10,15 @@
   align-items: center;
   justify-content: center;
 }
-
+.services-section,
+.stats-bar,
+.about-section {
+  margin-bottom: 0;
+}
+.hero-video-section {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 /* Background Video */
 .hero-background-video {
   position: absolute;
@@ -171,26 +179,100 @@
   
   margin: 0 auto;
 }
+/* =========================================================
+   ✅ COMMON FADE EFFECT (Reusable)
+   ========================================================= */
+.fade-edges {
+  overflow: hidden;
+  position: relative;
+  width: 80%;
+  margin: auto;
+}
+
+.fade-edges::before {
+ content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
+
+.fade-edges::after {
+   content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to left,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
 
 /* =========================================================
    ✅ STATS SECTION (Very Responsive)
    ========================================================= */
 .stats-bar {
-  margin: 5rem auto;
-  width: 80%;
-  overflow: hidden;
+  margin: 0 auto;   /* ❌ remove top-bottom margin */
+  padding: 5rem 0;
+  background: transparent;   /* ✅ instead use padding */
+  width: 100%;      /* optional better full width */
   background: #0f172a;
-  color: #fff;
-  padding: 20px 0;
 }
-
 .stats-slider {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
+/* LEFT SIDE */
+.stats-slider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 350px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
+
+/* RIGHT SIDE */
+.stats-slider::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 350px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to left,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
 .stats-track {
   display: flex;
   animation: scroll 25s linear infinite;

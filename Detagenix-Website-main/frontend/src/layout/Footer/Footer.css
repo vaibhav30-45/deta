@@ -2,8 +2,56 @@
   background: #122D41;
   color: #e2e8f0;
   padding: 50px 20px;
+  margin-top: 0 !important;
+}
+/* /// */
+/* ✅ INPUTS */
+.custom-input {
+  width: 100%;
+  margin-bottom: 15px;
+  background: #334155;
+  color: white;
+  border: 1px solid #334155;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
 }
 
+.custom-input::placeholder {
+  color: #b7b9bb;
+}
+
+/* ✅ FOCUS EFFECT */
+.custom-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* ✅ SELECT FIX */
+select.custom-input {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ✅ BUTTON */
+.custom-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-btn:hover {
+  background: #2563eb;
+}
+/* // */
 .footer-container {
   max-width: 1250px;
   margin: auto;
@@ -15,17 +63,27 @@
 
 /* LEFT SIDE — CONTACT FORM */
 .footer-left {
-  width: 40%;
+  flex: 1;
+  min-width: 320px;
+  max-width: 420px;
+}
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
 
+.footer a:hover {
+  color: #29b6f6;
 }
 
 .contact-form-dark {
-  background: #1e293b;
+  background: rgba(255, 255, 255, 0.05);  /* transparent */
+  backdrop-filter: blur(10px);           /* blur effect */
+  -webkit-backdrop-filter: blur(10px);   /* safari support */
   padding: 25px;
-  
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 .form-title {
   color: #fff;
   text-align: center;
@@ -62,7 +120,8 @@
 
 /* RIGHT SIDE */
 .footer-right {
-  width: 55%;
+  flex: 2;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   

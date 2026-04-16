@@ -223,6 +223,17 @@ function Chatbot() {
             <button type="submit" aria-label="Send message">
               <i className="bi bi-send-fill"></i>
             </button>
+            <button
+  style={{
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 9999,
+    background: "red"
+  }}
+>
+  TEST
+</button>
           </form>
         </div>
       )}

@@ -104,7 +104,7 @@ Our Resource Deployment model enables organizations to scale efficiently by prov
         </p>
       </section>
 
-      <section className="core-values container fade-up">
+      <section className="core-values container fade-up section-spacing">
         <h2 className="section-title text-center">Driven by Core Values</h2>
         <div className="row g-4 text-center">
           <div className="col-md-4 fade-up">
@@ -139,7 +139,7 @@ Our Resource Deployment model enables organizations to scale efficiently by prov
       </section>
 
       
-      <section className="why-us-section container text-center">
+      <section className="why-us-section container text-center mt-5">
         <h2 className="section-title fade-up">Why Choose Detagenix?</h2>
         <p className="lead fade-up">
           Choosing <span className="highlight">Detagenix</span> means securing a genuine partnership built on

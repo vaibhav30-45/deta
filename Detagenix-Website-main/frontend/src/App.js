@@ -11,8 +11,12 @@ import Technology from "./pages/Technology/Technology.jsx";
 import AdminLogin from "./pages/Admin/AdminLogin.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import ProtectedRoute from "./pages/Admin/ProtectedRoute.jsx";
+import Industries from "./pages/Industry/Industries.jsx";
+import Policy from "./components/PrivacyPolicy/PrivacyPolicy.jsx";
 import Navbar from "./layout/Navbar/Navbar.jsx";
+import ChatBot from "./components/Chatbot/Chatbot.jsx";
 import Footer from "./layout/Footer/Footer.jsx";
+import BlogDetails from "./pages/Blog/BlogDetailPage.jsx"; 
 
 function App() {
   const location = useLocation();
@@ -21,14 +25,18 @@ function App() {
   return (
     <>
       {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <ChatBot />}
       <Routes>
         {/* Website Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Service />} />
+        <Route path="/Industries" element={<Industries />} />
         <Route path="/contact" element={<Contactus />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogDetails />} />
         <Route path="/career" element={<Career />} />
+        <Route path="/policy" element={<Policy />} />
         <Route path="/project" element={<Projectpage />} />
         <Route path="/technology" element={<Technology />} />
         

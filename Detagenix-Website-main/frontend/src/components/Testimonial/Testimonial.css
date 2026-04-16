@@ -1,13 +1,13 @@
 /* Container */
 .testimonial-tech-container {
-  width: 80%;
+  width: 100%;
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #0f172a;
   color: #e2e8f0;
   padding: 4rem 1rem;
   text-align: center;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 ;
 }
 
 .testimonial-tech-container h1 {
@@ -20,7 +20,41 @@
 .testimonial-slider-wrapper {
   overflow: hidden;
   position: relative;
-  width: 100%;
+  width: 80%;
+  margin: auto;
+}
+.testimonial-slider-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
+}
+
+.testimonial-slider-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to left,
+    rgba(15, 23, 42, 1),
+    rgba(15, 23, 42, 0)
+  );
 }
 
 .testimonial-track {

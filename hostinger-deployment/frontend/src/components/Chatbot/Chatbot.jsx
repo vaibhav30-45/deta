@@ -1,3 +1,4 @@
+console.log("Chatbot loaded");
 import React, { useState, useEffect, useRef } from "react";
 import "./Chatbot.css";
 
@@ -34,7 +35,7 @@ const servicesInfo = {
 };
 
 function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [showOptions, setShowOptions] = useState(false);

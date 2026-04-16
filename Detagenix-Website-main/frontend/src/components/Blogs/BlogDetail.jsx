@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { blogsData as fallbackBlogs } from "../../data/blogsData";
+import { Editor } from "@tinymce/tinymce-react";
 import "./BlogDetail.css";
 
 const BlogDetail = () => {
@@ -121,12 +122,10 @@ const BlogDetail = () => {
           ))}
         </div>
       )}
-
-      <div
-        className="blog-detail-content"
-        dangerouslySetInnerHTML={{ __html: blog.content }}
-      />
-
+<div
+  className="blog-detail-content"
+  dangerouslySetInnerHTML={{ __html: blog.content }}
+/>
       <div className="blog-detail-nav">
         {prevBlog ? (
           <Link to={`/blog/${prevBlog.slug}`} className="nav-btn">

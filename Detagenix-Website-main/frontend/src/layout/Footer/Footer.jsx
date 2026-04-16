@@ -42,58 +42,67 @@ const Footer = () => {
       <div className="footer-container">
 
         {/* ✅ LEFT SIDE — FULL CONTACT FORM */}
-        <div className="footer-left">
-          <div className="contact-form-dark">
+        <form  className= "contact-form-dark" onSubmit={handleSubmit}>
+  <input className="custom-input"
+    type="text"
+    name="name"
+    placeholder="Your Name"
+    className="form-control"
+    value={formData.name}
+    onChange={handleChange}
+    required
+  />
 
-            {!submitted ? (
-              <>
-                <h3 className="form-title">Share Your Thoughts</h3>
+  <input className="custom-input"
+    type="email"
+    name="email"
+    placeholder="Your Email"
+    className="form-control"
+    value={formData.email}
+    onChange={handleChange}
+    required
+  />
 
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    className="form-control"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
+  {/* ✅ Phone Number */}
+  <input className="custom-input"
+    type="tel"
+    name="phone"
+    placeholder="Your Phone Number"
+    className="form-control"
+    value={formData.phone}
+    onChange={handleChange}
+    required
+  />
 
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    className="form-control"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
+  {/* ✅ Services Dropdown */}
+  <select className="custom-input"
+    name="service"
+    className="form-control"
+    value={formData.service}
+    onChange={handleChange}
+    required
+  >
+    <option value="">Select Service</option>
+    <option value="web-development">Web Development</option>
+    <option value="app-development">App Development</option>
+    <option value="ui-ux">UI/UX Design</option>
+    <option value="digital-marketing">Digital Marketing</option>
+  </select>
 
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    rows="6"
-                    className="form-control"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  ></textarea>
+  <textarea
+    name="message"
+    placeholder="Your Message"
+    rows="6"
+    className="custom-input"
+    value={formData.message}
+    onChange={handleChange}
+    required
+  ></textarea>
 
-                  <button type="submit" className="btn-primary" disabled={loading}>
-                    {loading ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="success-message">
-                <h4>✅ Message Sent Successfully!</h4>
-                {/* <p>We will contact you soon.</p> */}
-              </div>
-            )}
-
-          </div>
-        </div>
+  <button type="submit" className="custom-btn" disabled={loading}>
+    {loading ? "Sending..." : "Send Message"}
+  </button>
+</form>
 
         {/* ✅ RIGHT SIDE */}
         <div className="footer-right">
@@ -113,7 +122,7 @@ const Footer = () => {
               <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
-                <li><Link to="/careers">Careers</Link></li>
+                <li><Link to="/career">Careers</Link></li>
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/policy">Privacy Policy</Link></li>
               </ul>
@@ -123,16 +132,27 @@ const Footer = () => {
             <div className="footer-section">
               <h4>Contact</h4>
               <ul>
-                <li><FaEnvelope className="footer-icon" /> contact@detagenix.com</li>
-                <li><FaPhoneAlt className="footer-icon" /> +91 9407552249</li>
-                 <li><i class="bi bi-whatsapp footer-icon"></i> +91 9407552249</li> 
+                <li>
+  <FaEnvelope className="footer-icon" />
+  <a href="mailto:contact@detagenix.com"> contact@detagenix.com</a>
+</li>
+                <li>
+  <FaPhoneAlt className="footer-icon" />
+  <a href="tel:+919407552249"> +91 9407552249</a>
+</li>
+                 <li>
+  <i className="bi bi-whatsapp footer-icon"></i>
+  <a href="https://wa.me/919407552249" target="_blank" rel="noopener noreferrer">
+    +91 9407552249
+  </a>
+</li>
               </ul>
 
               <div className="footer-social">
                 <a href="https://www.linkedin.com/company/detagenix/" target="_blank" rel="noreferrer">
                   <FaLinkedin />
                 </a>
-                <a href="https://www.instagram.com/detagenix_/?igsh=djVpcjZheDV4MXU2&utm_source=qr#" target="_blank" rel="noreferrer">
+                <a href="https://www.instagram.com/detagenix?igsh=MWs4Z2NlbWFzNG5lZA==" target="_blank" rel="noreferrer">
                   <FaInstagram />
                 </a>
               </div>
