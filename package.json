@@ -1,4 +1,12 @@
 {
+  "name": "detagenix",
+  "version": "1.0.0",
+  "description": "Detagenix Node.js backend",
+  "main": "Detagenix-main/detagenix-backend/index.js",
+  "scripts": {
+    "start": "node Detagenix-main/detagenix-backend/index.js",
+    "dev": "nodemon Detagenix-main/detagenix-backend/index.js"
+  },
   "dependencies": {
     "@tinymce/tinymce-react": "^6.3.0"
   }
