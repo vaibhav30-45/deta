@@ -37,7 +37,7 @@ const AdminDashboard = () => {
     totalEnquiries: 0,
   });
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
