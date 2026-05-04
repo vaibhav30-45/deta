@@ -11,9 +11,9 @@ const adminSchema = new mongoose.Schema({
 
 const Admin = mongoose.model('Admin', adminSchema);
 
-const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/detagenix';
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(MONGO_URI)
   .then(async () => {
     console.log('📦 Connected to MongoDB');
     
