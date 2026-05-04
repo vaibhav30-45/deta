@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import "./Aboutus.css";
 
 function About() {
-   useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   useEffect(() => {
     const els = document.querySelectorAll(".fade-up");
 
@@ -28,7 +28,7 @@ function About() {
         threshold: 0.15,
         root: null,
         rootMargin: "0px 0px -10% 0px",
-      }
+      },
     );
 
     els.forEach((el) => observer.observe(el));
@@ -83,9 +83,10 @@ function About() {
 
   return (
     <div className="about-section">
-     
       <section className="about-intro container text-center fade-up">
-        <h1 className="section-title">Detagenix: Driving Innovation and Digital Excellence</h1>
+        <h1 className="section-title">
+          Detagenix: Driving Innovation and Digital Excellence
+        </h1>
         <p className="lead">
           {/* <span className="highlight">Detagenix</span> Organization is a dynamic IT consulting and digital transformation company 
           dedicated to empowering businesses with cutting-edge, scalable technology solutions. We go beyond basic
@@ -96,15 +97,21 @@ function About() {
           Our philosophy is centered on understanding your unique needs to deliver reliable excellence, build lasting
           partnerships, and ensure your business becomes smarter, faster, and future-ready in the connected digital
           world. */}
-          Detagenix is a dynamic IT consulting and digital transformation organization dedicated to empowering businesses with cutting-edge, scalable technology solutions.
-
-We go beyond basic software development to craft tailored, enterprise-grade applications  specializing in robust technologies like the MERN Stack, and advanced services such as AI/ML solutions, Blockchain and Cybersecurity.
-<br />
-Our Resource Deployment model enables organizations to scale efficiently by providing skilled professionals across major technologies on hourly, pro-rata, or project-based engagements, ensuring flexibility and continuity in every development cycle.
+          Detagenix is a dynamic IT consulting and digital transformation
+          organization dedicated to empowering businesses with cutting-edge,
+          scalable technology solutions. We go beyond basic software development
+          to craft tailored, enterprise-grade applications specializing in
+          robust technologies like the MERN Stack, and advanced services such as
+          AI/ML solutions, Blockchain and Cybersecurity.
+          <br />
+          Our Resource Deployment model enables organizations to scale
+          efficiently by providing skilled professionals across major
+          technologies on hourly, pro-rata, or project-based engagements,
+          ensuring flexibility and continuity in every development cycle.
         </p>
       </section>
 
-      <section className="core-values container fade-up section-spacing">
+      {/* <section className="core-values container fade-up section-spacing">
         <h2 className="section-title text-center">Driven by Core Values</h2>
         <div className="row g-4 text-center">
           <div className="col-md-4 fade-up">
@@ -136,16 +143,56 @@ Our Resource Deployment model enables organizations to scale efficiently by prov
             </div>
           </div>
         </div>
+      </section> */}
+      <section className="core-values container fade-up section-spacing">
+        <h2 className="section-title text-center">Driven by Core Values</h2>
+
+        <div className="row g-4 text-center">
+          <div className="col-md-4 d-flex fade-up">
+            <div className="glass-card p-4 w-100">
+              <h4>Ingenuity-First Innovation</h4>
+              <p>
+                We challenge the status quo by constantly exploring technologies
+                like AI/ML and Blockchain to create not just software, but
+                transformative, future-ready business assets.
+              </p>
+            </div>
+          </div>
+
+          <div className="col-md-4 d-flex fade-up">
+            <div className="glass-card p-4 w-100">
+              <h4>Scalable Excellence</h4>
+              <p>
+                We are uncompromising in our commitment to deliver
+                enterprise-grade quality and reliable performance, ensuring
+                every solution—from a simple web application to complex data
+                modeling—is built for long-term growth and durability.
+              </p>
+            </div>
+          </div>
+
+          <div className="col-md-4 d-flex fade-up">
+            <div className="glass-card p-4 w-100">
+              <h4>Empathetic Partnership</h4>
+              <p>
+                We prioritize truly understanding your unique needs, fostering
+                transparency, and building long-term relationships that position
+                us as a dedicated partner, not just a service provider.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      
       <section className="why-us-section container text-center mt-5">
         <h2 className="section-title fade-up">Why Choose Detagenix?</h2>
         <p className="lead fade-up">
-          Choosing <span className="highlight">Detagenix</span> means securing a genuine partnership built on
-          future-proof technology and predictable excellence. We integrate Ingenuity-First Innovation with unwavering
-          Scalable Excellence, delivering enterprise-grade, end-to-end solutions — from robust MERN architecture to
-          powerful AI/ML and Data Models — designed for your long-term growth.
+          Choosing <span className="highlight">Detagenix</span> means securing a
+          genuine partnership built on future-proof technology and predictable
+          excellence. We integrate Ingenuity-First Innovation with unwavering
+          Scalable Excellence, delivering enterprise-grade, end-to-end solutions
+          — from robust MERN architecture to powerful AI/ML and Data Models —
+          designed for your long-term growth.
         </p>
 
         <div className="why-slider-wrapper fade-up">

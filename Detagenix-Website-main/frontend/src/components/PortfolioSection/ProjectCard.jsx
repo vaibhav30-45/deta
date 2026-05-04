@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./PortfolioSection.css";
 
 const ProjectCard = ({ project, onViewProject }) => {
-
   const navigate = useNavigate();
 
   // eslint-disable-next-line no-unused-vars
@@ -23,8 +22,7 @@ const ProjectCard = ({ project, onViewProject }) => {
               "https://via.placeholder.com/400x250/667eea/ffffff?text=Project+Image";
           }}
         />
-        <div className="project-overlay">
-        </div>
+        <div className="project-overlay"></div>
       </div>
 
       {/* Project Content */}
@@ -41,13 +39,12 @@ const ProjectCard = ({ project, onViewProject }) => {
           ))}
         </div>
 
-       <button 
-  className="view-project-btn"
-  onClick={() => onViewProject(project)}
->
-  View Project →
-</button>
-
+        <button
+          className="view-project-btn"
+          onClick={() => onViewProject(project)}
+        >
+          View Project →
+        </button>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ const Services = ({ service, title, desc, icon, link, onLearnMore }) => {
       };
 
   return (
-    <div className="service-grids">
+    
     <div className="service-cards">
   <div className="service-card-content">
     <img src={cardData.icon} alt={cardData.title} className="icon" />
@@ -49,7 +49,7 @@ const Services = ({ service, title, desc, icon, link, onLearnMore }) => {
     </a>
   )}
   </div>
-</div>
+
   );
 };
 

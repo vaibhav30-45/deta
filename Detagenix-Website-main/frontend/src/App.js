@@ -26,6 +26,7 @@ function App() {
     <>
       {!isAdminRoute && <Navbar />}
       {!isAdminRoute && <ChatBot />}
+      <div className="main-content">
       <Routes>
         {/* Website Routes */}
         <Route path="/" element={<Home />} />
@@ -54,6 +55,7 @@ function App() {
         {/* Default Route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </div>
       {!isAdminRoute && <Footer />}
     </>
   );

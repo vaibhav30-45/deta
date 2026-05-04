@@ -17,7 +17,7 @@
   color: #00bfff;
 
   
-  font-size: 3rem;
+ font-size: clamp(1.6rem, 5vw, 3rem);
  
 }
 
@@ -103,7 +103,7 @@
 }
 
 .tech-name {
-  font-size: 2rem;
+  font-size: clamp(1rem, 3vw, 2rem);
   font-weight: 600;
   margin-bottom: 10px;
   color: #0f172a;
@@ -111,7 +111,7 @@
 }
 
 .tech-desc {
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
   text-align: center;
   color: #000000;
   line-height: 1.4;
@@ -169,6 +169,10 @@
     height: 40vh;
     text-align: center;
   }
+  .slider-container::before,
+  .slider-container::after {
+    display: none;   /* 👈 mobile me shade hata do */
+  }
 
   .slider-track {
     animation: none;
@@ -190,17 +194,17 @@
     margin-bottom: 30px;
     text-align: center;
     color: #00bfff;
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
   }
 
   .tech-name {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     margin-bottom: 10px;
     text-align: center;
   }
 
   .tech-desc {
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
     text-align: center;
   }
 

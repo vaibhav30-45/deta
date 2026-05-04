@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { projectsData } from "../../data/projectsData";
-import ProjectModal from "./ProjectModal"; // ✅ Add this import
+import ProjectModal from "./ProjectModal";
 import "./PortfolioSection.css";
 
 const PortfolioSection = ({ limit }) => {
@@ -15,8 +15,8 @@ const PortfolioSection = ({ limit }) => {
     { id: "web", name: "Web Development" },
     { id: "mobile", name: "Mobile Apps" },
     { id: "ai", name: "AI/ML" },
-    { id: "cybersecurity", name: "Cyber Security"},
-    { id: "blockchain", name: "Block Chain"},
+    { id: "cybersecurity", name: "Cyber Security" },
+    { id: "blockchain", name: "Block Chain" },
   ];
 
   const filteredProjects =
@@ -25,7 +25,9 @@ const PortfolioSection = ({ limit }) => {
       : projectsData.filter((project) => project.category === activeFilter);
 
   // Apply limit if provided
-  const projectsToDisplay = limit ? filteredProjects.slice(0, limit) : filteredProjects;
+  const projectsToDisplay = limit
+    ? filteredProjects.slice(0, limit)
+    : filteredProjects;
 
   const handleViewProject = (project) => {
     setSelectedProject(project);
@@ -67,20 +69,16 @@ const PortfolioSection = ({ limit }) => {
           ))}
         </div>
         <div className="portfolio-cta">
-  {limit && (
-    <Link to="/projects" className="btn-secondary">
-      See All Projects → 
-    </Link>
-  )}
-</div>
-
+          {limit && (
+            <Link to="/projects" className="btn-secondary">
+              See All Projects →
+            </Link>
+          )}
+        </div>
       </div>
 
       {openModal && selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={closeModal}
-        />
+        <ProjectModal project={selectedProject} onClose={closeModal} />
       )}
     </section>
   );

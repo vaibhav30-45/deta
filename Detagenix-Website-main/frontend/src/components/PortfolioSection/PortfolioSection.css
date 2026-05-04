@@ -1,5 +1,5 @@
 .portfolio-section {
-  padding: 5rem 2rem 5rem 2rem; /* 👈 bottom padding add karo */
+  padding: 5rem 2rem 5rem 2rem; 
   background: #0f172a;
   margin-bottom: 0;
 }
@@ -60,7 +60,7 @@
   border-color: transparent;
 }
 
-/* ✅ FIXED Responsive Grid */
+/* FIXED Responsive Grid */
 .projects-grid {
   display: grid;
   grid-template-columns: 27vw 27vw 27vw;
@@ -80,6 +80,7 @@
   display:flex;
   flex-direction: column;
   justify-content: space-between;
+   height: 100%; 
 }
 
 .project-card:hover {
@@ -87,8 +88,10 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
+
 /* Project Image */
 .project-image {
+  
   position: relative;
   height: 250px;
   overflow: hidden;
@@ -145,7 +148,11 @@
 
 /* Project Content */
 .project-content {
-  padding: 1.5rem;
+   padding: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
 }
 
 .project-title {
@@ -160,10 +167,19 @@
   color: #64748b;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-  display: -webkit-box;
+  /* display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: hidden; */
+}
+
+
+.modal-content img {
+  width: 100%;
+  max-height: 180px;   
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
 /* Tech Tags */
@@ -185,6 +201,7 @@
 
 /* Button */
 .view-project-btn {
+   margin-top: auto; 
   background: transparent;
   border: 2px solid #29b6f6;
   color: #29b6f6;
@@ -232,7 +249,7 @@
   
   text-decoration: none;
 }
-/* ✅ Mobile Responsive */
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .portfolio-section {
     padding: 3rem 1rem;

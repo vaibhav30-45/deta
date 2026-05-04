@@ -12,14 +12,14 @@
 
 /* Modal Box */
 .modal-content {
-  background: #ffffff !important;   /* ✅ FORCE WHITE SOLID BACKGROUND */
-  backdrop-filter: none !important; /* ✅ REMOVE ANY BLUR */
-  opacity: 1 !important;            /* ✅ REMOVE TRANSPARENCY */
+  background: #ffffff !important;   
+  backdrop-filter: none !important; 
+  opacity: 1 !important;            
 
-  width: 90%;
-  max-width: 600px;
-  padding: 30px;
-  border-radius: 16px;
+  width: 85%;        
+  max-width: 420px;  
+  padding: 24px;
+  border-radius: 14px;
   position: relative;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
   animation: popIn 0.25s ease-in-out;
@@ -86,7 +86,7 @@
 }
 
 /* Book button */
-.modal-book-btn {
+.book-btn {
   width: 100%;
   padding: 14px;
   font-size: 16px;
@@ -98,7 +98,8 @@
   font-weight: 600;
   letter-spacing: 0.5px;
 }
-.modal-book-btn:hover {
+
+.book-btn:hover {
   background: #4338ca;
 }
 
