@@ -1,86 +1,85 @@
-.detagenix-navbar{
+/* =========================================================
+   NAVBAR BASE
+========================================================= */
+.detagenix-navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
   background-color: #122D41;
   padding: 12px 0;
+  width: 100%;
 }
 
 .nav-container {
-  width: 90%;
+  width: 92%;
   margin: auto;
   display: flex;
-  
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
-.nav-logo a {
-  font-size: 24px;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: none;
-}
+
+/* =========================================================
+   LOGO
+========================================================= */
 .nav-logo img.logo-image {
-  height: 60px;
+  height: 55px;
+  width: auto;
 }
+
+/* =========================================================
+   MENU (DESKTOP)
+========================================================= */
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 40px;
-  margin-left: auto;  
+  gap: 30px;
+  margin-left: auto;
+  align-items: center;
 }
 
 .nav-menu li a {
   color: #d3d3d3;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.1s , text-decoration-color 0.1s ;
-  transition-delay: 0.05s;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s ease;
 }
 
 .nav-menu li a:hover {
   color: #4fc3f7;
-  text-decoration: underline;
-}
-/* Container */
-.nav-auth {
-  display: flex;
-  align-items: center;
 }
 
-/* User icon button */
-.user-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  background: #4fc3f7;
-  border-radius: 50%;        /* ✅ Makes it a circle */
-  transition: all 0.3s ease;
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+.nav-actions {
+  margin-left: 20px;
 }
-.nav-auth img{
-    width: 60px;
-}
-/* User icon image */
-/* .user-icon {
-  width: 26px;
-  height: 26px;
-  object-fit: cover;
-  filter: brightness(0) invert(1); /* ✅ Makes icons white on blue bg */
-/* } */ */
 
-/* Hover effect */
-.user-btn:hover {
-  background: #29b6f6;
-  box-shadow: 0 0 10px rgba(79, 195, 247, 0.6);
-  transform: translateY(-2px);
+.enquire-btn {
+  background: #3b82f6;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
 }
+
+.enquire-btn:hover {
+  background: #2563eb;
+}
+
+/* =========================================================
+   HAMBURGER
+========================================================= */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
+  margin-left: auto;
 }
 
 .hamburger span {
@@ -90,37 +89,33 @@
   border-radius: 2px;
 }
 
-/* Mobile Menu */
-@media (max-width: 768px) {
+/* =========================================================
+   TABLET VIEW
+========================================================= */
+@media (max-width: 1024px) {
   .nav-menu {
-    display: none; /* hide by default */
-    position: absolute;
-    top: 70px;  /* below navbar */
-    left: 0;
-    width: 100%;
-    background: #0c1b3d;
-    flex-direction: column;
-    gap: 0;
-    z-index: 999;
-  }
-
-  .nav-menu.open {
-    display: flex;
-  }
-
-  .nav-menu li {
-    padding: 15px 0;
-    text-align: center;
+    gap: 20px;
   }
 
   .nav-menu li a {
-    font-size: 18px;
-    color: #d3d3d3;
-    text-decoration: none;
+    font-size: 14px;
   }
 
-  .nav-menu li a:hover {
-    color: #4fc3f7;
+  .enquire-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+@media (max-width: 768px) {
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   /* Show hamburger */
@@ -128,31 +123,81 @@
     display: flex;
   }
 
-  /* Hide login/user icon on mobile */
-  .nav-auth {
+  /* Hide desktop menu */
+  .nav-menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #0c1b3d;
+    flex-direction: column;
+    align-items: center;
     display: none;
+    gap: 0;
+    animation: slideDown 0.3s ease;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+  }
+
+  .nav-menu li a {
+    font-size: 16px;
+    display: block;
+    width: 100%;
+  }
+
+  /* ✅ FIXED BUTTON (NO absolute) */
+  .nav-actions {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .enquire-btn {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }
-.nav-actions {
-  /* margin-left: auto; */
-   margin-left: 20px;
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+@media (max-width: 480px) {
+
+  .nav-logo img.logo-image {
+    height: 45px;
+  }
+
+  .nav-menu li a {
+    font-size: 15px;
+  }
 }
 
-.enquire-btn {
-  background: #3b82f6;
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
+/* =========================================================
+   ANIMATION
+========================================================= */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.enquire-btn:hover {
-  background: #2563eb;
-}
-
-/* Modal */
+/* =========================================================
+   MODAL (IMPROVED RESPONSIVE)
+========================================================= */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -164,24 +209,21 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  padding: 10px;
 }
 
 .modal-form {
   background: #ffffff;
-  padding: 30px;
-  width: 400px;
+  padding: 25px;
+  width: 100%;
+  max-width: 420px;
   max-height: 90vh;
   overflow-y: auto;
-  position: relative; 
   border-radius: 12px;
+  position: relative;
 }
 
-.modal-form h2 {
-  margin-bottom: 15px;
-  color: #0f172a;   
-  font-weight: 700;
-}
-
+/* Inputs */
 .modal-form input,
 .modal-form select,
 .modal-form textarea {
@@ -192,6 +234,7 @@
   border-radius: 6px;
 }
 
+/* Submit */
 .submit-btn {
   width: 100%;
   background: #0f172a;
@@ -202,27 +245,20 @@
   font-weight: bold;
 }
 
+/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 20px;
-  background: #0f172a;   /* 🔥 dark background */
-  color: #fff;           /* 🔥 visible white */
-  border: none;
+  font-size: 18px;
+  background: #0f172a;
+  color: #fff;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: 0.3s ease;
 }
 
 .close-btn:hover {
   background: red;
-  transform: scale(1.1);
 }
-

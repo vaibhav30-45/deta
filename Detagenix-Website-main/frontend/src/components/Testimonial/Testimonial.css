@@ -157,10 +157,14 @@
     overflow: hidden;
     width: 100%;
   }
+  .testimonial-slider-wrapper::before,
+  .testimonial-slider-wrapper::after {
+    display: none;
+  }
 
   .testimonial-track {
     display: flex;
-    width: max-content; /* 👈 ensures track expands based on all cards */
+    width: max-content; 
     animation: testimonial-scroll 15s linear infinite;
   }
   .company-logo {
@@ -173,8 +177,18 @@
 }
 
   .testimonial-card-tech {
-    flex: 0 0 auto; /* 👈 prevents cards from shrinking */
+    flex: 0 0 auto; 
     width: 250px;
-    margin-right: 1rem; /* 👈 adds spacing so they don’t stick */
+  }
+}
+@media (max-width: 480px) {
+  .testimonial-card-tech {
+    width: 220px;   
+    margin: 0 10px;
+  }
+
+  .testimonial-slider-wrapper::before,
+  .testimonial-slider-wrapper::after {
+    display: none;  
   }
 }

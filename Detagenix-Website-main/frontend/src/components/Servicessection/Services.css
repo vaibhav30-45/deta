@@ -2,15 +2,50 @@
   padding: 60px 0;
   background-color: #0f172a;
 }
+.service-grids {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* .service-grids {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+} */
 
-
+/* .service-grids > div {
+  display: flex;
+  justify-content: center;
+} */
 
 .service-cards {
-  width: 350px;
+  width: 100%;          /* 👈 FULL GRID CELL USE KARE */
+  max-width: 100%;      /* ❌ 420px hatao */
+  
   display: flex;
   flex-direction: column;
- /* justify-content: space-between; ✅ pushes button to bottom */
+  align-items: center;
+
+  padding: 20px;
+  background: #122D41;
+  color: white;
+  border-radius: 12px;
+  text-align: center;
+}
+/* .service-cards {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+ 
   align-items: center;
   gap: 20px;
   padding: 15px;
@@ -20,8 +55,8 @@
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   text-align: center;
   transition: all 0.3s ease;
-  height: 510px; /* ✅ make all cards same height in grid */
-}
+  height: 510px; 
+} */
 
 .service-cards img {
   width: 100%;
@@ -32,7 +67,7 @@
 }
 
 .service-card-content {
-  flex-grow: 1; /* ✅ content takes remaining space, pushes button down */
+  flex-grow: 1; 
 }
 
 .service-cards:hover {
@@ -74,7 +109,7 @@
   width: 100%;
 }
 
-/* ✅ RESPONSIVE */
+/*  RESPONSIVE */
 @media (max-width: 768px) {
 
   /* Smaller padding for mobile */
@@ -82,17 +117,17 @@
     padding: 2rem 1rem;
   }
 
-  /* ✅ Switch to 1 column */
+  /*  Switch to 1 column */
   
 
-  /* ✅ Reduce card padding on mobile */
+  /*  Reduce card padding on mobile */
   .service-cards{
     padding: 20px;
     height: auto;
     gap: 0;
   }
 
-  /* ✅ Image adjusts better on small screens */
+  /*  Image adjusts better on small screens */
   .service-cards img {
     width: 85%;
   }
@@ -115,7 +150,7 @@
 }
 }
 
-/* Extra small screens ✅ */
+/* Extra small screens */
 @media (max-width: 480px) {
   .service-card {
     padding: 18px;
@@ -123,5 +158,24 @@
 
   .learn-more {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 992px) {
+  .service-grids {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .service-grids {
+    grid-template-columns: 1fr;
+    padding: 5px;
+  }
+
+  .service-cards {
+    width: 100%;
+    max-width: 100%; /* ✅ fix */
+    padding: 15px;
+    border-radius: 10px;
   }
 }

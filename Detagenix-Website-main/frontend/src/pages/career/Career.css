@@ -81,6 +81,7 @@
 .job-actions {
   display:flex;
   gap:8px;
+  flex-wrap: wrap;
 }
 
 
@@ -333,4 +334,41 @@
 @media (max-width: 576px) {
   .team-photo { height: 140px; }
   .why-card { flex:0 0 220px; }
+
+  .apply-form {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .col-lg-6 {
+    width: 100%;
+  }
+  .care-hero {
+    padding: 40px 15px;
+  }
+
+  .care-hero .section-title {
+    font-size: 1.6rem;
+  }
+
+  .care-hero .lead {
+    font-size: 14px;
+  }
+  .btn-lg {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .job-meta {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.testi-carousel {
+    height: auto;
+    min-height: 220px;
+  }
+   .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
 }

@@ -17,13 +17,18 @@
   position: relative;
   font-size: 3rem; 
 }
+.read-more-section {
+  margin-top: 30px;   
+}
 
 .blog-grid {
-    width: 80%;
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  place-items: center;
-  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 25px;
 }
 
 .load-more-btn {
@@ -35,9 +40,15 @@
   cursor: pointer;
   border-radius: 6px;
 }
+@media (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media (max-width: 480px) {
   .blog-list-title {
-    font-size: 2rem; /* ✅ smaller for mobile */
+    font-size: 2rem; 
   }
   .blog-grid{
     place-content: center;

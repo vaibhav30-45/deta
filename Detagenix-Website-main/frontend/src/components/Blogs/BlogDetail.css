@@ -1,6 +1,6 @@
 body {
   background: #0f172a !important;
-  color: #e5e7eb !important; /* ✅ soft white text */
+  color: #e5e7eb !important; 
 }
 
 /* Main Container */
@@ -11,8 +11,8 @@ body {
   padding-bottom: 40px;
 }
 .blog-detail-content ul {
-  list-style-type: disc;   /* 🔥 ye dot show karega */
-  padding-left: 20px;      /* thoda left spacing */
+  list-style-type: disc;   
+  padding-left: 20px;      
   margin: 10px 0;
 }
 
@@ -23,7 +23,7 @@ body {
 /* Banner Image */
 .blog-detail-banner {
   width: 100%;
-  height: 100%; /* ✅ full width for better look */
+  height: 100%; 
   aspect-ratio: 16/9;
   object-fit: contain;
   border-radius: 12px;
@@ -41,13 +41,13 @@ body {
 /* Meta Info */
 .blog-detail-meta {
   font-size: 15px;
-  color: #cbd5e1; /* ✅ visible light grey */
+  color: #cbd5e1; 
   margin-bottom: 15px;
 }
 
 .blog-detail-meta span {
   font-weight: 600;
-  color: #ffffff; /* ✅ highlight author + date */
+  color: #ffffff; 
 }
 
 /* Tags */
@@ -59,11 +59,11 @@ body {
 }
 
 .blog-detail-tag {
-  background: #1e293b; /* ✅ dark grey chip */
+  background: #1e293b; 
   padding: 6px 12px;
   border-radius: 8px;
   font-size: 14px;
-  color: #f1f5f9; /* ✅ white text */
+  color: #f1f5f9; 
   border: 1px solid #334155;
 }
 
@@ -71,26 +71,26 @@ body {
 .blog-detail-content {
   font-size: 18px;
   line-height: 1.75;
-  color: #e2e8f0; /* ✅ lighter text for readability */
+  color: #e2e8f0; 
   margin-bottom: 40px;
 }
 
 .blog-detail-content p {
   margin-bottom: 20px;
-  color: #e2e8f0; /* ✅ ensure all p tags visible */
+  color: #e2e8f0; 
 }
 
 .blog-detail-content h2,
 .blog-detail-content h3,
 .blog-detail-content h4 {
-  color: #ffffff; /* ✅ headings bright white */
+  color: #ffffff; 
   margin-top: 25px;
   margin-bottom: 10px;
 }
 
 /* Links inside content */
 .blog-detail-content a {
-  color: #38bdf8; /* ✅ visible blue */
+  color: #38bdf8; 
   font-weight: 600;
   text-decoration: underline;
 }
@@ -104,12 +104,12 @@ body {
 
 .nav-btn {
   padding: 10px 16px;
-  background: #1e293b; /* ✅ dark button */
+  background: #1e293b; 
   color: #f8fafc;
   border-radius: 8px;
   text-decoration: none;
   transition: 0.2s;
-  border: 1px solid #334155; /* ✅ border for clarity */
+  border: 1px solid #334155; 
 }
 
 .nav-btn:hover {

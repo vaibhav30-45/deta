@@ -1,6 +1,6 @@
 /* MAIN PAGE */
 .services-page {
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   background: #0f172a;
 }
 
@@ -15,41 +15,13 @@
   font-size: 3rem;
 }
 .services-grid {
-  width:60%;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-}
-.services-grid.dynamic {
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.services-intro {
-  max-width: 720px;
-  margin: 0 auto 2rem;
-  color: #cbd5f5;
-  text-align: center;
-  line-height: 1.6;
-}
-
-.service-subtitle {
-  text-align: center;
-  color: #f8fafc;
-  margin: 2.5rem 0 1.5rem;
-  font-size: 1.8rem;
-}
-
-.services-status {
-  text-align: center;
-  color: #cbd5f5;
-  margin-bottom: 2rem;
-}
-
-.services-status.error {
-  color: #ff6b6b;
+  padding: 0 1rem;
 }
 /* LEARN MORE BUTTON */
 .service-page .learn-more-btn {
@@ -72,12 +44,11 @@
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
 }
 
-/* ✅ BOOK SERVICE BUTTON */
+/*  BOOK SERVICE BUTTON */
 .book-btn {
   display: block;
-  margin: 30px auto ;
-  width: 10%;
-  padding: 15px 5px;
+  margin: 30px auto;
+  padding: 12px 30px;
   background: #00bfff;
   color: #fff;
   border: none;
@@ -87,6 +58,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  width: fit-content;
 }
 
 .book-btn:hover {
@@ -96,24 +68,21 @@
 }
 
 /* ------------------------------------------
- ✅ RESPONSIVENESS
+  RESPONSIVENESS
 ------------------------------------------ */
 
 /* TABLET */
+/* TABLET */
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 top + 2 bottom */
+    max-width: 900px; /* center aur compact look */
+  }
+}
 @media (max-width: 992px) {
   .services-section h1 {
     font-size: 2.4rem;
     text-align: center;
-  }
-
-  .services-grid {
-    width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-
-  .book-btn {
-    width: 25%;
-    font-size: 1rem;
   }
 }
 
@@ -121,17 +90,10 @@
 @media (max-width: 768px) {
   .services-section h1 {
     font-size: 2rem;
-    text-align: center;
   }
 
-  .service-subtitle {
-    font-size: 1.5rem;
-  }
-
-  .book-btn {
-    width: 40%;
-    padding: 12px 5px;
-    font-size: 1rem;
+  .services-grid {
+    gap: 1.5rem;
   }
 }
 
@@ -142,12 +104,10 @@
   }
 
   .services-section h1 {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
-  .book-btn {
-    width: 60%;
-    padding: 12px 5px;
-    font-size: 0.95rem;
+  .services-grid {
+    grid-template-columns: 1fr; /* single column */
   }
 }

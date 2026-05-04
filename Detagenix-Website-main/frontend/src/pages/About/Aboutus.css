@@ -4,7 +4,11 @@
   padding: 60px 0;
   overflow: hidden;
 }
-
+.core-values .glass-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .section-title {
   color: #00bfff;
   font-weight: 600;

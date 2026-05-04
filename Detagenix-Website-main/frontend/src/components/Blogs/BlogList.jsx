@@ -27,24 +27,24 @@ const BlogList = () => {
 
         // Merge database blogs with fallback blogs
         let allBlogs = [];
-        
+
         // Add database blogs (from API)
         if (Array.isArray(data) && data.length > 0) {
           allBlogs = [...data];
         }
-        
+
         // Add fallback blogs (static data)
         if (Array.isArray(fallbackBlogs)) {
           allBlogs = [...allBlogs, ...fallbackBlogs];
         }
-        
+
         // Sort all blogs newest-first by createdAt/date
         const sorted = allBlogs.sort((a, b) => {
           const dateA = new Date(a.createdAt || a.date || 0);
           const dateB = new Date(b.createdAt || b.date || 0);
           return dateB - dateA;
         });
-        
+
         setBlogs(sorted);
         setError("");
       } catch (err) {
@@ -77,9 +77,11 @@ const BlogList = () => {
         <>
           {(() => {
             // Ensure strict newest-first ordering, then slice
-            const sorted = Array.isArray(blogs) ? blogs.slice().sort((a, b) => {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            }) : [];
+            const sorted = Array.isArray(blogs)
+              ? blogs.slice().sort((a, b) => {
+                  return new Date(b.createdAt) - new Date(a.createdAt);
+                })
+              : [];
 
             const main = sorted.slice(0, 3);
             const readMore = sorted.slice(3);
@@ -88,28 +90,34 @@ const BlogList = () => {
               <>
                 <div className="blog-grid">
                   {main.map((blog) => (
-                    <BlogCard key={blog._id || blog.id || blog.slug} blog={blog} />
+                    <BlogCard
+                      key={blog._id || blog.id || blog.slug}
+                      blog={blog}
+                    />
                   ))}
                 </div>
 
-                {readMore.length > 0 && (
-                  <>
-                    <h2
-                      className="read-more-title"
-                      onClick={() => setShowReadMore(true)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      Load More
-                    </h2>
+                {readMore.length > 0 && !showReadMore && (
+                  <h2
+                    className="read-more-title"
+                    onClick={() => setShowReadMore(true)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Read More
+                  </h2>
+                )}
 
-                    {showReadMore && (
-                      <div className="blog-grid">
-                        {readMore.map((blog) => (
-                          <BlogCard key={blog._id || blog.id || blog.slug} blog={blog} />
-                        ))}
-                      </div>
-                    )}
-                  </>
+                {showReadMore && (
+                  <div className="read-more-section">
+                    <div className="blog-grid">
+                      {readMore.map((blog) => (
+                        <BlogCard
+                          key={blog._id || blog.id || blog.slug}
+                          blog={blog}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 )}
               </>
             );

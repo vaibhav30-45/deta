@@ -110,7 +110,7 @@ const handleSubmit = async (e) => {
   ✖
 </button>
 
-      <h2>Let’s Build Your Project 🚀</h2>
+      <h2>Let’s Build Your Project </h2>
 
       <form onSubmit={handleSubmit}>
   {/* Basic Info */}
