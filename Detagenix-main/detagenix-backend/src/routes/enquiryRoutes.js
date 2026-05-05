@@ -2,6 +2,7 @@
 
 import express from "express";
 import Enquiry from "../models/Enquiry.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.post("/", async (req, res) => {
 });
 
 // GET - fetch all enquiries
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const enquiries = await Enquiry.find().sort({ createdAt: -1 });
     res.json(enquiries);

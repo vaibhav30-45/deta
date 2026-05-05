@@ -12,11 +12,11 @@ export const loginAdmin = async (req, res) => {
     const admin = await Admin.findOne({ email });
     if (!admin) return res.status(400).json({ message: "Invalid credentials" });
 
-    // compare passwords
-    if (password !== admin.password) {
-  return res.status(400).json({ message: "Invalid credentials" });
-}
-
+    // compare passwords (support hashed and plain stored passwords)
+    const passwordMatches = await bcrypt.compare(password, admin.password);
+    if (!passwordMatches && password !== admin.password) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
     // generate JWT token
     const token = jwt.sign(

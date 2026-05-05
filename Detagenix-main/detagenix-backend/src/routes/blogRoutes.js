@@ -1,5 +1,6 @@
 import express from "express";
 import Blog from "../models/Blog.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.get("/:slug", async (req, res) => {
 });
 
 // ✅ CREATE NEW BLOG
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const { title, slug, author, bannerImage, tags, category, content } = req.body;
 
@@ -54,7 +55,7 @@ router.post("/", async (req, res) => {
 });
 
 // ✅ UPDATE BLOG
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const { title, slug, author, bannerImage, tags, category, content } = req.body;
 
@@ -89,7 +90,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ✅ DELETE BLOG
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
     res.json({ message: "Blog deleted successfully" });

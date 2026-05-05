@@ -1,5 +1,6 @@
 import express from "express";
 import Testimonial from "../models/Testimonial.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
 
 
 // ✅ POST - naya testimonial add karna
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const newTestimonial = new Testimonial(req.body);
     await newTestimonial.save();
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
 
 
 // ✅ DELETE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     await Testimonial.findByIdAndDelete(req.params.id);
     res.json({ message: "Deleted successfully" });
@@ -39,7 +40,7 @@ router.delete("/:id", async (req, res) => {
 
 
 // ✅ UPDATE
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updated = await Testimonial.findByIdAndUpdate(
       req.params.id,

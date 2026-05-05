@@ -11,9 +11,10 @@ const Testimonials = () => {
 
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:5000/api/testimonials");
+    const res = await fetch(`${BASE_URL}/api/testimonials`);
     const result = await res.json();
     setData(result);
   };
@@ -25,7 +26,7 @@ const Testimonials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch("http://localhost:5000/api/testimonials", {
+    await fetch(`${BASE_URL}/api/testimonials`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +40,7 @@ const Testimonials = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/testimonials/${id}`, {
+    await fetch(`${BASE_URL}/api/testimonials/${id}`, {
       method: "DELETE",
     });
     fetchData();

@@ -6,6 +6,7 @@ import { useState } from "react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
   const [formData, setFormData] = useState({
   full_name: "",
   email: "",
@@ -27,7 +28,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:5000/api/enquiry", {
+    const response = await fetch(`${BASE_URL}/api/enquiry`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

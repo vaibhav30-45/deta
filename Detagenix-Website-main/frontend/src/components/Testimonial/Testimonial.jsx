@@ -6,9 +6,10 @@ const Testimonial = () => {
 
   //  API data
   const [feedbackData, setFeedbackData] = useState([]);
+  const BASE_URL = process.env.REACT_APP_BASE_URL ;
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/testimonials")
+    fetch(`${BASE_URL}/api/testimonials`)
       .then((res) => res.json())
       .then((data) => {
         // console.log("API DATA ", data);

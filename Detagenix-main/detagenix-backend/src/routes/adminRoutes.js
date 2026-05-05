@@ -4,8 +4,10 @@ import Application from "../models/Application.js";
 import Contact from "../models/Contact.js";
 import Job from "../models/Job.js";
 import { Service, User, Booking } from "../models/Service.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+router.use(verifyToken);
 
 // ✅ GET ALL DATA FOR ADMIN DASHBOARD
 router.get("/data", async (req, res) => {

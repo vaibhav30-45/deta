@@ -1,5 +1,6 @@
 import express from "express";
 import BlogService from "../models/BlogService.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // ✅ CREATE NEW SERVICE
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const { title, description, icon, link } = req.body;
 
@@ -45,7 +46,7 @@ router.post("/", async (req, res) => {
 });
 
 // ✅ UPDATE SERVICE
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const { title, description, icon, link } = req.body;
 
@@ -69,7 +70,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ✅ DELETE SERVICE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     await BlogService.findByIdAndDelete(req.params.id);
     res.json({ message: "Service deleted successfully" });

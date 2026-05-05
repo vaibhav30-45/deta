@@ -37,7 +37,15 @@ const AdminDashboard = () => {
     totalEnquiries: 0,
   });
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+  const token = localStorage.getItem("adminToken");
+  const api = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+      "Content-Type": "application/json",
+    },
+  });
 
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
@@ -93,10 +101,10 @@ const AdminDashboard = () => {
       }
 
       const [adminRes, blogsRes, servicesRes, enquiriesRes] = await Promise.all([
-        axios.get(`${BASE_URL}/api/admin/data`),
-        axios.get(`${BASE_URL}/api/blogs`),
-        axios.get(`${BASE_URL}/api/blog-services`),
-        axios.get(`${BASE_URL}/api/enquiry`) 
+        api.get(`/api/admin/data`),
+        api.get(`/api/blogs`),
+        api.get(`/api/blog-services`),
+        api.get(`/api/enquiry`),
       ]);
       
       console.log("Enquiry Data:", enquiriesRes.data); 
@@ -136,13 +144,13 @@ const AdminDashboard = () => {
 
     try {
       if (editingBlog) {
-        await axios.put(`${BASE_URL}/api/blogs/${editingBlog._id}`, {
+        await api.put(`/api/blogs/${editingBlog._id}`, {
           ...blogForm,
           tags: blogForm.tags.split(",").map((t) => t.trim()),
         });
         alert("Blog updated successfully");
       } else {
-        await axios.post(`${BASE_URL}/api/blogs`, {
+        await api.post(`/api/blogs`, {
           ...blogForm,
           tags: blogForm.tags.split(",").map((t) => t.trim()),
         });
@@ -169,7 +177,7 @@ const AdminDashboard = () => {
   const handleDeleteBlog = async (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       try {
-        await axios.delete(`${BASE_URL}/api/blogs/${id}`);
+        await api.delete(`/api/blogs/${id}`);
         alert("Blog deleted successfully");
         fetchData();
       } catch (err) {
@@ -186,10 +194,10 @@ const AdminDashboard = () => {
 
     try {
       if (editingService) {
-        await axios.put(`${BASE_URL}/api/blog-services/${editingService._id}`, serviceForm);
+        await api.put(`/api/blog-services/${editingService._id}`, serviceForm);
         alert("Service updated successfully");
       } else {
-        await axios.post(`${BASE_URL}/api/blog-services`, serviceForm);
+        await api.post(`/api/blog-services`, serviceForm);
         alert("Service created successfully");
       }
       setServiceForm({
@@ -210,7 +218,7 @@ const AdminDashboard = () => {
   const handleDeleteService = async (id) => {
     if (window.confirm("Are you sure you want to delete this service?")) {
       try {
-        await axios.delete(`${BASE_URL}/api/blog-services/${id}`);
+        await api.delete(`/api/blog-services/${id}`);
         alert("Service deleted successfully");
         fetchData();
       } catch (err) {
@@ -227,10 +235,10 @@ const AdminDashboard = () => {
 
     try {
       if (editingJob) {
-        await axios.put(`${BASE_URL}/api/jobs/${editingJob._id}`, jobForm);
+        await api.put(`/api/jobs/${editingJob._id}`, jobForm);
         alert("Job updated successfully");
       } else {
-        await axios.post(`${BASE_URL}/api/jobs`, jobForm);
+        await api.post(`/api/jobs`, jobForm);
         alert("Job created successfully");
       }
       setJobForm({
@@ -253,7 +261,7 @@ const AdminDashboard = () => {
   const handleDeleteJob = async (id) => {
     if (window.confirm("Are you sure you want to delete this job?")) {
       try {
-        await axios.delete(`${BASE_URL}/api/jobs/${id}`);
+        await api.delete(`/api/jobs/${id}`);
         alert("Job deleted successfully");
         fetchData();
       } catch (err) {
