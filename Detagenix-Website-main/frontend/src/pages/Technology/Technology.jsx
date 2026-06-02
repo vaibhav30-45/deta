@@ -17,7 +17,7 @@ import {
 
 const Technologies = () => {
   const [activeCategory, setActiveCategory] = useState("genai");
-useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   const techCategories = [
@@ -126,11 +126,11 @@ useEffect(() => {
       icon: <FaPython className="tech-icon" />,
     },
     {
-  category: "fullstack",
-  title: "UI/UX Design",
-  desc: "Design visually appealing, user-centered interfaces with modern design tools focusing on accessibility, responsiveness, and seamless user experience.",
-  icon: <FaRobot className="tech-icon" />, // You can change icon to FaPencilAlt or FaPalette
-},
+      category: "fullstack",
+      title: "UI/UX Design",
+      desc: "Design visually appealing, user-centered interfaces with modern design tools focusing on accessibility, responsiveness, and seamless user experience.",
+      icon: <FaRobot className="tech-icon" />, // You can change icon to FaPencilAlt or FaPalette
+    },
 
     // AI
     {
@@ -241,9 +241,8 @@ useEffect(() => {
         {techCategories.map((category) => (
           <button
             key={category.id}
-            className={`tech-filter-btn ${
-              activeCategory === category.id ? "active" : ""
-            }`}
+            className={`tech-filter-btn ${activeCategory === category.id ? "active" : ""
+              }`}
             onClick={() => setActiveCategory(category.id)}
           >
             {category.name}
@@ -261,7 +260,8 @@ useEffect(() => {
       <div className="tech-grid fade-up">
         {filteredTechs.map((tech, index) => (
           <div className="tech-card" key={index}>
-            <div className="icon-wrapper">{tech.icon}</div>
+            {/* UI Fix: Scoped icon wrapper class to tech-icon-wrapper to prevent global stylesheet collisions */}
+            <div className="tech-icon-wrapper">{tech.icon}</div>
             <h4 className="tech-title">{tech.title}</h4>
             <p className="tech-desc">{tech.desc}</p>
           </div>

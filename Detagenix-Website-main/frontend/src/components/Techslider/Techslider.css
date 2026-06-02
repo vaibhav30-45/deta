@@ -3,7 +3,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #0f172a;
   color: #e2e8f0;
-  padding: 50px;
+  padding: 20px 50px 50px;
+  /* UI Fix: Reduced top padding — h1 heading removed, section header provides top spacing */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,15 +12,7 @@
   width: 100%;
 }
 
-.tech-slider-container h1 {
-  margin-bottom: 30px;
-  text-align: center;
-  color: #00bfff;
-
-  
- font-size: clamp(1.6rem, 5vw, 3rem);
- 
-}
+/* UI Fix: h1 style block removed — duplicate heading was removed from Techslider.jsx */
 
 .slider-container {
   width: 90%;
@@ -29,8 +22,9 @@
   position: relative;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  background: transparent; 
+  background: transparent;
 }
+
 .slider-container::before {
   content: "";
   position: absolute;
@@ -41,11 +35,9 @@
   z-index: 2;
   pointer-events: none;
 
-  background: linear-gradient(
-    to right,
-    rgba(15, 23, 42, 1),
-    rgba(15, 23, 42, 0)
-  );
+  background: linear-gradient(to right,
+      rgba(15, 23, 42, 1),
+      rgba(15, 23, 42, 0));
 }
 
 .slider-container::after {
@@ -58,12 +50,11 @@
   z-index: 2;
   pointer-events: none;
 
-  background: linear-gradient(
-    to left,
-    rgba(15, 23, 42, 1),
-    rgba(15, 23, 42, 0)
-  );
+  background: linear-gradient(to left,
+      rgba(15, 23, 42, 1),
+      rgba(15, 23, 42, 0));
 }
+
 .slider-track {
   display: flex;
   height: 100%;
@@ -93,10 +84,13 @@
 }
 
 .tech-icon {
-  font-size: 3rem;         /* Icon size */
-  color: #0f172a;          /* Theme color */
+  font-size: 3rem;
+  /* Icon size */
+  color: #0f172a;
+  /* Theme color */
   margin-bottom: 12px;
-  transition: 0.3s ease;   /* Smooth animation */
+  transition: 0.3s ease;
+  /* Smooth animation */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,6 +115,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -145,12 +140,12 @@
   display: none;
 }
 
-/* Tech Slider Styles */
+/* Tech Slider Styles (duplicate block — merged into above) */
 .tech-slider-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #0f172a;
   color: #e2e8f0;
-  padding: 50px;
+  padding: 20px 50px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -169,9 +164,11 @@
     height: 40vh;
     text-align: center;
   }
+
   .slider-container::before,
   .slider-container::after {
-    display: none;   /* 👈 mobile me shade hata do */
+    display: none;
+    /* 👈 mobile me shade hata do */
   }
 
   .slider-track {
@@ -190,12 +187,7 @@
     width: 400px;
   }
 
-  .tech-slider-container h1 {
-    margin-bottom: 30px;
-    text-align: center;
-    color: #00bfff;
-    /* font-size: 2.5rem; */
-  }
+  /* UI Fix: h1 style removed from responsive block — heading no longer exists in component */
 
   .tech-name {
     /* font-size: 1.2rem; */
@@ -220,10 +212,14 @@
   }
 
   @keyframes hint-blink {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+      opacity: 0.7;
+    }
+
+    50% {
+      opacity: 1;
+    }
   }
 }
-
-
-

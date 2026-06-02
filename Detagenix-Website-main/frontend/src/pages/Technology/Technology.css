@@ -92,6 +92,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -128,7 +129,8 @@
 }
 
 
-.icon-wrapper {
+/* UI Fix: Scoped to tech-icon-wrapper to prevent global namespace stylesheet collisions with Services page */
+.tech-icon-wrapper {
   font-size: 2.5rem;
   color: #00bfff;
   margin-bottom: 10px;
@@ -226,9 +228,11 @@
   .tech-grid {
     padding: 20px;
   }
+
   .tech-card {
     padding: 18px;
   }
+
   .tech-filter-section {
     gap: 6px;
   }

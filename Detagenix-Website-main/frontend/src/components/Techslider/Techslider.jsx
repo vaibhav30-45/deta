@@ -9,14 +9,14 @@ import { TbDeviceMobileCog } from "react-icons/tb";  // IoT icon
 
 const Techslider = () => {
   const [isPaused, setIsPaused] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(() => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize(); // run once
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-    
+
 
 
   const techData = [
@@ -77,7 +77,7 @@ const Techslider = () => {
 
   return (
     <div className="tech-slider-container">
-      <h1>Our Technology Stack</h1>
+      {/* UI Fix: Removed duplicate h1 heading — section title is already rendered by the parent section header in Home.jsx */}
 
       {/* ✅ Show Swipe Hint on Mobile */}
       {isMobile && <p className="swipe-hint">← Swipe to explore more →</p>}
