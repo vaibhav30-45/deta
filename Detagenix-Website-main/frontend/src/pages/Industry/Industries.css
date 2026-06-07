@@ -1,225 +1,47 @@
+/* =============================================================
+   Industries Page — Base
+   ============================================================= */
 .industries-page {
-  background: linear-gradient(135deg, #0c1b3d, #1a2f6b);
+  background: var(--dark-slate);
+  /*linear-gradient(135deg, #0c1b3d, #1a2f6b); */
   color: #fff;
-  padding: 60px 0;
-  min-height: 100vh;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
 }
 
-.section-title {
+/* FIGMA UI UPDATE — */
+.ind-accent {
   color: #00bfff;
-  font-weight: 600;
-  font-size: 2.2rem;
-  margin-bottom: 16px;
-  text-align: center;
-  text-transform: uppercase;
 }
 
-.lead {
-  color: rgba(224, 230, 255, 0.9);
-  max-width: 800px;
-  margin: 0 auto 30px;
+/* Shared section header */
+.ind-section-header {
   text-align: center;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  margin-bottom: 48px;
 }
 
-.highlight {
+.ind-section-header h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 700;
   color: #00bfff;
-  font-weight: 600;
-}
-
-.industry-filter-section {
-  margin: 30px auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  text-align: center;
-}
-
-.industry-btn {
-  background: #ffffff;
-  border: 1px solid rgba(12, 27, 61, 0.2);
-  color: #0c1b3d;
-  padding: 10px 18px;
-  border-radius: 25px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.industry-btn:hover,
-.industry-btn.active {
-  background: #00bfff;
-  color: #fff;
-  border-color: #00bfff;
-  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.industry-detail {
-  max-width: 1000px;
-  margin: 50px auto 30px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
-}
-
-.industry-img {
-  width: 320px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  flex-shrink: 0;
-}
-
-
-.industry-content {
-  flex: 1;
-  text-align: left;
-}
-
-.industry-content h2 {
-  color: #00bfff;
-  font-size: 1.6rem;
-  font-weight: 600;
   margin-bottom: 10px;
 }
 
-.industry-content p {
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.industry-subgrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 22px;
-  max-width: 1000px;
-  margin: 30px auto 30px; 
-  padding: 0 15px;
-}
-
-.industry-card {
-  background: #ffffff;
-  color: #0c1b3d;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(12, 27, 61, 0.08);
-}
-
-.industry-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.25);
-}
-
-.industry-card h4 {
-  color: #00bfff;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.industry-card p {
-  color: #333;
-  font-size: 0.93rem;
-  line-height: 1.5;
-}
-
-.why-detagenix-section {
-  background: linear-gradient(135deg, #0c1b3d, #1a2f6b);
-  color: #fff;
-  padding: 60px 20px; 
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  margin-top: 10px; 
-}
-
-.why-detagenix-section::before {
-  content: "";
-  display: block;
-  height: 2px;
+/* FIGMA UI UPDATE — cyan underline accent */
+.ind-title-underline {
   width: 60px;
-  margin: 0 auto 30px;
-  background: rgba(0, 191, 255, 0.4);
+  height: 3px;
+  background: #00bfff;
   border-radius: 4px;
+  margin: 0 auto;
 }
 
-
-.why-detagenix-section .section-title {
-  font-size: 2.2rem;
-  color: #00bfff;
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
+/* Dark-mode header  */
+.ind-section-header--dark h2 {
+  color: #ffffff;
 }
 
-.why-detagenix-section .lead {
-  max-width: 850px;
-  margin: 0 auto 50px;
-  color: rgba(224, 230, 255, 0.9);
-  line-height: 1.7;
-}
-
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 25px;
-}
-
-.why-card {
-  background: #ffffff;
-  color: #0c1b3d;
-  border-radius: 12px;
-  padding: 25px 20px;
-  box-shadow: 0 6px 20px rgba(0, 191, 255, 0.15);
-  transition: all 0.3s ease;
-}
-
-.why-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.3);
-}
-
-.why-card h4 {
-  color: #00bfff;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.why-card p {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .why-detagenix-section {
-    padding: 60px 15px;
-  }
-  .why-detagenix-section .section-title {
-    font-size: 1.8rem;
-  }
-  .why-detagenix-section .lead {
-    font-size: 1rem;
-  }
-}
-
+/* Fade-up animation  */
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
@@ -231,77 +53,164 @@
   transform: translateY(0);
 }
 
+/* =============================================================
+   FIGMA UI UPDATE — Hero Section (dark, centered)
+   ============================================================= */
+.ind-hero-section {
+  position: relative;
+  padding: 120px 20px 100px;
+  text-align: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ind-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right,
+      rgba(0, 191, 255, 0.1),
+      transparent 55%);
+  pointer-events: none;
+}
+
+.ind-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.ind-hero-inner h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 22px;
+}
+
+.ind-hero-highlight {
+  color: #00bfff;
+}
+
+.ind-hero-inner p {
+  font-size: clamp(0.97rem, 1.7vw, 1.1rem);
+  color: rgba(203, 213, 225, 0.9);
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* =============================================================
+   FIGMA UI UPDATE — Solutions Across Industries (white bg card grid)
+   ============================================================= */
+.ind-grid-section {
+  padding: 80px 20px;
+  background: transparent;
+}
+
+.ind-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.ind-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(12, 27, 61, 0.08);
+  border-radius: 14px;
+  padding: 28px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.ind-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 191, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+.ind-card-icon {
+  font-size: 2rem;
+  color: #00bfff;
+}
+
+.ind-card-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.ind-card-desc {
+  font-size: 0.86rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+/* Circular arrow button bottom-right */
+.ind-card-arrow {
+  align-self: flex-end;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid #00bfff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00bfff;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 6px;
+}
+
+.ind-card:hover .ind-card-arrow {
+  background: #00bfff;
+  color: #ffffff;
+}
+
+
+/* =============================================================
+   Responsive — Tablet (≤992px)
+   ============================================================= */
 @media (max-width: 992px) {
-  .section-title {
-    font-size: 1.9rem;
+  .ind-card-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .lead {
-    font-size: 1rem;
-    padding: 0 10px;
-  }
-
-  .industry-detail {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .industry-img {
-    width: 100%;
-    height: 250px;
-  }
-
-  .industry-content {
-    text-align: center;
-  }
-
-  .industry-content h2 {
-    font-size: 1.5rem;
-  }
-
-  .industry-subgrid {
-    padding: 0 10px;
-  }
 }
 
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 1.7rem;
-  }
-
-  .lead {
-    font-size: 0.98rem;
-  }
-
-  .industry-btn {
-    font-size: 0.9rem;
-    padding: 8px 14px;
-  }
-
-  .industry-subgrid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .industry-detail {
-    margin: 30px auto;
-  }
-}
-
+/* =============================================================
+   Responsive — Mobile (≤576px)
+   ============================================================= */
 @media (max-width: 576px) {
-  .industry-subgrid {
+  .ind-hero-section {
+    padding: 80px 20px 70px;
+  }
+
+  .ind-grid-section {
+    padding: 60px 20px;
+  }
+
+  .ind-card-grid {
     grid-template-columns: 1fr;
-    padding: 0 15px;
   }
 
-  .industry-card {
-    padding: 16px;
-  }
-
-  .section-title {
+  .ind-section-header h2 {
     font-size: 1.5rem;
   }
 
-  .industry-img {
-    height: 200px;
-  }
+
 }

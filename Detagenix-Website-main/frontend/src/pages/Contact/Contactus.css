@@ -2,7 +2,7 @@
 .contact-section-dark {
   background: #0f172a;
   color: #f8fafc;
-  padding: 100px 0 120px;
+  padding: 100px 20px 120px;
   position: relative;
   overflow: hidden;
 }
@@ -10,6 +10,8 @@
 .contact-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* Header styling */
@@ -309,7 +311,7 @@
 /* Responsive Styles */
 @media (max-width: 991px) {
   .contact-section-dark {
-    padding: 60px 0;
+    padding: 60px 20px;
   }
 
   .contact-title {

@@ -87,7 +87,7 @@ const Navbar = () => {
         {/* Menu */}
         <ul className={`nav-menu ${isOpen ? "open" : ""}`}>
           <li>
-            <Link to="/" onClick={() => setIsOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <Link to="/" onClick={() => setIsOpen(false)}>
               <FaHome size={18} /> Home
             </Link>
           </li>

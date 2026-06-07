@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import './Techslider.css';
 import { useEffect } from 'react';
 // ✅ Import Icons
-import { FaRobot, FaCloud, FaShieldAlt, FaMobileAlt, FaGlobe, FaChartLine, FaLink } from "react-icons/fa";
-
+import {
+  FaRobot,
+  FaCloud,
+  FaShieldAlt,
+  FaMobileAlt,
+  FaGlobe,
+  FaChartLine,
+  FaLink,
+  FaCode,
+  FaServer,
+  FaDatabase
+} from "react-icons/fa";
 
 import { TbDeviceMobileCog } from "react-icons/tb";  // IoT icon
 
@@ -17,9 +27,35 @@ const Techslider = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-
   const techData = [
+    {
+      id: "cat-frontend",
+      isCategory: true,
+      icon: <FaCode />,
+      name: "Frontend",
+      tags: ["React", "Next.js", "HTML5 / CSS3", "TailwindCSS", "JavaScript", "TypeScript"]
+    },
+    {
+      id: "cat-backend",
+      isCategory: true,
+      icon: <FaServer />,
+      name: "Backend",
+      tags: ["Node.js", "Express.js", "Python", "Django", "NestJS", "RESTful APIs"]
+    },
+    {
+      id: "cat-databases",
+      isCategory: true,
+      icon: <FaDatabase />,
+      name: "Databases",
+      tags: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "DynamoDB", "Firebase"]
+    },
+    {
+      id: "cat-devops",
+      isCategory: true,
+      icon: <FaCloud />,
+      name: "DevOps & Cloud",
+      tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "CI/CD"]
+    },
     {
       id: 1,
       icon: <FaRobot />,
@@ -29,7 +65,6 @@ const Techslider = () => {
     {
       id: 2,
       icon: <FaLink />,
-
       name: "Blockchain",
       description: "Decentralized, distributed ledger technology for secure transactions."
     },
@@ -72,13 +107,9 @@ const Techslider = () => {
   ];
 
   const duplicatedSlides = [...techData, ...techData];
-  // eslint-disable-next-line no-unused-vars
-  const slides = isMobile ? techData : [...techData, ...techData];
 
   return (
     <div className="tech-slider-container">
-      {/* UI Fix: Removed duplicate h1 heading — section title is already rendered by the parent section header in Home.jsx */}
-
       {/* ✅ Show Swipe Hint on Mobile */}
       {isMobile && <p className="swipe-hint">← Swipe to explore more →</p>}
       <div
@@ -88,10 +119,18 @@ const Techslider = () => {
       >
         <div className="slider-track">
           {duplicatedSlides.map((tech, index) => (
-            <div key={`${tech.id}-${index}`} className="slide">
+            <div key={`${tech.id}-${index}`} className={`slide ${tech.isCategory ? 'category-slide' : ''}`}>
               <div className="tech-icon">{tech.icon}</div>
               <div className="tech-name">{tech.name}</div>
-              <div className="tech-desc">{tech.description}</div>
+              {tech.isCategory ? (
+                <div className="tech-tags-slider-new">
+                  {tech.tags.map((tag, i) => (
+                    <span key={i} className="tech-tag-slider-item">{tag}</span>
+                  ))}
+                </div>
+              ) : (
+                <div className="tech-desc">{tech.description}</div>
+              )}
             </div>
           ))}
         </div>
@@ -101,3 +140,4 @@ const Techslider = () => {
 };
 
 export default Techslider;
+

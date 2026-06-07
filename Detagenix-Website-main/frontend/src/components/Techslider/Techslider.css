@@ -1,10 +1,9 @@
 /* TechSlider.css */
 .tech-slider-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #0f172a;
+  background: transparent;
   color: #e2e8f0;
-  padding: 20px 50px 50px;
-  /* UI Fix: Reduced top padding — h1 heading removed, section header provides top spacing */
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,9 +11,7 @@
   width: 100%;
 }
 
-/* UI Fix: h1 style block removed — duplicate heading was removed from Techslider.jsx */
-
-.slider-container {
+/* .slider-container {
   width: 90%;
   max-width: 1200px;
   height: 40vh;
@@ -22,6 +19,18 @@
   position: relative;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  padding:10px 0;
+} */
+.slider-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  height: 40vh;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
   background: transparent;
 }
 
@@ -70,23 +79,27 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background: #ffffff;
+  background: #1e293b;
+  border: 1px solid #2e3d56;
   margin: 0 10px;
-  border-radius: 8px;
+  border-radius: 12px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
 }
 
+
 .slide:hover {
   transform: translateY(-5px);
-  background: #bac2ce;
+  background: #1e293b;
+  border-color: #00bfff;
+  box-shadow: 0 10px 25px rgba(0, 191, 255, 0.1);
 }
 
 .tech-icon {
   font-size: 3rem;
   /* Icon size */
-  color: #0f172a;
+  color: #00bfff;
   /* Theme color */
   margin-bottom: 12px;
   transition: 0.3s ease;
@@ -100,14 +113,14 @@
   font-size: clamp(1rem, 3vw, 2rem);
   font-weight: 600;
   margin-bottom: 10px;
-  color: #0f172a;
+  color: #ffffff;
   text-align: center;
 }
 
 .tech-desc {
   font-size: clamp(0.7rem, 2vw, 0.9rem);
   text-align: center;
-  color: #000000;
+  color: #cbd5e1;
   line-height: 1.4;
 }
 
@@ -140,20 +153,19 @@
   display: none;
 }
 
-/* Tech Slider Styles (duplicate block — merged into above) */
+/* Tech Slider Styles  */
 .tech-slider-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background: transparent; */
   background: #0f172a;
   color: #e2e8f0;
-  padding: 20px 50px 50px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 40vh;
   width: 100%;
 }
-
-/* ... your other styles ... */
 
 /* ✅ MOBILE: turn slider into a swipeable carousel */
 @media (max-width: 768px) {
@@ -168,7 +180,6 @@
   .slider-container::before,
   .slider-container::after {
     display: none;
-    /* 👈 mobile me shade hata do */
   }
 
   .slider-track {
@@ -186,8 +197,6 @@
     flex-shrink: 0;
     width: 400px;
   }
-
-  /* UI Fix: h1 style removed from responsive block — heading no longer exists in component */
 
   .tech-name {
     /* font-size: 1.2rem; */
@@ -222,4 +231,23 @@
       opacity: 1;
     }
   }
+}
+
+/* Category Slide and Tech Tags inside Slider */
+.tech-tags-slider-new {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tech-tag-slider-item {
+  background: rgba(0, 191, 255, 0.08);
+  color: #00bfff;
+  border: 1px solid rgba(0, 191, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }

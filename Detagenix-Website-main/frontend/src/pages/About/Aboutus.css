@@ -29,6 +29,8 @@
 .about-hero-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 50px;
@@ -182,9 +184,10 @@
 
 /* 2. WHAT DRIVES US */
 .what-drives-us-section {
-  padding: 100px 20px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .drives-cards-row {
@@ -199,12 +202,13 @@
   border-radius: 20px;
   padding: 40px 30px;
   text-align: left;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .drive-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(0, 191, 255, 0.2);
+  border-color: #00bfff;
+  box-shadow: 0 12px 30px rgba(0, 191, 255, 0.15);
 }
 
 .drive-icon-wrapper {
@@ -240,14 +244,14 @@
 /* 3. OUR CORE VALUES GRID */
 .core-values-grid-section {
   background: rgba(15, 23, 42, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 100px 20px;
+  padding: 40px 20px;
 }
 
 .core-values-modern-grid {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
@@ -260,11 +264,13 @@
   padding: 30px;
   display: flex;
   gap: 20px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .value-item-card:hover {
   transform: translateY(-4px);
+  border-color: #00bfff;
+  box-shadow: 0 12px 30px rgba(0, 191, 255, 0.15);
 }
 
 .value-icon-box {
@@ -303,9 +309,10 @@
 
 /* 4. TEAMS GRID */
 .team-section {
-  padding: 100px 20px 20px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .team-grid-modern {

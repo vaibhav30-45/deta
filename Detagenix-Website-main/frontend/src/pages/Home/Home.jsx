@@ -9,12 +9,12 @@ import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
 import { createPortal } from "react-dom";
-import { 
-  FaCode, 
-  FaBrain, 
-  FaMobileAlt, 
-  FaCloud, 
-  FaShieldAlt, 
+import {
+  FaCode,
+  FaBrain,
+  FaMobileAlt,
+  FaCloud,
+  FaShieldAlt,
   FaChartBar,
   FaUsers,
   FaCheckCircle,
@@ -140,12 +140,12 @@ const Home = () => {
             <h2>Empowering Businesses Through Modern Technology</h2>
             <p className="lead">
               Detagenix is a dynamic IT consulting and digital transformation organization dedicated to
-              empowering businesses with cutting-edge, scalable technology solutions. We go beyond basic 
+              empowering businesses with cutting-edge, scalable technology solutions. We go beyond basic
               software development to craft tailored, enterprise-grade applications.
             </p>
             <p className="subtext">
-              Specializing in robust technologies like the MERN Stack, AI/ML integrations, Blockchain, 
-              and Cybersecurity. Our team of skilled professionals works closely with you to deliver 
+              Specializing in robust technologies like the MERN Stack, AI/ML integrations, Blockchain,
+              and Cybersecurity. Our team of skilled professionals works closely with you to deliver
               secure, high-performance applications designed to scale.
             </p>
             <button onClick={() => navigate("/about")} className="about-btn-new">
@@ -315,53 +315,6 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="tech-categories-grid-new">
-          <div className="tech-category-card-new">
-            <h3>Frontend</h3>
-            <div className="tech-tags-new">
-              <span>React</span>
-              <span>Next.js</span>
-              <span>HTML5 / CSS3</span>
-              <span>TailwindCSS</span>
-              <span>JavaScript</span>
-              <span>TypeScript</span>
-            </div>
-          </div>
-          <div className="tech-category-card-new">
-            <h3>Backend</h3>
-            <div className="tech-tags-new">
-              <span>Node.js</span>
-              <span>Express.js</span>
-              <span>Python</span>
-              <span>Django</span>
-              <span>NestJS</span>
-              <span>RESTful APIs</span>
-            </div>
-          </div>
-          <div className="tech-category-card-new">
-            <h3>Databases</h3>
-            <div className="tech-tags-new">
-              <span>MongoDB</span>
-              <span>PostgreSQL</span>
-              <span>MySQL</span>
-              <span>Redis</span>
-              <span>DynamoDB</span>
-              <span>Firebase</span>
-            </div>
-          </div>
-          <div className="tech-category-card-new">
-            <h3>DevOps & Cloud</h3>
-            <div className="tech-tags-new">
-              <span>AWS</span>
-              <span>Docker</span>
-              <span>Kubernetes</span>
-              <span>GitHub Actions</span>
-              <span>Nginx</span>
-              <span>CI/CD</span>
-            </div>
-          </div>
-        </div>
-
         <div className="tech-slider-new">
           <Techslider />
         </div>
@@ -471,6 +424,70 @@ const Home = () => {
           </button>
         </div>
       </section>
+
+      {/* 8.5. BLOG SECTION */}
+      {/* UI FIX START: Added a Blog section using the existing premium grid layout */}
+      <section className="projects-section-new" id="blog">
+        <div className="section-header-new">
+          <span className="section-subtitle-new">Our <span className="highlight-blue">Blog</span></span>
+          <h2>Insights and News</h2>
+          <p className="section-desc">Stay updated with the latest trends in technology, digital transformation, and software engineering.</p>
+        </div>
+
+        <div className="projects-grid-new">
+          <div className="project-card-new">
+            <div className="project-image-box-new">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="The Future of AI in Enterprise" />
+            </div>
+            <div className="project-content-new">
+              <h3>The Future of AI in Enterprise</h3>
+              <p>Explore how Artificial Intelligence and Large Language Models are automating workflows and reshaping modern businesses.</p>
+              <div className="project-tech-tags-new">
+                <span>AI/ML</span>
+                <span>Innovation</span>
+              </div>
+              <a href="/blog" className="project-link-new">Read Article →</a>
+            </div>
+          </div>
+
+          <div className="project-card-new">
+            <div className="project-image-box-new">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop" alt="Cloud Migration Strategies" />
+            </div>
+            <div className="project-content-new">
+              <h3>Cloud Migration Strategies</h3>
+              <p>A comprehensive guide on transitioning legacy systems to scalable cloud-native architectures with zero downtime.</p>
+              <div className="project-tech-tags-new">
+                <span>Cloud</span>
+                <span>DevOps</span>
+              </div>
+              <a href="/blog" className="project-link-new">Read Article →</a>
+            </div>
+          </div>
+
+          <div className="project-card-new">
+            <div className="project-image-box-new">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop" alt="Securing Web Applications" />
+            </div>
+            <div className="project-content-new">
+              <h3>Securing Web Applications</h3>
+              <p>Top 10 cybersecurity best practices every developer must know to protect enterprise data and prevent breaches.</p>
+              <div className="project-tech-tags-new">
+                <span>Security</span>
+                <span>Web Dev</span>
+              </div>
+              <a href="/blog" className="project-link-new">Read Article →</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="projects-action-new">
+          <button onClick={() => navigate("/blog")} className="btn-primary-new">
+            View All Articles
+          </button>
+        </div>
+      </section>
+      {/* UI FIX END: Added Blog section */}
 
       {/* 9. TESTIMONIALS SECTION */}
       <section className="testimonials-section-new" id="testimonials">

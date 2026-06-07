@@ -5,20 +5,27 @@
   background: #0f172a;
   color: #e2e8f0;
   padding: 0 1rem 4rem;
-  /* UI Fix: Removed top padding — parent section already provides top spacing */
   text-align: center;
   overflow: hidden;
   margin: 0;
 }
 
-/* UI Fix: h1 style block removed — duplicate heading was removed from Testimonial.jsx */
-
 /* Slider wrapper */
-.testimonial-slider-wrapper {
+/* .testimonial-slider-wrapper {
   overflow: hidden;
   position: relative;
   width: 80%;
   margin: auto;
+  padding: 10px 0;
+} */
+.testimonial-slider-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;            
+  max-width: 1200px;      
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 10px 20px;     
 }
 
 .testimonial-slider-wrapper::before {

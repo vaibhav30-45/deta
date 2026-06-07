@@ -307,13 +307,15 @@ function Careers() {
                       </div>
                     </div>
                     <div className="job-actions">
+                      {/* UI FIX START: Removed w-100 class to prevent flexbox layout breaking with the Share button */}
                       <a
                         href="#apply"
-                        className="btn btn-cyan btn-sm w-100 text-center"
+                        className="btn btn-cyan btn-sm text-center flex-grow-1"
                         onClick={() => setForm(f => ({ ...f, role: job.title }))}
                       >
                         Apply Now
                       </a>
+                      {/* UI FIX END */}
                       <button
                         className="btn btn-outline-share btn-sm"
                         title="Copy Application Info"

@@ -11,8 +11,11 @@
 }
 
 .nav-container {
-  width: 92%;
-  margin: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,6 +38,9 @@
   gap: 30px;
   margin-left: auto;
   align-items: center;
+  margin: 0;
+  /* <-- ADD THIS */
+  padding: 0;
 }
 
 .nav-menu li a {
@@ -42,7 +48,12 @@
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   transition: 0.3s ease;
+  white-space: nowrap;
 }
 
 .nav-menu li a:hover {
@@ -59,7 +70,8 @@
 .enquire-btn {
   background: #3b82f6;
   color: #fff;
-  padding: 10px 16px;
+  padding: 12px 16px;
+  /* padding: 10px 16px; */
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -92,7 +104,7 @@
 /* =========================================================
    TABLET VIEW
 ========================================================= */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .nav-menu {
     gap: 20px;
   }
@@ -104,6 +116,63 @@
   .enquire-btn {
     padding: 8px 14px;
     font-size: 14px;
+  }
+} */
+
+/* =========================================================
+   LAPTOP VIEW (Starts squeezing the gaps and text)
+========================================================= */
+@media (max-width: 1150px) {
+  .nav-container {
+    width: 98%;
+  }
+
+  .nav-logo img.logo-image {
+    height: 45px;
+  }
+
+  .nav-menu {
+    gap: 12px;
+  }
+
+  .nav-menu li a {
+    font-size: 13px;
+  }
+
+  .nav-actions {
+    margin-left: 10px;
+  }
+
+  .enquire-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   TABLET VIEW (Aggressive squeeze right before mobile)
+========================================================= */
+@media (max-width: 950px) {
+  .nav-logo img.logo-image {
+    height: 38px;
+  }
+
+  .nav-menu {
+    gap: 8px;
+  }
+
+  .nav-menu li a {
+    font-size: 11px;
+    letter-spacing: -0.2px;
+  }
+
+  .nav-actions {
+    margin-left: 5px;
+  }
+
+  .enquire-btn {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }
 
@@ -150,7 +219,6 @@
 
   .nav-menu li a {
     font-size: 16px;
-    display: block;
     width: 100%;
   }
 
@@ -241,7 +309,7 @@
   }
 }
 
-/* Close Button styling - high visibility & absolute position */
+/* Close Button styling  */
 .close-btn {
   position: absolute;
   top: 20px;
@@ -269,7 +337,7 @@
   transform: rotate(90deg);
 }
 
-/* Left Panel - Dark Navy */
+/* Left Panel  */
 .modal-left-panel {
   flex: 1.1;
   background: #0f172a;

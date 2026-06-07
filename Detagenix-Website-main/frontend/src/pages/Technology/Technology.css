@@ -1,164 +1,42 @@
+/* =============================================================
+   Technology Page — Base & Shared Utilities
+   ============================================================= */
 .tech-page {
-  background: linear-gradient(135deg, #0c1b3d, #1a2f6b);
+  background: #0f172a;
+  /*linear-gradient(135deg, #0c1b3d, #1a2f6b); */
   color: #fff;
-  padding: 60px 0;
-  min-height: 100vh;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
 }
 
-.section-title {
+/* FIGMA UI UPDATE — accent colour token */
+.tech-accent {
   color: #00bfff;
-  font-weight: 600;
-  font-size: 2.2rem;
-  margin-bottom: 16px;
+}
+
+/* Shared section header */
+.tech-section-header {
   text-align: center;
-  text-transform: uppercase;
+  margin-bottom: 48px;
 }
 
-.lead {
-  color: rgba(224, 230, 255, 0.9);
-  max-width: 800px;
-  margin: 0 auto 30px;
-  text-align: center;
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-.highlight {
-  color: #00bfff;
-  font-weight: 600;
-}
-
-.tech-filter-section {
-  margin: 30px auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tech-filter-btn {
-  background: #ffffff;
-  border: 1px solid rgba(12, 27, 61, 0.2);
-  color: #0c1b3d;
-  padding: 10px 18px;
-  border-radius: 25px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-}
-
-.tech-filter-btn:hover,
-.tech-filter-btn.active {
-  background: #00bfff;
-  color: #fff;
-  border-color: #00bfff;
-  box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3);
-}
-
-.tech-category-desc {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  max-width: 900px;
-  margin: 40px auto 20px;
-  text-align: center;
-  box-shadow: 0 6px 25px rgba(0, 191, 255, 0.25);
-  animation: fadeIn 0.6s ease forwards;
-}
-
-.tech-category-desc h2 {
-  color: #00bfff;
+.tech-section-header h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
   font-weight: 700;
-  margin-bottom: 12px;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-}
-
-.tech-category-desc p {
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 22px;
-  padding: 40px 10%;
-}
-
-.tech-card {
-  background: #ffffff;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  color: #0c1b3d;
-  padding: 20px;
-  min-height: 160px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(12, 27, 61, 0.05);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.tech-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.25);
-}
-
-
-/* UI Fix: Scoped to tech-icon-wrapper to prevent global namespace stylesheet collisions with Services page */
-.tech-icon-wrapper {
-  font-size: 2.5rem;
   color: #00bfff;
   margin-bottom: 10px;
 }
 
-.tech-title {
-  color: #00bfff;
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 1.1rem;
+/* FIGMA UI UPDATE — underline accent beneath every section heading */
+.tech-title-underline {
+  width: 60px;
+  height: 3px;
+  background: #00bfff;
+  border-radius: 4px;
+  margin: 0 auto;
 }
 
-.tech-desc {
-  color: #333;
-  font-size: 0.93rem;
-  line-height: 1.5;
-}
-
-.tech-category-desc {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 800px;
-  margin: 20px auto;
-}
-
-
+/* Fade-up animation */
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
@@ -170,70 +48,419 @@
   transform: translateY(0);
 }
 
+/* =============================================================
+   FIGMA UI UPDATE — Hero Section (split layout)
+   ============================================================= */
+.tech-hero-section {
+  position: relative;
+  /* background: linear-gradient(135deg, #0c1b3d, #1a2f6b); */
+  background: radial-gradient(circle at 90% 10%, rgba(12, 27, 61, 1) 0%, rgba(15, 23, 42, 1) 90%);
+  padding: 100px 20px 125px;
+  overflow: hidden;
+}
+
+.tech-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right,
+      rgba(0, 191, 255, 0.1),
+      transparent 55%);
+  pointer-events: none;
+}
+
+.tech-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.tech-hero-text {
+  flex: 1;
+  max-width: 560px;
+}
+
+.tech-hero-text h1 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.tech-hero-highlight {
+  color: #00bfff;
+}
+
+.tech-hero-text p {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  color: rgba(203, 213, 225, 0.9);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.tech-hero-image-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 480px;
+}
+
+.tech-hero-img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  filter: drop-shadow(0 8px 32px rgba(0, 191, 255, 0.25));
+  animation: techHeroFloat 4s ease-in-out infinite;
+}
+
+@keyframes techHeroFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* =============================================================
+   FIGMA UI UPDATE — Our Technology Expertise
+   ============================================================= */
+.tech-expertise-section {
+  background: transparent;
+  padding: 80px 20px;
+}
+
+.tech-expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.tech-expertise-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(12, 27, 61, 0.08);
+  border-radius: 14px;
+  padding: 28px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.tech-expertise-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+.tech-expertise-icon {
+  font-size: 2rem;
+  color: #00bfff;
+  margin-bottom: 4px;
+}
+
+.tech-expertise-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.tech-expertise-desc {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+/* Circular arrow button at bottom-right of each expertise card */
+.tech-expertise-arrow {
+  align-self: flex-end;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #00bfff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00bfff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 8px;
+}
+
+.tech-expertise-card:hover .tech-expertise-arrow {
+  background: #00bfff;
+  color: #ffffff;
+}
+
+/* =============================================================
+   FIGMA UI UPDATE — We Work With Technologies & Tools 
+   ============================================================= */
+.tech-tools-section {
+  background: transparent;
+  padding: 80px 20px;
+}
+
+.tech-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.tech-tools-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(12, 27, 61, 0.07);
+  border-radius: 14px;
+  padding: 28px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.tech-tools-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 191, 255, 0.18);
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+.tech-tools-icon {
+  font-size: 2.1rem;
+  color: #00bfff;
+}
+
+.tech-tools-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  /* color: #0c1b3d; */
+  color: #f8fafc;
+  margin: 0;
+}
+
+.tech-tools-desc {
+  font-size: 0.87rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+/* Row of technology logo badges */
+.tech-tools-logos {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.tech-logo-badge {
+  font-size: 1.4rem;
+  color: #00bfff;
+  opacity: 0.75;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.tech-logo-badge:hover {
+  color: #00bfff;
+  opacity: 1;
+}
+
+/* "View More" button centered below tools grid */
+.tech-tools-btn-wrap {
+  text-align: center;
+}
+
+.tech-view-more-btn {
+  display: inline-block;
+  padding: 12px 36px;
+  background: transparent;
+  border: 2px solid #00bfff;
+  color: #00bfff;
+  border-radius: 50px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.tech-view-more-btn:hover {
+  background: #00bfff;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 191, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* =============================================================
+   FIGMA UI UPDATE — Our Core Technologies
+   ============================================================= */
+.tech-core-section {
+  background: transparent;
+  padding: 80px 20px;
+}
+
+.tech-core-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.tech-core-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(12, 27, 61, 0.08);
+  border-left: 4px solid #00bfff;
+  border-radius: 14px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.tech-core-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+  border-color: rgba(0, 191, 255, 0.3);
+}
+
+.tech-core-icon {
+  font-size: 1.6rem;
+  color: #00bfff;
+}
+
+.tech-core-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  /* color: #00bfff; */
+  color: #f8fafc;
+  margin: 0;
+}
+
+.tech-core-divider {
+  width: 40px;
+  height: 2px;
+  background: #00bfff;
+  border-radius: 2px;
+}
+
+.tech-core-desc {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.tech-core-learn-more {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #00bfff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  margin-top: 8px;
+  transition: gap 0.2s, opacity 0.2s;
+}
+
+.tech-core-learn-more:hover {
+  opacity: 0.8;
+  gap: 4px;
+}
+
+/* =============================================================
+   Responsive — Tablet (≤992px)
+   ============================================================= */
 @media (max-width: 992px) {
-  .section-title {
-    font-size: 1.9rem;
+  .tech-hero-inner {
+    flex-direction: column;
+    text-align: center;
   }
 
-  .lead {
-    font-size: 1rem;
-    padding: 0 10px;
+  .tech-hero-text {
+    max-width: 100%;
   }
 
-  .tech-grid {
-    gap: 18px;
-    padding: 0 10px;
+  .tech-hero-text p {
+    margin: 0 auto;
   }
 
-  .tech-card {
-    min-height: 150px;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 1.7rem;
+  .tech-hero-image-wrap {
+    justify-content: center;
+    max-width: 100%;
   }
 
-  .lead {
-    font-size: 0.98rem;
+  .tech-expertise-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .tech-filter-btn {
-    font-size: 0.9rem;
-    padding: 8px 14px;
+  .tech-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .tech-grid {
-    grid-template-columns: 1fr 1fr;
+  .tech-core-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* =============================================================
+   Responsive — Mobile (≤576px)
+   ============================================================= */
 @media (max-width: 576px) {
-  .tech-grid {
+  .tech-hero-section {
+    padding: 70px 20px 60px;
+  }
+
+  .tech-expertise-section,
+  .tech-tools-section,
+  .tech-core-section {
+    padding: 60px 20px;
+  }
+
+  .tech-expertise-grid,
+  .tech-tools-grid {
     grid-template-columns: 1fr;
-    padding: 0 15px;
   }
 
-  .tech-card {
-    padding: 16px;
+  .tech-core-grid {
+    grid-template-columns: 1fr;
   }
 
-  .section-title {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .tech-grid {
-    padding: 20px;
-  }
-
-  .tech-card {
-    padding: 18px;
-  }
-
-  .tech-filter-section {
-    gap: 6px;
+  .tech-section-header h2 {
+    font-size: 1.5rem;
   }
 }

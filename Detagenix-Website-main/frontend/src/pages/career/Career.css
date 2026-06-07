@@ -8,7 +8,7 @@
 
 /* Hero Section */
 .care-hero {
-  padding: 100px 0 80px;
+  padding: 100px 20px 80px;
   position: relative;
   background: radial-gradient(circle at 10% 20%, rgba(0, 191, 255, 0.08) 0%, transparent 40%);
 }
@@ -48,7 +48,7 @@
   gap: 15px;
 }
 
-.btn-cyan {
+.careers-page .btn-cyan {
   background: #00bfff;
   color: #0f172a;
   font-weight: 600;
@@ -57,32 +57,40 @@
   border: 1px solid #00bfff;
   transition: all 0.3s ease;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-cyan:hover {
+.careers-page .btn-cyan:hover {
   background: transparent;
   color: #00bfff;
   transform: translateY(-2px);
 }
 
-.btn-outline-cyan {
-  background: transparent;
+.careers-page .btn-outline-cyan {
+  background: rgba(0, 191, 255, 0.12);
   color: #00bfff;
   font-weight: 600;
   padding: 12px 30px;
   border-radius: 8px;
-  border: 2px solid rgba(0, 191, 255, 0.4);
+  border: 1px solid #00bfff;
   transition: all 0.3s ease;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-outline-cyan:hover {
+.careers-page .btn-outline-cyan:hover {
   border-color: #00bfff;
-  background: rgba(0, 191, 255, 0.08);
-  color: #fff;
+  background: #00bfff;
+  color: #0f172a;
   transform: translateY(-2px);
+}
+
+.hero-buttons .btn {
+  min-width: 160px;
 }
 
 .hero-illustration {
@@ -219,9 +227,8 @@
 
 /* Openings Section */
 .openings-section {
-  padding: 80px 0;
-  background: #0b1329;
-  /* Brand Preservation: Restored original background color */
+  padding: 80px 20px;
+  background: transparent;
 }
 
 .section-header {
@@ -259,7 +266,6 @@
   margin: 0 auto;
 }
 
-/* UI Accessibility Fix: Lighter text for warning fallback to ensure proper contrast ratio */
 .no-openings-card .text-muted {
   color: #cbd5e1 !important;
 }
@@ -347,6 +353,25 @@
 .job-actions {
   display: flex;
   gap: 12px;
+  align-items: center;
+}
+
+.job-actions .btn-cyan {
+  flex: 1;
+  background: rgba(0, 191, 255, 0.12);
+  color: #00bfff;
+  border: 1px solid #00bfff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.job-actions .btn-cyan:hover {
+  background: #00bfff;
+  color: #0f172a;
+  border-color: #00bfff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 191, 255, 0.2);
 }
 
 .btn-cyan-fill {
@@ -355,10 +380,10 @@
   border: 1px solid #00bfff;
 }
 
-.btn-outline-share {
-  background: transparent;
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.job-actions .btn-outline-share {
+  background: rgba(0, 191, 255, 0.12);
+  color: #00bfff;
+  border: 1px solid #00bfff;
   padding: 8px 16px;
   border-radius: 6px;
   transition: all 0.3s ease;
@@ -368,15 +393,17 @@
   white-space: nowrap;
 }
 
-.btn-outline-share:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
+.job-actions .btn-outline-share:hover {
+  color: #0f172a;
+  background: #00bfff;
+  border-color: #00bfff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 191, 255, 0.2);
 }
 
 /* Apply Section */
 .apply-section {
-  padding: 100px 0;
+  padding: 100px 20px;
   position: relative;
 }
 
@@ -656,10 +683,10 @@
 
 /* Footer Section */
 .care-footer {
-  padding: 40px 0;
+  padding: 40px 20px;
   color: #64748b;
   font-size: 0.9rem;
-  /* UI Enhancement: Removed border-top separation */
+
 }
 
 /* Intersection Reveal */
