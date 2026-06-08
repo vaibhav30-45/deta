@@ -12,7 +12,7 @@
 
 .nav-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   padding: 0 20px;
   box-sizing: border-box;
   margin: 0 auto;
@@ -36,10 +36,9 @@
   list-style: none;
   display: flex;
   gap: 30px;
-  margin-left: auto;
+  /* margin-left: auto; */
   align-items: center;
-  margin: 0;
-  /* <-- ADD THIS */
+  margin: 0 0 0 auto; 
   padding: 0;
 }
 
@@ -222,7 +221,7 @@
     width: 100%;
   }
 
-  /* ✅ FIXED BUTTON (NO absolute) */
+  /* ✅ FIXED BUTTON */
   .nav-actions {
     margin-left: 10px;
     display: flex;

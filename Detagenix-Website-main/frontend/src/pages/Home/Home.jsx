@@ -426,7 +426,6 @@ const Home = () => {
       </section>
 
       {/* 8.5. BLOG SECTION */}
-      {/* UI FIX START: Added a Blog section using the existing premium grid layout */}
       <section className="projects-section-new" id="blog">
         <div className="section-header-new">
           <span className="section-subtitle-new">Our <span className="highlight-blue">Blog</span></span>
@@ -487,7 +486,6 @@ const Home = () => {
           </button>
         </div>
       </section>
-      {/* UI FIX END: Added Blog section */}
 
       {/* 9. TESTIMONIALS SECTION */}
       <section className="testimonials-section-new" id="testimonials">
@@ -501,125 +499,197 @@ const Home = () => {
       {/* 10. MODAL FORM PORTAL */}
       {isOpenForm &&
         createPortal(
-          <div className="modal-overlay">
-            <div className="modal-form">
+          <div className="modal-overlay" onClick={(e) => {
+            if (e.target.className === "modal-overlay") {
+              setIsOpenForm(false);
+            }
+          }}>
+            <div className="modal-container-two-col">
               <button
                 className="close-btn"
                 onClick={() => setIsOpenForm(false)}
+                aria-label="Close Modal"
               >
                 ✖
               </button>
 
-              <h2>Let’s Build Your Project</h2>
+              {/* Left Info Panel - Tailored for "Get Started" */}
+              <div className="modal-left-panel">
+                <h2 className="modal-left-title">
+                  Ready to <span className="highlight">Scale?</span>
+                </h2>
+                <p className="modal-left-desc">
+                  Kickstart your digital transformation with Detagenix. Get a free consultation tailored to your specific business needs.
+                </p>
 
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="full_name"
-                  placeholder="Full Name *"
-                  value={formData.full_name}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="modal-feature-list">
+                  <div className="modal-feature-item">
+                    <div className="modal-icon-circle">
+                      <FaLaptopCode />
+                    </div>
+                    <div className="modal-feature-text">
+                      <h4>Custom Solutions</h4>
+                      <p>Tailored enterprise-grade applications designed specifically for your business.</p>
+                    </div>
+                  </div>
 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email *"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
+                  <div className="modal-feature-item">
+                    <div className="modal-icon-circle">
+                      <FaCheckCircle />
+                    </div>
+                    <div className="modal-feature-text">
+                      <h4>Quality Assurance</h4>
+                      <p>Rigorous testing protocols to ensure bug-free, high-performance delivery.</p>
+                    </div>
+                  </div>
 
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone *"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
+                  <div className="modal-feature-item">
+                    <div className="modal-icon-circle">
+                      <FaHeadset />
+                    </div>
+                    <div className="modal-feature-text">
+                      <h4>Dedicated Support</h4>
+                      <p>Round-the-clock technical support and dedicated project consultations.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                <input
-                  type="text"
-                  name="company_name"
-                  placeholder="Company Name (Optional)"
-                  value={formData.company_name}
-                  onChange={handleChange}
-                />
+              {/* Right Form Panel - Your exact original form inputs */}
+              <div className="modal-right-panel">
+                <h3 className="form-title">Let’s Build Your Project</h3>
+                <p className="form-desc">Briefly describe your project requirements to get started.</p>
 
-                <select
-                  name="project_type"
-                  value={formData.project_type}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Project Type *</option>
-                  <option value="Website">Website</option>
-                  <option value="Mobile App">Mobile App</option>
-                  <option value="SaaS / Software">SaaS / Software</option>
-                  <option value="E-commerce">E-commerce</option>
-                  <option value="CRM / ERP">CRM / ERP</option>
-                  <option value="Other">Other</option>
-                </select>
+                <form onSubmit={handleSubmit} className="modal-two-col-form">
+                  <div className="modal-grid">
+                    <div className="modal-grid-half">
+                      <input
+                        type="text"
+                        name="full_name"
+                        placeholder="Full Name *"
+                        value={formData.full_name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
 
-                <textarea
-                  name="description"
-                  placeholder="Briefly describe your project requirements"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                ></textarea>
+                    <div className="modal-grid-half">
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email *"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
 
-                <select
-                  name="budget"
-                  value={formData.budget}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Budget *</option>
-                  <option value="₹10K – ₹50K">₹10K – ₹50K</option>
-                  <option value="₹50K – ₹2L">₹50K – ₹2L</option>
-                  <option value="₹2L – ₹10L">₹2L – ₹10L</option>
-                  <option value="₹10L+">₹10L+</option>
-                </select>
+                    <div className="modal-grid-half">
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone *"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
 
-                <select
-                  name="timeline"
-                  value={formData.timeline}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Timeline *</option>
-                  <option value="ASAP">ASAP</option>
-                  <option value="1–2 Weeks">1–2 Weeks</option>
-                  <option value="1 Month">1 Month</option>
-                  <option value="Flexible">Flexible</option>
-                </select>
+                    <div className="modal-grid-half">
+                      <input
+                        type="text"
+                        name="company_name"
+                        placeholder="Company Name (Optional)"
+                        value={formData.company_name}
+                        onChange={handleChange}
+                      />
+                    </div>
 
-                <select
-                  name="goal"
-                  value={formData.goal}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Project Goal *</option>
-                  <option value="Generate leads">Generate leads</option>
-                  <option value="Sell products">Sell products</option>
-                  <option value="Automate business">Automate business</option>
-                  <option value="Build MVP">Build MVP</option>
-                  <option value="Scale existing system">
-                    Scale existing system
-                  </option>
-                </select>
+                    <div className="modal-grid-half">
+                      <select
+                        name="project_type"
+                        value={formData.project_type}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Select Project Type *</option>
+                        <option value="Website">Website</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="SaaS / Software">SaaS / Software</option>
+                        <option value="E-commerce">E-commerce</option>
+                        <option value="CRM / ERP">CRM / ERP</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
 
-                <button type="submit" className="submit-btn">
-                  Get Free Consultation
-                </button>
-              </form>
+                    <div className="modal-grid-half">
+                      <select
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Select Budget *</option>
+                        <option value="₹10K – ₹50K">₹10K – ₹50K</option>
+                        <option value="₹50K – ₹2L">₹50K – ₹2L</option>
+                        <option value="₹2L – ₹10L">₹2L – ₹10L</option>
+                        <option value="₹10L+">₹10L+</option>
+                      </select>
+                    </div>
+
+                    <div className="modal-grid-half">
+                      <select
+                        name="timeline"
+                        value={formData.timeline}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Select Timeline *</option>
+                        <option value="ASAP">ASAP</option>
+                        <option value="1–2 Weeks">1–2 Weeks</option>
+                        <option value="1 Month">1 Month</option>
+                        <option value="Flexible">Flexible</option>
+                      </select>
+                    </div>
+
+                    <div className="modal-grid-half">
+                      <select
+                        name="goal"
+                        value={formData.goal}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Project Goal *</option>
+                        <option value="Generate leads">Generate leads</option>
+                        <option value="Sell products">Sell products</option>
+                        <option value="Automate business">Automate business</option>
+                        <option value="Build MVP">Build MVP</option>
+                        <option value="Scale existing system">
+                          Scale existing system
+                        </option>
+                      </select>
+                    </div>
+
+                    <div className="modal-grid-full">
+                      <textarea
+                        name="description"
+                        placeholder="Briefly describe your project requirements"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <button type="submit" className="modal-submit-btn">
+                    Get Free Consultation
+                  </button>
+                </form>
+              </div>
             </div>
           </div>,
-          document.body,
+          document.body
         )}
     </>
   );
