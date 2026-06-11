@@ -86,11 +86,11 @@ const Navbar = () => {
 
         {/* Menu */}
         <ul className={`nav-menu ${isOpen ? "open" : ""}`}>
-          <li>
+          {/* <li>
             <Link to="/" onClick={() => setIsOpen(false)}>
               <FaHome size={18} /> Home
             </Link>
-          </li>
+          </li> */}
           <li><Link to="/about" onClick={() => setIsOpen(false)}>About Us</Link></li>
           <li><Link to="/services" onClick={() => setIsOpen(false)}>Services</Link></li>
           <li><Link to="/Industries" onClick={() => setIsOpen(false)}>Industries</Link></li>
@@ -98,7 +98,7 @@ const Navbar = () => {
           <li><Link to="/project" onClick={() => setIsOpen(false)}>Projects</Link></li>
           <li><Link to="/blog" onClick={() => setIsOpen(false)}>Blog</Link></li>
           <li><Link to="/career" onClick={() => setIsOpen(false)}>Careers</Link></li>
-          <li><Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link></li>
+          {/* <li><Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link></li> */}
         </ul>
 
         <div className="nav-actions">
