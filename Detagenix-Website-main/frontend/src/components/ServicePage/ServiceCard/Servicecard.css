@@ -10,19 +10,22 @@
   align-items: center;
   gap: 0.5rem;
   padding: 30px;
-  background: #122d41;
-  color: #ffffff;
+   background: #122d41;
+  color: #fff;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: all 0.3s ease;
 }
 .service-card-content h3 {
-  font-size: 2.2rem;
+  color: #00bfff;
+  font-size: 1.8rem;
   font-weight: 500;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
 }
 .service-card-content p {
+  color: #ffffff;
+
   font-weight: 500;
 }
 .service-card img {

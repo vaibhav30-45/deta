@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import Techslider from "../../components/Techslider/Techslider";
 import aboutusImage from "../../asset/culture2.png";
-import receptionImage from "../../asset/reception.png";
+import receptionImage from "../../asset/detagenix.jpeg";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
@@ -122,9 +122,9 @@ const Home = () => {
             <button onClick={() => setIsOpenForm(true)} className="btn-primary-new">
               Get Started
             </button>
-            <button onClick={() => navigate("/about")} className="btn-secondary-new">
+            {/* <button onClick={() => navigate("/about")} className="btn-secondary-new">
               Partner With Us
-            </button>
+            </button> */}
           </div>
         </div>
       </section>

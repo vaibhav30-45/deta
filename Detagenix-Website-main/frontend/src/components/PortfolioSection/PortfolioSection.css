@@ -40,8 +40,8 @@
 .filter-btn {
   padding: 0.8rem 1.5rem;
   border: 2px solid #e2e8f0;
-  background: white;
-  color: #64748b;
+  background:  #122d41;;
+  color: #fff;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -71,7 +71,7 @@
 
 /* Project Card */
 .project-card {
-  background: white;
+  background:  #122d41;;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -158,7 +158,7 @@
 .project-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #fff;
   margin-bottom: 1rem;
   line-height: 1.4;
 }
@@ -204,7 +204,7 @@
    margin-top: auto; 
   background: transparent;
   border: 2px solid #29b6f6;
-  color: #29b6f6;
+  color: #4fc3f7;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   font-weight: 600;
