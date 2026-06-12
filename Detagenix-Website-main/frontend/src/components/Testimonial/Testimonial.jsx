@@ -37,16 +37,11 @@ const Testimonial = () => {
   ];
 
   useEffect(() => {
-<<<<<<< HEAD
-    fetch(`${BASE_URL}/api/testimonials`)
-      .then((res) => res.json())
-=======
     fetch("http://localhost:5000/api/testimonials")
       .then((res) => {
         if (!res.ok) throw new Error("HTTP error");
         return res.json();
       })
->>>>>>> 7c7368d3ede34c2b2967b431c998d8ef83d27525
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setFeedbackData(data);

@@ -20,20 +20,10 @@ const Navbar = () => {
     goal: ""
   });
 
-<<<<<<< HEAD
-  try {
-    const response = await fetch(`${BASE_URL}/api/enquiry`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-=======
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
->>>>>>> 7c7368d3ede34c2b2967b431c998d8ef83d27525
     });
   };
 
