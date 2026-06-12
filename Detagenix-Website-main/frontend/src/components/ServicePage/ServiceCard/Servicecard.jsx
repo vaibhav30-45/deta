@@ -101,7 +101,7 @@ const Servicecard = ({ service, title, desc, icon, link, onLearnMore }) => {
   const cardData = service
     ? {
         title: service.title,
-        desc: service.subtitle || service.desc,
+        desc: service.subtitle || service.description,
         // icon: service.icon,
         onClick: onLearnMore,
       }
