@@ -130,7 +130,7 @@ const Footer = () => {
           <div className="contact-info">
             <p>
               <FaEnvelope className="contact-icon" />
-              <a href="mailto:contact@detagenix.com">contact@detagenix.com</a>
+              <a href="mailto:support@detagenix.com">support@detagenix.com</a>
             </p>
             <p>
               <FaPhoneAlt className="contact-icon" />
