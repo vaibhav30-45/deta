@@ -361,7 +361,7 @@ const Home = () => {
       </section>
 
       {/* 8. RECENT PROJECTS SECTION */}
-      <section className="projects-section-new" id="projects">
+      {/* <section className="projects-section-new" id="projects">
         <div className="section-header-new">
           <span className="section-subtitle-new">Our Recent <span className="highlight-blue">Projects</span></span>
           <h2>Explore some of the custom solutions we've developed for our clients.</h2>
@@ -423,7 +423,7 @@ const Home = () => {
             View All Projects
           </button>
         </div>
-      </section>
+      </section> */}
 
       {/* 8.5. BLOG SECTION */}
       <section className="projects-section-new" id="blog">
