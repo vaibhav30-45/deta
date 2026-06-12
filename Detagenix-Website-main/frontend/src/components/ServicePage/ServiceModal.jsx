@@ -23,7 +23,7 @@ const ServiceModal = ({ service, onClose, openForm }) => {
 
         <h3>Tech Stack</h3>
         <div className="tech-stack">
-          {service.techStack.map((tech, i) => (
+          {service.techStack?.map((tech, i) => (
             <span key={i} className="tech-item">
               {tech}
             </span>
