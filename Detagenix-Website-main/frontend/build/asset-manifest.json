@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9a61d4b5.css",
+    "main.js": "/static/js/main.118634dc.js",
+    "static/media/Aiml.png": "/static/media/Aiml.10fc52b6eba19535bf15.png",
+    "static/media/reception.png": "/static/media/reception.3a6733a522cc23c6665e.png",
+    "static/media/gptblog.webp": "/static/media/gptblog.33273390e2db23b5a709.webp",
+    "static/media/Cybersecurityblog.webp": "/static/media/Cybersecurityblog.343dffe79068e4380593.webp",
+    "static/media/culture2.png": "/static/media/culture2.9b493598c040cf1de40d.png",
+    "static/media/learnblog.webp": "/static/media/learnblog.6c9e725771322009a966.webp",
+    "static/media/travel.avif": "/static/media/travel.1e419dd2a14d1a9f6076.avif",
+    "static/media/nft.avif": "/static/media/nft.1fbbebb6d4a5d941326a.avif",
+    "static/media/fitness.avif": "/static/media/fitness.d0944241cf1c4f4f5166.avif",
+    "static/media/foodApp.avif": "/static/media/foodApp.fd087685b504c5ea5b11.avif",
+    "static/media/restaurant.avif": "/static/media/restaurant.3076cd914d6ab604f167.avif",
+    "static/media/reactblog.png": "/static/media/reactblog.d233e8a3d2cf4facdb1e.png",
+    "static/media/supplychain.avif": "/static/media/supplychain.f04bb9f4a56d787e0f80.avif",
+    "static/media/wallet.avif": "/static/media/wallet.3d1e12a37f8ba47beffd.avif",
+    "static/media/imageClassifier.avif": "/static/media/imageClassifier.751333ff5ab0c201c2f6.avif",
+    "static/media/intrusion.avif": "/static/media/intrusion.7e7eb4108e2733bd36e4.avif",
+    "static/media/voting.avif": "/static/media/voting.9392e7114bef001f8637.avif",
+    "static/media/password.avif": "/static/media/password.788c0af9825f74814eb8.avif",
+    "static/media/crowdfunding.avif": "/static/media/crowdfunding.d42877524f2c6a3960b4.avif",
+    "static/media/sentiment.avif": "/static/media/sentiment.034fc76cc5c2b2491011.avif",
+    "static/media/scanner.avif": "/static/media/scanner.ca9cb7d2ecb421f0203c.avif",
+    "static/media/mobile-banking-app.avif": "/static/media/mobile-banking-app.885a5d9bf388035e091a.avif",
+    "static/media/expense.avif": "/static/media/expense.8d5c6badadd65676be08.avif",
+    "static/media/stock.avif": "/static/media/stock.b56a3ddeb8cbb3748b3c.avif",
+    "static/media/encryption.avif": "/static/media/encryption.ff33f0e22300a3e6b018.avif",
+    "static/media/ai-chatbot.avif": "/static/media/ai-chatbot.de2f19362b9a18fdb338.avif",
+    "static/media/phishing.avif": "/static/media/phishing.db5cdc89babad9717503.avif",
+    "static/media/Avatar.png": "/static/media/Avatar.0431e2167dc7538efb55.png",
+    "static/media/portfolio.avif": "/static/media/portfolio.bd045401c514c19929e3.avif",
+    "static/media/logo.webp": "/static/media/logo.2fcff7121f9a5613fd83.webp",
+    "static/media/lms.avif": "/static/media/lms.4de1cbace63229507471.avif",
+    "static/media/ecommerce-platform.jpeg": "/static/media/ecommerce-platform.cf2bf4a9be535ef06b1c.jpeg",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.9a61d4b5.css",
+    "static/js/main.118634dc.js"
+  ]
+}

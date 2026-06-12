@@ -8,21 +8,65 @@ const Testimonial = () => {
   const [feedbackData, setFeedbackData] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL ;
 
+  // Fallback static testimonials matching the Figma spec when API is down
+  const fallbackTestimonials = [
+    {
+      _id: "t1",
+      name: "Rahul Sen",
+      company: "Tech Solutions Inc.",
+      message: "Detagenix transformed our business operations... scalable MERN app, highly secure, fast.",
+      rating: 5,
+      image: "https://ui-avatars.com/api/?name=Rahul+Sen&background=0a192f&color=00bfff"
+    },
+    {
+      _id: "t2",
+      name: "Allan Domnic",
+      company: "AI Innovations",
+      message: "The team was professional and delivered our AI Chatbot on time, highly recommend.",
+      rating: 5,
+      image: "https://ui-avatars.com/api/?name=Allan+Domnic&background=0a192f&color=00bfff"
+    },
+    {
+      _id: "t3",
+      name: "Rahul Sen",
+      company: "MERN Devs",
+      message: "Detagenix delivered a secure and robust application, perfect for our scale.",
+      rating: 5,
+      image: "https://ui-avatars.com/api/?name=Rahul+Sen&background=0a192f&color=00bfff"
+    }
+  ];
+
   useEffect(() => {
+<<<<<<< HEAD
     fetch(`${BASE_URL}/api/testimonials`)
       .then((res) => res.json())
+=======
+    fetch("http://localhost:5000/api/testimonials")
+      .then((res) => {
+        if (!res.ok) throw new Error("HTTP error");
+        return res.json();
+      })
+>>>>>>> 7c7368d3ede34c2b2967b431c998d8ef83d27525
       .then((data) => {
-        // console.log("API DATA ", data);
-        setFeedbackData(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setFeedbackData(data);
+        } else {
+          setFeedbackData(fallbackTestimonials);
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to fetch testimonials, using fallback:", err);
+        setFeedbackData(fallbackTestimonials);
       });
   }, []);
 
-  
-  const duplicatedSlides = feedbackData;
+
+
+  const duplicatedSlides = [...feedbackData, ...feedbackData];
 
   return (
     <div className="testimonial-tech-container">
-      <h1>What Our Clients Say</h1>
+      {/* UI Fix: Removed duplicate h1 heading — section title is already rendered by the parent section header in Home.jsx */}
 
       <div
         className={`testimonial-slider-wrapper ${isPaused ? "paused" : ""}`}

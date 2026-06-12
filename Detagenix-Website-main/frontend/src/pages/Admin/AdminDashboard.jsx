@@ -886,14 +886,21 @@ const AdminDashboard = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <input
+                  <textarea 
+                    value={serviceForm.link}
+                    onChange={(e) =>
+                      setServiceForm({ ...serviceForm, link: e.target.value })
+                    }
+                    placeholder="Points"
+                  />
+                  {/* <input
                     type="text"
                     value={serviceForm.link}
                     onChange={(e) =>
                       setServiceForm({ ...serviceForm, link: e.target.value })
                     }
                     placeholder="Link (Optional): /services#cybersecurity"
-                  />
+                  /> */}
                 </div>
                 <div className="form-buttons">
                   <button className="submit-btn" onClick={handleCreateService}>

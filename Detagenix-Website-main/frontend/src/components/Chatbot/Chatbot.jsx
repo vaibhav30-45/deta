@@ -154,13 +154,21 @@ function Chatbot() {
   return (
     <>
       {/* Chatbot Button */}
+      {!isOpen ?
       <button
+        className="chatbot-toggle"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle Chatbot"
+      >
+        <i className="bi bi-chat-dots-fill"></i> 
+      </button> :""}
+       {/* <button
         className={`chatbot-toggle ${isOpen ? "open" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Chatbot"
       >
         {isOpen ? <i className="bi bi-x-lg"></i> : <i className="bi bi-chat-dots-fill"></i>}
-      </button>
+      </button> */}
 
       {/* Chat Window */}
       {isOpen && (

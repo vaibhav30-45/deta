@@ -1,11 +1,11 @@
 /* MAIN PAGE */
 .services-page {
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
   background: #0f172a;
 }
 
 /* HEADING */
-.services-section h1 {
+/* .services-section h1 {
   color: #00bfff;
   font-weight: 600;
   margin-bottom: 30px;
@@ -13,15 +13,98 @@
   letter-spacing: 1px;
   position: relative;
   font-size: 3rem;
+} */
+ .book-btn-mobile{
+  display: none;
+ }
+.services-header {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto 40px;
 }
-.services-grid {
-  width: 100%;
+
+.services-header h1 {
+  text-align: center;
+  margin: 0;
+}
+
+.book-btn-header {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn-header:hover {
+  background: #009acd;
+  box-shadow: 0 4px 12px rgba(0, 173, 220, 0.35);
+}
+
+
+
+ .services-section h1 {
+   color: #00bfff;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 3rem;
+  text-align: center;
+}
+/* .services-grid {
+  max-width: 900px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+} */
+ .services-grid {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  align-items: start;
+}
+.services-grid.dynamic {
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.services-intro {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  color: #cbd5f5;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.service-subtitle {
+  text-align: center;
+  color: #f8fafc;
+  margin: 2.5rem 0 1.5rem;
+  font-size: 1.8rem;
+}
+
+.services-status {
+  text-align: center;
+  color: #cbd5f5;
+  margin-bottom: 2rem;
+}
+
+.services-status.error {
+  color: #ff6b6b;
 }
 /* LEARN MORE BUTTON */
 .service-page .learn-more-btn {
@@ -44,11 +127,12 @@
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
 }
 
-/*  BOOK SERVICE BUTTON */
+/* ✅ BOOK SERVICE BUTTON */
 .book-btn {
   display: block;
-  margin: 30px auto;
-  padding: 12px 30px;
+  margin: 30px auto ;
+  width: 10%;
+  padding: 15px 5px;
   background: #00bfff;
   color: #fff;
   border: none;
@@ -58,7 +142,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
-  width: fit-content;
 }
 
 .book-btn:hover {
@@ -68,21 +151,25 @@
 }
 
 /* ------------------------------------------
-  RESPONSIVENESS
+ ✅ RESPONSIVENESS
 ------------------------------------------ */
 
 /* TABLET */
-/* TABLET */
-@media (min-width: 1024px) {
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 top + 2 bottom */
-    max-width: 900px; /* center aur compact look */
-  }
-}
 @media (max-width: 992px) {
   .services-section h1 {
     font-size: 2.4rem;
     text-align: center;
+  }
+
+   .services-grid {
+    max-width: 700px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .book-btn {
+    width: 25%;
+    font-size: 1rem;
   }
 }
 
@@ -90,24 +177,68 @@
 @media (max-width: 768px) {
   .services-section h1 {
     font-size: 2rem;
+    text-align: center;
+  }
+   .services-grid {
+    max-width: 500px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .services-grid {
-    gap: 1.5rem;
+  .service-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .book-btn {
+    width: 40%;
+    padding: 12px 5px;
+    font-size: 1rem;
   }
 }
 
 /* SMALL MOBILE */
 @media (max-width: 480px) {
+.book-btn-mobile{
+  display: inline;
+ margin:0 10px;
+ 
+  transform: translateY(-50%);
+
+  background: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn-mobile:hover {
+  background: #009acd;
+  box-shadow: 0 4px 12px rgba(0, 173, 220, 0.35);
+}
+
+  .book-btn-header{
+    display: none;
+  }
+  
   .services-page {
     padding: 2rem 1rem;
   }
-
-  .services-section h1 {
-    font-size: 1.6rem;
+    .services-grid {
+    max-width: 100%;
+    padding: 0 10px;
   }
 
-  .services-grid {
-    grid-template-columns: 1fr; /* single column */
+  .services-section h1 {
+    font-size: 1.7rem;
+  }
+
+  .book-btn {
+    width: 60%;
+    padding: 12px 5px;
+    font-size: 0.95rem;
   }
 }

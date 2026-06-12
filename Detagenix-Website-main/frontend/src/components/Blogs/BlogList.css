@@ -1,65 +1,187 @@
-.blog-list-container {
-  width: 100%;
-  padding: 25px 40px;
- display: flex;
- 
-    flex-direction: column;
-    align-items: center;
-  text-align: center;
+/* Detagenix Blog List Page Redesign Styles */
+
+.blog-page-wrapper {
   background-color: #0f172a;
+  color: #f8fafc;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
 }
-.blog-list-title {
-  color: #00bfff;
-  font-weight: 600;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+
+/* 1. HERO BANNER */
+.blog-hero-section {
   position: relative;
-  font-size: 3rem; 
+  background: radial-gradient(circle at 10% 20%, rgba(12, 27, 61, 1) 0%, rgba(15, 23, 42, 1) 90%);
+  padding: 100px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.read-more-section {
-  margin-top: 30px;   
+
+.blog-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(0, 191, 255, 0.05), transparent 45%);
+  pointer-events: none;
+}
+
+.blog-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-hero-content h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.blog-hero-content h1 .highlight {
+  color: #00bfff;
+  background: linear-gradient(120deg, #00bfff, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blog-hero-content p {
+  font-size: 1.15rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 2. CATEGORY FILTER TABS */
+.blog-filters-container {
+  max-width: 1200px;
+  margin: 40px auto 20px;
+  padding: 0 20px;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 24px;
+}
+
+.filter-tab-btn {
+  padding: 10px 22px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-tab-btn:hover {
+  color: #00bfff;
+  border-color: rgba(0, 191, 255, 0.3);
+  background: rgba(0, 191, 255, 0.05);
+}
+
+.filter-tab-btn.active {
+  background: linear-gradient(135deg, #00bfff 0%, #007bff 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+}
+
+/* 3. BLOG LIST CONTAINER & GRID */
+.blog-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .blog-grid {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-
   display: grid;
-  grid-template-columns: repeat(3, 1fr);  
-  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
 }
 
-.load-more-btn {
-  margin-top: 30px;
-  padding: 10px 20px;
-  border: none;
-  background: #29b6f6;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
+.blog-status {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-top: 40px;
 }
-@media (max-width: 768px) {
+
+.blog-status.error {
+  color: #f87171;
+}
+
+/* NO BLOGS FOUND STATE */
+.no-blogs-found {
+  text-align: center;
+  padding: 60px 20px;
+  background: #1e293b;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  max-width: 600px;
+  margin: 40px auto 0;
+}
+
+.no-blogs-found p {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.reset-filter-btn {
+  padding: 10px 24px;
+  background: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.reset-filter-btn:hover {
+  background: #009acd;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
   .blog-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-hero-content h1 {
+    font-size: 2.6rem;
+  }
+
+  .filter-tabs {
+    gap: 8px;
+  }
+
+  .filter-tab-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
-  .blog-list-title {
-    font-size: 2rem; 
+  .blog-hero-content h1 {
+    font-size: 2.1rem;
   }
-  .blog-grid{
-    place-content: center;
+
+  .blog-grid {
+    grid-template-columns: 1fr;
   }
-}
-
-.blog-status {
-  color: #cbd5f5;
-  margin-bottom: 20px;
-}
-
-.blog-status.error {
-  color: #ff6b6b;
 }
