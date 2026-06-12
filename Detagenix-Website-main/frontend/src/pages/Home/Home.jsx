@@ -171,43 +171,48 @@ const Home = () => {
             <div className="service-icon-box"><FaCode size={28} /></div>
             <h3>Web Development Solutions</h3>
             <p>From complex web applications to custom portals, we build high-performance web systems tailored to your goals.</p>
-            <a href="/services#webdev" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#webdev" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
           {/* Card 2 */}
           <div className="service-card-new">
             <div className="service-icon-box"><FaBrain size={28} /></div>
             <h3>AI-Powered Solutions</h3>
             <p>Leverage machine learning, LLMs, and computer vision to automate processes and generate actionable intelligence.</p>
-            <a href="/services#ai" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#ai" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
           {/* Card 3 */}
           <div className="service-card-new">
             <div className="service-icon-box"><FaMobileAlt size={28} /></div>
             <h3>Mobile App Development</h3>
             <p>Creating seamless, native, and cross-platform mobile experiences for both iOS and Android platforms.</p>
-            <a href="/services#mobile" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#mobile" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
           {/* Card 4 */}
           <div className="service-card-new">
             <div className="service-icon-box"><FaCloud size={28} /></div>
             <h3>Cloud & DevOps</h3>
             <p>Scalable cloud infrastructure deployment, CI/CD pipelines, and robust automation for maximum uptime.</p>
-            <a href="/services#cloud" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#cloud" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
           {/* Card 5 */}
           <div className="service-card-new">
             <div className="service-icon-box"><FaShieldAlt size={28} /></div>
             <h3>Cybersecurity Services</h3>
             <p>Vulnerability testing, secure system design, and threat mitigation to protect your company's critical data.</p>
-            <a href="/services#cyber" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#cyber" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
           {/* Card 6 */}
           <div className="service-card-new">
             <div className="service-icon-box"><FaChartBar size={28} /></div>
             <h3>Data Analytics</h3>
             <p>Process big data, design dashboards, and construct data warehousing to power business intelligence.</p>
-            <a href="/services#data" className="service-link-new">Learn More <FaArrowRight size={12} /></a>
+            {/* <a href="/services#data" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
           </div>
+          
+        </div> <div className="projects-action-new">
+          <button onClick={() => navigate("/services")} className="btn-primary-new">
+            View All Service
+          </button>
         </div>
       </section>
 

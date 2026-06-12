@@ -20,15 +20,29 @@ const ServiceModal = ({ service, onClose, openForm }) => {
 
         <h2>{service.title}</h2>
         <p>{service.description}</p>
-
-        <h3>Tech Stack</h3>
-        <div className="tech-stack">
-          {service.techStack?.map((tech, i) => (
+        
+        <div>
+         {service.link ? (
+          service.link.split('\n').map((point, index) => (
+            <p>{point}</p>  
+           ))
+         ) : (
+         <li>No features available</li>
+           )}
+       </div>
+       
+        {/* <div className="tech-stack">
+           <span className="tech-item">
+              {service.link}
+            </span> */}
+         
+          {/* {service.techStack?.map((tech, i) => (
+             
             <span key={i} className="tech-item">
               {tech}
             </span>
-          ))}
-        </div>
+          ))} */}
+        {/* </div> */}
       </div>
     </div>
   );
