@@ -379,6 +379,12 @@ const Service = () => {
   return (
     <section className="services-section service-page">
       <div className="services-header">
+          <button
+      className="book-btn-mobile"
+      onClick={openFormModal}
+    >
+      Reach Out
+    </button> 
     <h1>Our Services</h1>
 
     <button

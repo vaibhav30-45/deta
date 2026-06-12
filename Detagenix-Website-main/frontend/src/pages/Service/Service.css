@@ -14,6 +14,9 @@
   position: relative;
   font-size: 3rem;
 } */
+ .book-btn-mobile{
+  display: none;
+ }
 .services-header {
   position: relative;
   max-width: 900px;
@@ -195,6 +198,32 @@
 
 /* SMALL MOBILE */
 @media (max-width: 480px) {
+.book-btn-mobile{
+  display: inline;
+ margin:0 10px;
+ 
+  transform: translateY(-50%);
+
+  background: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn-mobile:hover {
+  background: #009acd;
+  box-shadow: 0 4px 12px rgba(0, 173, 220, 0.35);
+}
+
+  .book-btn-header{
+    display: none;
+  }
+  
   .services-page {
     padding: 2rem 1rem;
   }
