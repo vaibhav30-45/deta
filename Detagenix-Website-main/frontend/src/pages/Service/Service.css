@@ -58,12 +58,21 @@
   font-size: 3rem;
   text-align: center;
 }
-.services-grid {
+/* .services-grid {
   max-width: 900px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+} */
+ .services-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  align-items: start;
 }
 .services-grid.dynamic {
   width: 100%;
