@@ -13,10 +13,23 @@ const Testimonials = () => {
   const [showForm, setShowForm] = useState(false);
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
 
+  
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("adminToken"); 
+    return {
+      "Content-Type": "application/json",
+      ...(token && { "Authorization": `Bearer ${token}` }), 
+    };
+  };
+
   const fetchData = async () => {
-    const res = await fetch(`${BASE_URL}/api/testimonials`);
-    const result = await res.json();
-    setData(result);
+    try {
+      const res = await fetch(`${BASE_URL}/api/testimonials`);
+      const result = await res.json();
+      setData(result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -26,24 +39,31 @@ const Testimonials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch(`${BASE_URL}/api/testimonials`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    try {
+      await fetch(`${BASE_URL}/api/testimonials`, {
+        method: "POST",
+        headers: getAuthHeaders(), // Yahan headers update kiye
+        body: JSON.stringify(form),
+      });
 
-    setForm({ name: "", company: "", message: "", rating: "" });
-    setShowForm(false);
-    fetchData();
+      setForm({ name: "", company: "", message: "", rating: "", image: "" });
+      setShowForm(false);
+      fetchData();
+    } catch (error) {
+      console.error("Error submitting testimonial:", error);
+    }
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${BASE_URL}/api/testimonials/${id}`, {
-      method: "DELETE",
-    });
-    fetchData();
+    try {
+      await fetch(`${BASE_URL}/api/testimonials/${id}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(), // Yahan bhi headers add kiye kyunki delete route bhi protected hoga
+      });
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting testimonial:", error);
+    }
   };
 
   return (
@@ -199,7 +219,6 @@ const Testimonials = () => {
   );
 };
 
-// reusable input style
 const inputStyle = {
   width: "100%",
   padding: "10px",

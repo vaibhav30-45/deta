@@ -28,82 +28,168 @@ const Techslider = () => {
   }, []);
 
   const techData = [
-    {
-      id: "cat-frontend",
-      isCategory: true,
-      icon: <FaCode />,
-      name: "Frontend",
-      tags: ["React", "Next.js", "HTML5 / CSS3", "TailwindCSS", "JavaScript", "TypeScript"]
-    },
-    {
-      id: "cat-backend",
-      isCategory: true,
-      icon: <FaServer />,
-      name: "Backend",
-      tags: ["Node.js", "Express.js", "Python", "Django", "NestJS", "RESTful APIs"]
-    },
-    {
-      id: "cat-databases",
-      isCategory: true,
-      icon: <FaDatabase />,
-      name: "Databases",
-      tags: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "DynamoDB", "Firebase"]
-    },
-    {
-      id: "cat-devops",
-      isCategory: true,
-      icon: <FaCloud />,
-      name: "DevOps & Cloud",
-      tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "CI/CD"]
-    },
-    {
-      id: 1,
-      icon: <FaRobot />,
-      name: "Artificial Intelligence",
-      description: "AI systems that can perform tasks requiring human intelligence."
-    },
-    {
-      id: 2,
-      icon: <FaLink />,
-      name: "Blockchain",
-      description: "Decentralized, distributed ledger technology for secure transactions."
-    },
-    {
-      id: 3,
-      icon: <FaCloud />,
-      name: "Cloud Computing",
-      description: "On-demand delivery of IT resources over the internet."
-    },
-    {
-      id: 4,
-      icon: <FaShieldAlt />,
-      name: "Cybersecurity",
-      description: "Protection of systems from digital attacks."
-    },
-    {
-      id: 5,
-      icon: <FaMobileAlt />,
-      name: "Mobile Development",
-      description: "Creating applications for mobile devices and platforms."
-    },
-    {
-      id: 6,
-      icon: <FaGlobe />,
-      name: "Web Development",
-      description: "Building and maintaining websites and web applications."
-    },
-    {
-      id: 7,
-      icon: <FaChartLine />,
-      name: "Data Science",
-      description: "Extracting insights from structured and unstructured data."
-    },
-    {
-      id: 8,
-      icon: <TbDeviceMobileCog />,
-      name: "Internet of Things",
-      description: "Network of physical objects embedded with sensors and software."
-    }
+    // {
+    //   id: "cat-frontend",
+    //   isCategory: true,
+    //   icon: <FaCode />,
+    //   name: "Frontend",
+    //   tags: ["React", "Next.js", "HTML5 / CSS3", "TailwindCSS", "JavaScript", "TypeScript"]
+    // },
+    // {
+    //   id: "cat-backend",
+    //   isCategory: true,
+    //   icon: <FaServer />,
+    //   name: "Backend",
+    //   tags: ["Node.js", "Express.js", "Python", "Django", "NestJS", "RESTful APIs"]
+    // },
+    // {
+    //   id: "cat-databases",
+    //   isCategory: true,
+    //   icon: <FaDatabase />,
+    //   name: "Databases",
+    //   tags: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "DynamoDB", "Firebase"]
+    // },
+    // {
+    //   id: "cat-devops",
+    //   isCategory: true,
+    //   icon: <FaCloud />,
+    //   name: "DevOps & Cloud",
+    //   tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "CI/CD"]
+    // },
+    // {
+    //   id: 1,
+    //   icon: <FaRobot />,
+    //   name: "Artificial Intelligence",
+    //   description: "AI systems that can perform tasks requiring human intelligence."
+    // },
+    // {
+    //   id: 2,
+    //   icon: <FaLink />,
+    //   name: "Blockchain",
+    //   description: "Decentralized, distributed ledger technology for secure transactions."
+    // },
+    // {
+    //   id: 3,
+    //   icon: <FaCloud />,
+    //   name: "Cloud Computing",
+    //   description: "On-demand delivery of IT resources over the internet."
+    // },
+    // {
+    //   id: 4,
+    //   icon: <FaShieldAlt />,
+    //   name: "Cybersecurity",
+    //   description: "Protection of systems from digital attacks."
+    // },
+    // {
+    //   id: 5,
+    //   icon: <FaMobileAlt />,
+    //   name: "Mobile Development",
+    //   description: "Creating applications for mobile devices and platforms."
+    // },
+    // {
+    //   id: 6,
+    //   icon: <FaGlobe />,
+    //   name: "Web Development",
+    //   description: "Building and maintaining websites and web applications."
+    // },
+    // {
+    //   id: 7,
+    //   icon: <FaChartLine />,
+    //   name: "Data Science",
+    //   description: "Extracting insights from structured and unstructured data."
+    // },
+    // {
+    //   id: 8,
+    //   icon: <TbDeviceMobileCog />,
+    //   name: "Internet of Things",
+    //   description: "Network of physical objects embedded with sensors and software."
+    // }
+    
+  {
+    id: "cat-frontend",
+    isCategory: true,
+    icon: <FaCode />,
+    name: "Frontend",
+    tags: ["React", "Next.js", "HTML5 / CSS3", "TailwindCSS", "JavaScript", "TypeScript"]
+  },
+  {
+    id: "cat-backend",
+    isCategory: true,
+    icon: <FaServer />,
+    name: "Backend",
+    tags: ["Node.js", "Express.js", "Python", "Django", "NestJS", "RESTful APIs"]
+  },
+  {
+    id: "cat-databases",
+    isCategory: true,
+    icon: <FaDatabase />,
+    name: "Databases",
+    tags: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "DynamoDB", "Firebase"]
+  },
+  {
+    id: "cat-devops",
+    isCategory: true,
+    icon: <FaCloud />,
+    name: "DevOps & Cloud",
+    tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "CI/CD"]
+  },
+  {
+    id: 1,
+    isCategory: true,
+    icon: <FaRobot />,
+    name: "Artificial Intelligence",
+    tags: ["Machine Learning", "Deep Learning", "NLP", "Python", "TensorFlow", "OpenAI"]
+  },
+  {
+    id: 2,
+    isCategory: true,
+    icon: <FaLink />,
+    name: "Blockchain",
+    tags: ["Ethereum", "Solidity", "Smart Contracts", "Web3.js", "Cryptography", "Hyperledger"]
+  },
+  {
+    id: 3,
+    isCategory: true,
+    icon: <FaCloud />,
+    name: "Cloud Computing",
+    tags: ["AWS", "Azure", "Google Cloud", "Serverless", "S3", "EC2"]
+  },
+  {
+    id: 4,
+    isCategory: true,
+    icon: <FaShieldAlt />,
+    name: "Cybersecurity",
+    tags: ["Ethical Hacking", "Penetration Testing", "Network Security", "Cryptography", "IAM", "OWASP"]
+  },
+  {
+    id: 5,
+    isCategory: true,
+    icon: <FaMobileAlt />,
+    name: "Mobile Development",
+    tags: ["React Native", "Flutter", "Swift", "Kotlin", "iOS", "Android"]
+  },
+  {
+    id: 6,
+    isCategory: true,
+    icon: <FaGlobe />,
+    name: "Web Development",
+    tags: ["HTML5", "CSS3", "JavaScript", "Fullstack", "MERN Stack", "Jamstack"]
+  },
+  {
+    id: 7,
+    isCategory: true,
+    icon: <FaChartLine />,
+    name: "Data Science",
+    tags: ["Python", "R Programming", "Pandas / NumPy", "Data Visualization", "Tableau", "Statistics"]
+  },
+  {
+    id: 8,
+    isCategory: true,
+    icon: <TbDeviceMobileCog />,
+    name: "Internet of Things",
+    tags: ["Arduino", "Raspberry Pi", "Sensors", "MQTT", "Embedded C", "Firmware"]
+  }
+
   ];
 
   const duplicatedSlides = [...techData, ...techData];

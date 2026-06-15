@@ -229,7 +229,7 @@ const Home = () => {
       </section>
 
       {/* 4. WHY CHOOSE US SECTION */}
-      <section className="why-choose-section-new" id="why-choose-us">
+      {/* <section className="why-choose-section-new" id="why-choose-us">
         <div className="section-header-new">
           <span className="section-subtitle-new">Why Choose <span className="highlight-blue">Detagenix?</span></span>
           <h2>Why Partner with Detagenix?</h2>
@@ -281,6 +281,72 @@ const Home = () => {
             <div className="feature-text">
               <h3>On-Time Delivery</h3>
               <p>We respect your timelines and deliver projects on schedule without compromising quality.</p>
+            </div>
+          </div>
+        </div>
+      </section> */}
+      <section className="why-choose-section-new" id="why-choose-us">
+        <div className="section-header-new">
+          <span className="section-subtitle-new">Why Choose <span className="highlight-blue">Detagenix?</span></span>
+          <h2>Why Partner with Detagenix?</h2>
+          <p className="section-desc">
+            We bring a unique blend of industry expertise, modern tech stack, and customer commitment.
+          </p>
+        </div>
+
+        <div className="why-choose-grid-new">
+          {/* Left Column */}
+          <div className="why-choose-left">
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaChartBar size={24} /></div>
+              <div className="feature-text">
+                <h3>Business-Driven Solutions</h3>
+                <p>Technology aligned with your business goals.</p>
+              </div>
+            </div>
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaUsers size={24} /></div>
+              <div className="feature-text">
+                <h3>Experienced Team</h3>
+                <p>Skilled professionals across multiple technologies.</p>
+              </div>
+            </div>
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaProjectDiagram size={24} /></div>
+              <div className="feature-text">
+                <h3>Transparent Process</h3>
+                <p>Clear communication and project visibility.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Image */}
+          <div className="why-choose-center">
+            <img src={receptionImage} alt="Detagenix Office Desk" className="center-reception-image" />
+          </div>
+
+          {/* Right Column */}
+          <div className="why-choose-right">
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaLaptopCode size={24} /></div>
+              <div className="feature-text">
+                <h3>End-to-End Development</h3>
+                <p>From concept to deployment and support.</p>
+              </div>
+            </div>
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaServer size={24} /></div>
+              <div className="feature-text">
+                <h3>Scalable Architecture</h3>
+                <p>Solutions built for future growth.</p>
+              </div>
+            </div>
+            <div className="choose-feature-card">
+              <div className="feature-icon"><FaHeart size={24} /></div>
+              <div className="feature-text">
+                <h3>Long-Term Partnership</h3>
+                <p>Ongoing support beyond project delivery.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -351,12 +417,12 @@ const Home = () => {
           </div>
           <div className="stat-card-new">
             <div className="stat-icon-box-new"><FaGraduationCap size={24} /></div>
-            <h2>100+</h2>
+            <h2>94+</h2>
             <p>Interns Trained</p>
           </div>
           <div className="stat-card-new">
             <div className="stat-icon-box-new"><FaSmile size={24} /></div>
-            <h2>100%</h2>
+            <h2>95%</h2>
             <p>Client Satisfaction</p>
           </div>
           <div className="stat-card-new">
