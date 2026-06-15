@@ -790,6 +790,10 @@
     gap: 12px;
     padding: 0 10px;
   }
+  .hero-video-section-new {
+    height: 60vh;
+  }
+
    .service-card-new {
     padding: 15px 12px;
     border-radius: 10px;
@@ -1153,6 +1157,24 @@
   
 }
 @media (max-width: 480px) {
+
+   .hero-video-section-new {
+    height: 45vh;
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .hero-background-video-new {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
 
   .hero-content-new h1 {
     font-size: 1.5rem;
