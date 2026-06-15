@@ -261,6 +261,7 @@
 // export default About;
 import React, { useEffect } from "react";
 import "./Aboutus.css";
+import SEO from "../../components/SEO"
 
 function About() {
    useEffect(() => {
@@ -343,7 +344,14 @@ function About() {
   }, []);
 
   return (
+    
     <div className="about-section">
+      <SEO
+  title="About Us | Detagenix"
+  description="Learn about Detagenix, our mission, vision, and expertise in web development, mobile app development, software solutions, and digital transformation services."
+  keywords="About Detagenix, software company, web development company, mobile app development, IT solutions, digital transformation"
+  canonical="https://unique-moxie-9ac77b.netlify.app/about"
+/>
      
       <section className="about-intro container text-center fade-up">
         <h1 className="section-title">Detagenix: Driving Innovation and Digital Excellence</h1>

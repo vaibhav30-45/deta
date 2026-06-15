@@ -10,6 +10,7 @@ import {
   FaPaperPlane
 } from "react-icons/fa";
 import "./Contactus.css";
+import SEO from "../../components/SEO";
 
 function Contactus() {
   const [formData, setFormData] = useState({
@@ -48,6 +49,12 @@ function Contactus() {
 
   return (
     <section className="contact-section-dark">
+      <SEO
+  title="Contact Us | Detagenix"
+  description="Get in touch with Detagenix for web development, mobile applications, AI solutions, cloud services, and digital transformation consulting."
+  keywords="Contact Detagenix, Software Development Consultation, IT Services Contact, Web Development Company"
+  canonical="https://unique-moxie-9ac77b.netlify.app/contact"
+/>
       <div className="container contact-container">
         {/* Header Block */}
         <div className="contact-header text-center">

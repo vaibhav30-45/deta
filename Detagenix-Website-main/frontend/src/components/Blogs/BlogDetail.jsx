@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { blogsData as fallbackBlogs } from "../../data/blogsData";
 import { Editor } from "@tinymce/tinymce-react";
+import SEO from "../../components/SEO";
 import "./BlogDetail.css";
 
 const BlogDetail = () => {
@@ -96,6 +97,12 @@ const BlogDetail = () => {
 
   return (
     <div className="blog-detail-container">
+      <SEO
+  title={blog.title}
+  description={blog.excerpt}
+  keywords={blog.tags?.join(",")}
+  canonical={`https://unique-moxie-9ac77b.netlify.app/blog/${blog.slug}`}
+/>
       {error && <p className="blog-detail-status warning">{error}</p>}
 
       <img

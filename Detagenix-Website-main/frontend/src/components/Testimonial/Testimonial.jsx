@@ -37,7 +37,7 @@ const Testimonial = () => {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/testimonials")
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/testimonials`)
       .then((res) => {
         if (!res.ok) throw new Error("HTTP error");
         return res.json();

@@ -326,6 +326,7 @@ import Servicecard from "../../components/ServicePage/ServiceCard/Servicecard";
 import servicespageData from "../../data/servicespageData";
 import ServiceModal from "../../components/ServicePage/ServiceModal";
 import BookServiceForm from "../../components/ServicePage/BookServiceForm";
+import SEO from "../../components/SEO";
 import axios from "axios";
 import "./Service.css";
 
@@ -378,6 +379,12 @@ const Service = () => {
 
   return (
     <section className="services-section service-page">
+      <SEO
+  title="Our Services | Detagenix"
+  description="Explore our web development, mobile app development, AI, cloud solutions, blockchain, cybersecurity, and digital transformation services."
+  keywords="web development services, mobile app development, AI development, cloud solutions, blockchain development, cybersecurity services"
+  canonical="https://unique-moxie-9ac77b.netlify.app/services"
+/>
       <div className="services-header">
           <button
       className="book-btn-mobile"

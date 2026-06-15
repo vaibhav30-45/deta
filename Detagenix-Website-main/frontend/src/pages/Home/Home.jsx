@@ -8,6 +8,7 @@ import receptionImage from "../../asset/detagenix.jpeg";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
+import SEO from "../../components/SEO"
 import { createPortal } from "react-dom";
 import {
   FaCode,
@@ -31,6 +32,9 @@ import {
 } from "react-icons/fa";
 
 const Home = () => {
+  const BASE_URL =
+  process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
   const navigate = useNavigate();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -55,7 +59,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/enquiry", {
+      const response = await fetch(`${BASE_URL}/api/enquiry`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,6 +106,14 @@ const Home = () => {
 
   return (
     <>
+    {/* SEO */}
+    <SEO
+        title="Detagenix | Web Development, Mobile Apps & Digital Solutions"
+        description="Detagenix delivers custom web development, mobile app development, UI/UX design, cloud solutions, and digital transformation services for businesses."
+        keywords="Detagenix, web development company, mobile app development, software development, MERN stack, React development, digital solutions"
+        canonical="https://unique-moxie-9ac77b.netlify.app/"
+      />
+
       {/* 1. HERO SECTION (Full Background Video) */}
       <section className="hero-video-section-new">
         <video
