@@ -339,12 +339,12 @@ const Home = () => {
           </div>
           <div className="stat-card-new">
             <div className="stat-icon-box-new"><FaGraduationCap size={24} /></div>
-            <h2>100+</h2>
+            <h2>94+</h2>
             <p>Interns Trained</p>
           </div>
           <div className="stat-card-new">
             <div className="stat-icon-box-new"><FaSmile size={24} /></div>
-            <h2>100%</h2>
+            <h2>95%</h2>
             <p>Client Satisfaction</p>
           </div>
           <div className="stat-card-new">
