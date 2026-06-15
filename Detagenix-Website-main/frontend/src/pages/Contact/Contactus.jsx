@@ -92,7 +92,7 @@ function Contactus() {
                   </div>
                   <div className="info-text">
                     <strong>WhatsApp</strong>
-                    <span>+91-7489834717</span>
+                    <span>+91 9407552249</span>
                   </div>
                 </li>
 
@@ -102,7 +102,7 @@ function Contactus() {
                   </div>
                   <div className="info-text">
                     <strong>Call Us</strong>
-                    <span>+91 8607997261 || +91 7489834717</span>
+                    <span>+91 8607997261 || +91 8602219118</span>
                   </div>
                 </li>
               </ul>
