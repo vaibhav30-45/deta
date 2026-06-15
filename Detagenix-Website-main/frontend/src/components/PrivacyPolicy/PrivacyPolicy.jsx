@@ -102,7 +102,7 @@
 
 import React, { useEffect } from "react";
 import "./PrivacyPolicy.css";
-import { useEffect } from "react"; 
+
 import SEO from "../../components/SEO"; 
 
 const PrivacyPolicy = () => {

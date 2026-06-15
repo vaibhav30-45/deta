@@ -8,7 +8,7 @@
   flex-direction: column;
     justify-content: space-between;
 
-    min-height: 280px; /*add */
+    height: 450px; /*add */
   align-items: center;
   gap: 0.5rem;
   padding: 18px;
@@ -32,16 +32,38 @@
   justify-content: center;
 
 }
+.hide-scrollbar {
+    /* Chrome, Safari aur Opera ke liye */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Firefox ke liye */
+    scrollbar-width: none;
+
+    /* IE aur Edge ke liye */
+    -ms-overflow-style: none; 
+}
 .service-card-content p {
   color: #ffffff;
 line-height: 1.5;
  font-size: 0.95rem;
   font-weight: 500;
-
+  height: 100px;
   display: -webkit-box;
   -webkit-line-clamp: 4; /* max 4 lines */
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: scroll;
+   &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Firefox ke liye */
+    scrollbar-width: none;
+
+    /* IE aur Edge ke liye */
+    -ms-overflow-style: none; 
+
 }
 .service-card img {
   width: 100%;
