@@ -12,9 +12,11 @@ const ServiceModal = ({ service, onClose, openForm }) => {
           width: "100%",
         }}
       >
-        <button className="close-btn" onClick={onClose}>
-          ×
-        </button>
+        <div className="modal-header">
+          <button className="close-btn" onClick={onClose}>
+            ×
+          </button>
+        </div>
 
         {/* <img src={service.icon} className="modal-icon" /> */}
 

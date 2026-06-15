@@ -82,7 +82,7 @@ function Contactus() {
                   </div>
                   <div className="info-text">
                     <strong>Email Us</strong>
-                    <span>hr@detagenix.com</span>
+                    <span>support@detagenix.com</span>
                   </div>
                 </li>
 
@@ -131,11 +131,12 @@ function Contactus() {
               <div className="map-container-dark">
                 <iframe
                   title="Detagenix Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.185020692897!2d75.90306007349591!3d22.72136342750494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e2cc1c37e2c1%3A0x88be41cfe5eb3331!2sRupal%20Regency!5e0!3m2!1sen!2sin!4v1762178512148!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1840.4123272785805!2d75.87808994999999!3d22.6975705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e3000e622ab1%3A0xa9b963be13c6abb3!2sDetagenix!5e0!3m2!1sen!2sin!4v1781515252298!5m2!1sen!2sin   "
                   allowFullScreen=""
                   loading="lazy"
                 ></iframe>
               </div>
+  
             </div>
           </div>
 
