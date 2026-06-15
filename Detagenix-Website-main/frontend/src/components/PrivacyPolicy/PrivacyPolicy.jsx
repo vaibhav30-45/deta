@@ -1,6 +1,7 @@
 import React from "react";
 import "./PrivacyPolicy.css";
-import { useEffect } from "react";  
+import { useEffect } from "react"; 
+import SEO from "../../components/SEO"; 
 
 const PrivacyPolicy = () => {
        useEffect(() => {
@@ -8,6 +9,12 @@ const PrivacyPolicy = () => {
     }, []);
   return (
     <div className="privacy-container">
+      <SEO
+  title="Privacy Policy | Detagenix"
+  description="Read Detagenix's Privacy Policy to understand how we collect, use, protect, and manage your personal information."
+  keywords="Privacy Policy, Data Protection, User Privacy, Detagenix Privacy"
+  canonical="https://unique-moxie-9ac77b.netlify.app/privacy-policy"
+/>
       <h1>Privacy Policy</h1>
       <p className="intro">
         At <strong>DETAGenix</strong>, we value your privacy and are committed to protecting your personal

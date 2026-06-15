@@ -165,6 +165,7 @@ import manufacturingImage from "../../asset/industries/manufacturing.jpg";
 import realestateImage from "../../asset/industries/realestate.webp";
 import telecomImage from "../../asset/industries/telecom.jpg";
 import transportImage from "../../asset/industries/transport.jpg";  
+import SEO from "../../components/SEO";
 
 
 import {
@@ -347,6 +348,12 @@ useEffect(() => {
 
   return (
     <div className="industries-page">
+      <SEO
+  title="Industries We Serve | Detagenix"
+  description="Detagenix delivers innovative software solutions across healthcare, finance, education, retail, logistics, manufacturing, and other industries."
+  keywords="Healthcare Software, Fintech Solutions, Education Technology, Retail Software, Logistics Solutions, Industry Software Development"
+  canonical="https://unique-moxie-9ac77b.netlify.app/industries"
+/>
       <div className="container text-center fade-up">
         <h1 className="section-title">Industries We Serve</h1>
         <p className="lead">

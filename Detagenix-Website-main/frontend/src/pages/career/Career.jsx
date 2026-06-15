@@ -10,6 +10,7 @@ import {
   FaShareAlt
 } from "react-icons/fa";
 import "./Career.css";
+import SEO from "../../components/SEO";
 
 function Careers() {
   const [openings, setOpenings] = useState([]);
@@ -214,6 +215,12 @@ function Careers() {
 
   return (
     <main className="careers-page">
+      <SEO
+  title="Careers at Detagenix | Join Our Team"
+  description="Explore exciting career opportunities at Detagenix. Join our team of innovators in software development, AI, cloud computing, and digital transformation."
+  keywords="Detagenix Careers, Software Developer Jobs, React Developer Jobs, IT Careers, Technology Jobs"
+  canonical="https://unique-moxie-9ac77b.netlify.app/careers"
+/>
       {/* Hero Section */}
       <header className="care-hero care-fade">
         <div className="container hero-container">

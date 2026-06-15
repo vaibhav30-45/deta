@@ -1,5 +1,6 @@
 import React from "react";
 import BlogDetail from "../../components/Blogs/BlogDetail.jsx";
+
 import { useEffect } from "react";
 
 const BlogDetailPage = () => {
@@ -8,6 +9,8 @@ const BlogDetailPage = () => {
    }, []);
   return (
     <div style={{ paddingTop: "30px" }}>
+
+
       <BlogDetail />
     </div>
   );
