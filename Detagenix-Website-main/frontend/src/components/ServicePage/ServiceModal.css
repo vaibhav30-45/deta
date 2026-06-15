@@ -12,10 +12,9 @@
 
 /* Modal Box */
 .modal-content {
-  background: #ffffff !important;   
+  background: #eae4e4 !important;   
   backdrop-filter: none !important; 
   opacity: 1 !important;            
-
   width: 85%;        
   max-width: 420px; 
   
@@ -85,7 +84,7 @@
 }
 
 .modal-desc {
-  color: #262525;
+  color: #0f0d0d;
   margin-bottom: 20px;
   line-height: 1.6;
 }
