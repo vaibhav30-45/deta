@@ -17,7 +17,7 @@ export const applyToJob = async (req, res) => {
       email,
       role,
       message,
-      resumeUrl: `/uploads/${req.file.filename}`,
+      resumeUrl: req.file.path,
     });
 
     return res.status(201).json({

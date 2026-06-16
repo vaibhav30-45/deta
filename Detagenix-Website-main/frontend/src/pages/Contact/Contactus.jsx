@@ -53,7 +53,7 @@ function Contactus() {
   title="Contact Us | Detagenix"
   description="Get in touch with Detagenix for web development, mobile applications, AI solutions, cloud services, and digital transformation consulting."
   keywords="Contact Detagenix, Software Development Consultation, IT Services Contact, Web Development Company"
-  canonical="https://unique-moxie-9ac77b.netlify.app/contact"
+  canonical="https://detagenix.com/contact"
 />
       <div className="container contact-container">
         {/* Header Block */}

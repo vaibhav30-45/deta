@@ -559,14 +559,27 @@
     max-height: 95vh;
   }
 
+  @media (max-width: 868px) {
+  .modal-container-two-col {
+    flex-direction: column;
+    max-width: 500px;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
   .modal-left-panel {
-    display: none;
-    /* Hide left panel on smaller tablets to keep sizes perfect */
+    display: block;
+    padding: 25px 20px;
   }
 
   .modal-right-panel {
-    padding: 35px 25px;
+    padding: 25px 20px;
   }
+}
+
+  /* .modal-right-panel {
+    padding: 35px 25px;
+  } */
 
   .close-btn {
     top: 15px;

@@ -8,6 +8,7 @@ import receptionImage from "../../asset/detagenix.jpeg";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
+import axios from "axios";
 import SEO from "../../components/SEO"
 import { createPortal } from "react-dom";
 import {
@@ -34,6 +35,9 @@ import {
 const Home = () => {
   const BASE_URL =
   process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+
+  const [latestBlogs, setLatestBlogs] = useState([]);
+const [blogLoading, setBlogLoading] = useState(true);
 
   const navigate = useNavigate();
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -93,6 +97,37 @@ const Home = () => {
   };
 
   useEffect(() => {
+  const fetchLatestBlogs = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/blogs`);
+       console.log("API Response:", res.data);
+
+      let data = res.data;
+
+      if (!data) data = [];
+
+      if (!Array.isArray(data) && data.value && Array.isArray(data.value)) {
+        data = data.value;
+      }
+
+      const sortedBlogs = [...data].sort((a, b) => {
+        const dateA = new Date(a.createdAt || a.date || 0);
+        const dateB = new Date(b.createdAt || b.date || 0);
+        return dateB - dateA;
+      });
+
+      setLatestBlogs(sortedBlogs.slice(0, 3)); // Latest 3 blogs
+    } catch (error) {
+      console.error("Failed to fetch latest blogs:", error);
+    } finally {
+      setBlogLoading(false);
+    }
+  };
+
+  fetchLatestBlogs();
+}, [BASE_URL]);
+
+  useEffect(() => {
     if (isOpenForm) {
       document.body.style.overflow = "hidden";
     } else {
@@ -111,7 +146,7 @@ const Home = () => {
         title="Detagenix | Web Development, Mobile Apps & Digital Solutions"
         description="Detagenix delivers custom web development, mobile app development, UI/UX design, cloud solutions, and digital transformation services for businesses."
         keywords="Detagenix, web development company, mobile app development, software development, MERN stack, React development, digital solutions"
-        canonical="https://unique-moxie-9ac77b.netlify.app/"
+        canonical="https://detagenix.com/"
       />
 
       {/* 1. HERO SECTION (Full Background Video) */}
@@ -170,7 +205,7 @@ const Home = () => {
       {/* 3. SERVICES SECTION */}
       <section className="services-section-new" id="services">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Our <span className="highlight-blue">Services</span></span>
+          {/* <span className="section-subtitle-new">Our <span className="highlight-blue">Services</span></span> */}
           <h2>Custom Solutions for Your Business Needs</h2>
           <p className="section-desc">
             We deliver cutting-edge software solutions to help your business grow and succeed in the digital era.
@@ -229,65 +264,10 @@ const Home = () => {
       </section>
 
       {/* 4. WHY CHOOSE US SECTION */}
-      {/* <section className="why-choose-section-new" id="why-choose-us">
-        <div className="section-header-new">
-          <span className="section-subtitle-new">Why Choose <span className="highlight-blue">Detagenix?</span></span>
-          <h2>Why Partner with Detagenix?</h2>
-          <p className="section-desc">
-            We bring a unique blend of industry expertise, modern tech stack, and customer commitment.
-          </p>
-        </div>
-
-        <div className="why-choose-grid-new">
-          <div className="why-choose-left">
-            <div className="choose-feature-card">
-              <div className="feature-icon"><FaUsers size={24} /></div>
-              <div className="feature-text">
-                <h3>Expert Team</h3>
-                <p>Our team comprises seasoned engineers, designers, and consultants specialized in MERN and AI/ML.</p>
-              </div>
-            </div>
-            <div className="choose-feature-card">
-              <div className="feature-icon"><FaCheckCircle size={24} /></div>
-              <div className="feature-text">
-                <h3>Quality Assurance</h3>
-                <p>We deploy rigorous manual and automated QA tests before delivery to ensure bug-free deployment.</p>
-              </div>
-            </div>
-          </div>
-          <div className="why-choose-center">
-            <img src={receptionImage} alt="Detagenix Office Desk" className="center-reception-image" />
-          </div>
-          <div className="why-choose-right">
-            <div className="choose-feature-card">
-              <div className="feature-icon"><FaLaptopCode size={24} /></div>
-              <div className="feature-text">
-                <h3>Modern Tech Stack</h3>
-                <p>We use the latest tools, databases, and architectures to ensure your platforms are modern and scalable.</p>
-              </div>
-            </div>
-            <div className="choose-feature-card">
-              <div className="feature-icon"><FaHeadset size={24} /></div>
-              <div className="feature-text">
-                <h3>24/7 Support</h3>
-                <p>Our support lines are open round-the-clock for incident management and client consultations.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="why-choose-bottom-new">
-          <div className="choose-feature-card centered">
-            <div className="feature-icon"><FaClock size={24} /></div>
-            <div className="feature-text">
-              <h3>On-Time Delivery</h3>
-              <p>We respect your timelines and deliver projects on schedule without compromising quality.</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
+     
       <section className="why-choose-section-new" id="why-choose-us">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Why Choose <span className="highlight-blue">Detagenix?</span></span>
+          {/* <span className="section-subtitle-new">Why Choose <span className="highlight-blue">Detagenix?</span></span> */}
           <h2>Why Partner with Detagenix?</h2>
           <p className="section-desc">
             We bring a unique blend of industry expertise, modern tech stack, and customer commitment.
@@ -355,7 +335,7 @@ const Home = () => {
       {/* 5. PROCESS / WORKFLOW SECTION */}
       <section className="process-section-new" id="process">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Our <span className="highlight-blue">Process / How We Work</span></span>
+          {/* <span className="section-subtitle-new">Our <span className="highlight-blue">Process / How We Work</span></span> */}
           <h2>A step-by-step approach to bringing your digital projects to life.</h2>
         </div>
 
@@ -391,7 +371,7 @@ const Home = () => {
       {/* 6. TECHNOLOGY STACK SECTION */}
       <section className="tech-stack-section-new" id="technology">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Our Technology <span className="highlight-blue">Stack</span></span>
+          {/* <span className="section-subtitle-new">Our Technology <span className="highlight-blue">Stack</span></span> */}
           <h2>Technologies We Specialize In</h2>
           <p className="section-desc">
             We leverage state-of-the-art frameworks and databases to build high-performance systems.
@@ -406,7 +386,7 @@ const Home = () => {
       {/* 7. IMPACT / STATS SECTION */}
       <section className="stats-section-new">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Our Impact in <span className="highlight-blue">Numbers</span></span>
+          {/* <span className="section-subtitle-new">Our Impact in <span className="highlight-blue">Numbers</span></span> */}
           <h2>Numbers That Define Us</h2>
         </div>
         <div className="stats-grid-new">
@@ -511,57 +491,59 @@ const Home = () => {
       {/* 8.5. BLOG SECTION */}
       <section className="projects-section-new" id="blog">
         <div className="section-header-new">
-          <span className="section-subtitle-new">Our <span className="highlight-blue">Blog</span></span>
+          {/* <span className="section-subtitle-new">Our <span className="highlight-blue">Blog</span></span> */}
           <h2>Insights and News</h2>
           <p className="section-desc">Stay updated with the latest trends in technology, digital transformation, and software engineering.</p>
         </div>
 
-        <div className="projects-grid-new">
-          <div className="project-card-new">
-            <div className="project-image-box-new">
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="The Future of AI in Enterprise" />
-            </div>
-            <div className="project-content-new">
-              <h3>The Future of AI in Enterprise</h3>
-              <p>Explore how Artificial Intelligence and Large Language Models are automating workflows and reshaping modern businesses.</p>
-              <div className="project-tech-tags-new">
-                <span>AI/ML</span>
-                <span>Innovation</span>
-              </div>
-              <a href="/blog" className="project-link-new">Read Article →</a>
-            </div>
-          </div>
-
-          <div className="project-card-new">
-            <div className="project-image-box-new">
-              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop" alt="Cloud Migration Strategies" />
-            </div>
-            <div className="project-content-new">
-              <h3>Cloud Migration Strategies</h3>
-              <p>A comprehensive guide on transitioning legacy systems to scalable cloud-native architectures with zero downtime.</p>
-              <div className="project-tech-tags-new">
-                <span>Cloud</span>
-                <span>DevOps</span>
-              </div>
-              <a href="/blog" className="project-link-new">Read Article →</a>
-            </div>
-          </div>
-
-          <div className="project-card-new">
-            <div className="project-image-box-new">
-              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop" alt="Securing Web Applications" />
-            </div>
-            <div className="project-content-new">
-              <h3>Securing Web Applications</h3>
-              <p>Top 10 cybersecurity best practices every developer must know to protect enterprise data and prevent breaches.</p>
-              <div className="project-tech-tags-new">
-                <span>Security</span>
-                <span>Web Dev</span>
-              </div>
-              <a href="/blog" className="project-link-new">Read Article →</a>
-            </div>
-          </div>
+       <div className="projects-grid-new">
+  {blogLoading ? (
+    <p>Loading latest blogs...</p>
+  ) : latestBlogs.length > 0 ? (
+    latestBlogs.map((blog) => (
+      
+      <div
+    
+        className="project-card-new"
+        key={blog._id || blog.id || blog.slug}
+      >
+        <div className="project-image-box-new">
+         <img
+  src={blog.bannerImage || blog.coverImage || blog.image}
+  alt={blog.title}
+/>
         </div>
+
+        <div className="project-content-new">
+          <h3>{blog.title}</h3>
+
+<p>
+  {blog.content
+    ?.replace(/<[^>]*>/g, "") // HTML tags remove
+    .replace(/&nbsp;/g, " ")  // &nbsp; remove
+    .substring(0, 120) + "..."}
+</p>
+          <div className="project-tech-tags-new">
+            {blog.tags?.slice(0, 2).map((tag, index) => (
+              <span key={index}>{tag}</span>
+            ))}
+          </div>
+
+          <button
+            className="project-link-new"
+            onClick={() =>
+              navigate(`/blog/${blog.slug || blog._id}`)
+            }
+          >
+            Read Article →
+          </button>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No blogs available.</p>
+  )}
+</div>
 
         <div className="projects-action-new">
           <button onClick={() => navigate("/blog")} className="btn-primary-new">
@@ -573,7 +555,7 @@ const Home = () => {
       {/* 9. TESTIMONIALS SECTION */}
       <section className="testimonials-section-new" id="testimonials">
         <div className="section-header-new">
-          <span className="section-subtitle-new">What Our <span className="highlight-blue">Clients Say</span></span>
+          {/* <span className="section-subtitle-new">What Our <span className="highlight-blue">Clients Say</span></span> */}
           <h2>Feedback from our trusted corporate partners.</h2>
         </div>
         <Testimonial />
