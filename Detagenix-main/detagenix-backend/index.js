@@ -1,6 +1,9 @@
 // index.js
-import express from "express";
 import dotenv from "dotenv";
+
+dotenv.config();
+import express from "express";
+// import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
@@ -14,7 +17,7 @@ import blogServiceRoutes from "./src/routes/blogServiceRoutes.js";
 import testimonialRoutes from "./src/routes/testimonialRoutes.js";
 import enquiryRoutes from "./src/routes/enquiryRoutes.js";
 
-dotenv.config();
+// dotenv.config();
 connectDB();
 
 const app = express();

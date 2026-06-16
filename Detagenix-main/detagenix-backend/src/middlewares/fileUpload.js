@@ -31,7 +31,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "detagenix-resumes",
-    resource_type: "auto",
+    resource_type: "raw",
     allowed_formats: ["pdf", "doc", "docx"],
   },
 });
@@ -61,5 +61,5 @@ const upload = multer({
   fileFilter,
 });
 
-
+console.log("Cloudinary:", cloudinary.config());
 export default upload;
