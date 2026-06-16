@@ -16,6 +16,7 @@ function Careers() {
   const [openings, setOpenings] = useState([]);
   const [loadingJobs, setLoadingJobs] = useState(true);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [selectedJob, setSelectedJob] = useState(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -85,9 +86,13 @@ function Careers() {
             desc: job.description,
           }));
           setOpenings(transformedJobs);
+          if (transformedJobs.length > 0) {
+  setSelectedJob(transformedJobs[0]);
+}
         }
       } else {
         setOpenings(fallbackJobs);
+        setSelectedJob(fallbackJobs[0]);
       }
     } catch (error) {
       console.error("Error fetching jobs, using fallback:", error);
@@ -200,6 +205,7 @@ function Careers() {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.message || "Upload failed");
       }
+      
 
       setSubmitted(true);
       setForm({ name: "", email: "", role: "", message: "" });
@@ -219,7 +225,7 @@ function Careers() {
   title="Careers at Detagenix | Join Our Team"
   description="Explore exciting career opportunities at Detagenix. Join our team of innovators in software development, AI, cloud computing, and digital transformation."
   keywords="Detagenix Careers, Software Developer Jobs, React Developer Jobs, IT Careers, Technology Jobs"
-  canonical="https://unique-moxie-9ac77b.netlify.app/careers"
+  canonical="https://detagenix.com/career"
 />
       {/* Hero Section */}
       <header className="care-hero care-fade">
@@ -290,56 +296,124 @@ function Careers() {
               <a href="#apply" className="btn btn-cyan mt-3">Submit Resume</a>
             </div>
           ) : (
-            <div className="row g-4">
-              {openings.map((job) => (
-                <div className="col-md-6" key={job.id}>
-                  <article className="job-card">
-                    <div className="job-head">
-                      <h3>{job.title}</h3>
-                      <span className="job-type-badge">{job.type}</span>
-                    </div>
-                    <p className="job-desc">{job.desc}</p>
-                    <div className="job-meta-row">
-                      <div className="job-meta-item">
-                        <FaMapMarkerAlt className="meta-icon" />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="job-meta-item">
-                        <FaClock className="meta-icon" />
-                        <span>{job.duration}</span>
-                      </div>
-                      <div className="job-meta-item">
-                        <FaDollarSign className="meta-icon" />
-                        <span>{job.stipend}</span>
-                      </div>
-                    </div>
-                    <div className="job-actions">
-                      {/* UI FIX START: Removed w-100 class to prevent flexbox layout breaking with the Share button */}
-                      <a
-                        href="#apply"
-                        className="btn btn-cyan btn-sm text-center flex-grow-1"
-                        onClick={() => setForm(f => ({ ...f, role: job.title }))}
-                      >
-                        Apply Now
-                      </a>
-                      {/* UI FIX END */}
-                      <button
-                        className="btn btn-outline-share btn-sm"
-                        title="Copy Application Info"
-                        onClick={() => {
-                          navigator.clipboard?.writeText(
-                            `I'm interested in the ${job.title} role at Detagenix. Check it out!`
-                          );
-                          alert("Link info copied to clipboard!");
-                        }}
-                      >
-                        <FaShareAlt /> Share
-                      </button>
-                    </div>
-                  </article>
-                </div>
-              ))}
+            <div className="career-layout">
+
+  {/* LEFT SIDE JOBS */}
+  <div className="jobs-sidebar">
+
+    {openings.map((job) => (
+      <div
+        key={job.id}
+        className={`job-item ${
+          selectedJob?.id === job.id ? "active" : ""
+        }`}
+        onClick={() => setSelectedJob(job)}
+      >
+        <h4>{job.title}</h4>
+
+        <p>
+          <FaMapMarkerAlt /> {job.location}
+        </p>
+
+        <p>
+          <FaClock /> {job.duration}
+        </p>
+      </div>
+    ))}
+
+  </div>
+
+  {/* RIGHT SIDE DETAILS */}
+  <div className="job-details">
+
+    {selectedJob && (
+      <>
+        <div className="job-header-sticky">
+
+          <div>
+            <h2>{selectedJob.title}</h2>
+
+            <div className="details-meta">
+              <span>{selectedJob.location}</span>
+              <span>{selectedJob.type}</span>
+              <span>{selectedJob.stipend}</span>
             </div>
+          </div>
+
+          <a
+            href="#apply"
+            className="btn btn-cyan"
+            onClick={() =>
+              setForm((f) => ({
+                ...f,
+                role: selectedJob.title,
+              }))
+            }
+          >
+            Apply Now
+          </a>
+
+        </div>
+
+        <div className="job-description">
+          {selectedJob.desc}
+        </div>
+      </>
+    )}
+
+  </div>
+
+</div>
+            // <div className="row g-4">
+            //   {openings.map((job) => (
+            //     <div className="col-md-6" key={job.id}>
+            //       <article className="job-card">
+            //         <div className="job-head">
+            //           <h3>{job.title}</h3>
+            //           <span className="job-type-badge">{job.type}</span>
+            //         </div>
+            //         <p className="job-desc">{job.desc}</p>
+            //         <div className="job-meta-row">
+            //           <div className="job-meta-item">
+            //             <FaMapMarkerAlt className="meta-icon" />
+            //             <span>{job.location}</span>
+            //           </div>
+            //           <div className="job-meta-item">
+            //             <FaClock className="meta-icon" />
+            //             <span>{job.duration}</span>
+            //           </div>
+            //           <div className="job-meta-item">
+            //             <FaDollarSign className="meta-icon" />
+            //             <span>{job.stipend}</span>
+            //           </div>
+            //         </div>
+            //         <div className="job-actions">
+            //           {/* UI FIX START: Removed w-100 class to prevent flexbox layout breaking with the Share button */}
+            //           <a
+            //             href="#apply"
+            //             className="btn btn-cyan btn-sm text-center flex-grow-1"
+            //             onClick={() => setForm(f => ({ ...f, role: job.title }))}
+            //           >
+            //             Apply Now
+            //           </a>
+            //           {/* UI FIX END */}
+            //           <button
+            //             className="btn btn-outline-share btn-sm"
+            //             title="Copy Application Info"
+            //             onClick={() => {
+            //               navigator.clipboard?.writeText(
+            //                 `I'm interested in the ${job.title} role at Detagenix. Check it out!`
+            //               );
+            //               alert("Link info copied to clipboard!");
+            //             }}
+            //           >
+            //             <FaShareAlt /> Share
+            //           </button>
+            //         </div>
+            //       </article>
+            //     </div>
+            //   ))}
+            // </div>
           )}
         </div>
       </section>

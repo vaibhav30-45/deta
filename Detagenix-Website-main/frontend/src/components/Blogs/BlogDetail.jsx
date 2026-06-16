@@ -101,7 +101,7 @@ const BlogDetail = () => {
   title={blog.title}
   description={blog.excerpt}
   keywords={blog.tags?.join(",")}
-  canonical={`https://unique-moxie-9ac77b.netlify.app/blog/${blog.slug}`}
+  canonical={`https://detagenix.com/blog/${blog.slug}`}
 />
       {error && <p className="blog-detail-status warning">{error}</p>}
 

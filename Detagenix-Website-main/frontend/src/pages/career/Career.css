@@ -13,6 +13,101 @@
   background: radial-gradient(circle at 10% 20%, rgba(0, 191, 255, 0.08) 0%, transparent 40%);
 }
 
+/* new fix */
+.career-layout{
+  display:grid;
+  grid-template-columns:350px 1fr;
+  gap:30px;
+  margin-top:40px;
+}
+
+/* LEFT SIDE */
+
+.jobs-sidebar{
+  background:#111827;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  overflow:hidden;
+  height:700px;
+  overflow-y:auto;
+}
+
+.job-item{
+  padding:20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.job-item:hover{
+  background:#1f2937;
+}
+
+.job-item.active{
+  border-left:4px solid #00bfff;
+  background:#122D41;
+}
+
+.job-item h4{
+  color:white;
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.job-item p{
+  color:#94a3b8;
+  margin:5px 0;
+}
+
+/* RIGHT SIDE */
+
+.job-details{
+  background:#111827;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  height:700px;
+  overflow-y:auto;
+}
+
+.job-header-sticky{
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px;
+
+  background:#111827;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.job-header-sticky h2{
+  color:white;
+  margin-bottom:10px;
+}
+
+.details-meta{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  color:#94a3b8;
+}
+
+.job-description{
+  padding:25px;
+  line-height:1.8;
+  color:#cbd5e1;
+  white-space:pre-wrap;
+}
+
+/* MOBILE */
+
+
+
+
 .hero-container {
   display: flex;
   align-items: center;
@@ -227,7 +322,7 @@
 
 /* Openings Section */
 .openings-section {
-  padding: 80px 20px;
+  padding: 8px 20px;
   background: transparent;
 }
 
@@ -403,7 +498,7 @@
 
 /* Apply Section */
 .apply-section {
-  padding: 100px 20px;
+  padding: 50px 20px;
   position: relative;
 }
 
@@ -429,6 +524,7 @@
 }
 
 .form-group {
+  
   margin-bottom: 22px;
   display: flex;
   flex-direction: column;
@@ -457,7 +553,20 @@
   box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.15);
   outline: none;
 }
+#message {
+  background: #fff;
+  color: #0f172a;
+}
 
+#message::placeholder {
+  color: #64748b;
+}
+
+#message:focus {
+  background: #fff;
+  color: #0f172a;
+  border-color: #00bfff;
+}
 .form-control::placeholder {
   color: #475569;
 }
@@ -735,6 +844,32 @@
   .apply-section .row {
     flex-direction: column;
   }
+     .career-layout{
+    grid-template-columns:1fr;
+  }
+
+  .jobs-sidebar{
+    height:350px;
+  }
+
+   .job-details{
+    height:85vh;          /* pehle 70vh tha */
+    min-height:650px;     /* card bada dikhega */
+    overflow-y:auto;      /* sticky ke liye zaroori */
+  }
+
+  .job-description{
+    min-height:500px;     /* content area bada */
+    padding:20px;
+  }
+
+  .job-header-sticky{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#111827;
+  }
+
 }
 
 @media (max-width: 576px) {
@@ -770,5 +905,13 @@
   .job-meta-row {
     flex-direction: column;
     gap: 10px;
+  }
+   .job-details{
+    min-height:650px;
+  }
+
+  .job-description{
+    min-height:500px;
+    font-size:14px;
   }
 }

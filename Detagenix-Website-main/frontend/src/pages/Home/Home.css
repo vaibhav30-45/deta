@@ -95,7 +95,15 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 120, 255, 0.4);
 }
-
+.project-link-new {
+  background: transparent;
+  border: none;
+  color: #00bfff;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 15px;
+}
 .btn-primary-new:hover {
   background: #005fcc;
   transform: translateY(-2px);
