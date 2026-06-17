@@ -15,8 +15,10 @@ const categories = [
 ];
 
 const BlogList = () => {
-  const [blogs, setBlogs] = useState(fallbackBlogs);
-  const [filteredBlogs, setFilteredBlogs] = useState(fallbackBlogs);
+ const safeFallbackBlogs = Array.isArray(fallbackBlogs) ? fallbackBlogs : [];
+
+const [blogs, setBlogs] = useState(safeFallbackBlogs);
+const [filteredBlogs, setFilteredBlogs] = useState(safeFallbackBlogs);
   const [activeCategory, setActiveCategory] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -70,7 +72,7 @@ const BlogList = () => {
     if (activeCategory === "all") {
       setFilteredBlogs(blogs);
     } else {
-      const filtered = blogs.filter((blog) => {
+      const filtered = (blogs || []).filter((blog) => {
         const titleMatch = blog.title?.toLowerCase().includes(activeCategory.toLowerCase());
         const categoryMatch = blog.category?.toLowerCase() === activeCategory.toLowerCase();
         const tagMatch = blog.tags?.some((t) =>
@@ -127,7 +129,7 @@ const BlogList = () => {
           </div>
         ) : (
           <div className="blog-grid">
-            {filteredBlogs.map((blog) => (
+            {(filteredBlogs || []).map((blog) => (
               <BlogCard
                 key={blog._id || blog.id || blog.slug}
                 blog={blog}

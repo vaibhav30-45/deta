@@ -9,7 +9,9 @@ import "./BlogDetail.css";
 const BlogDetail = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
-  const [blogList, setBlogList] = useState(fallbackBlogs);
+  const [blogList, setBlogList] = useState(
+  Array.isArray(fallbackBlogs) ? fallbackBlogs : []
+);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -19,11 +21,18 @@ const BlogDetail = () => {
     const fetchBlogs = async () => {
       try {
         const { data } = await axios.get(`${BASE_URL}/api/blogs`);
+        // if (Array.isArray(data) && data.length > 0) {
+        //   setBlogList(data);
+        // } else {
+        //   setBlogList(fallbackBlogs);
+        // }
         if (Array.isArray(data) && data.length > 0) {
-          setBlogList(data);
-        } else {
-          setBlogList(fallbackBlogs);
-        }
+  setBlogList(data);
+} else {
+  setBlogList(
+    Array.isArray(fallbackBlogs) ? fallbackBlogs : []
+  );
+}
       } catch (err) {
         console.error("Failed to load blog list:", err);
         setBlogList(fallbackBlogs);
@@ -61,13 +70,18 @@ const BlogDetail = () => {
     fetchBlog();
   }, [BASE_URL, slug]);
 
-  const sortedBlogs = useMemo(() => {
-    return [...blogList].sort((a, b) => {
-      const aDate = new Date(a.createdAt || a.date || 0).getTime();
-      const bDate = new Date(b.createdAt || b.date || 0).getTime();
-      return aDate - bDate;
-    });
-  }, [blogList]);
+ const sortedBlogs = useMemo(() => {
+
+  if (!Array.isArray(blogList)) return [];
+
+  return [...blogList].sort((a, b) => {
+    const aDate = new Date(a.createdAt || a.date || 0).getTime();
+    const bDate = new Date(b.createdAt || b.date || 0).getTime();
+
+    return aDate - bDate;
+  });
+
+}, [blogList]);
 
   const currentIndex = sortedBlogs.findIndex((b) => b.slug === slug);
   const prevBlog = currentIndex > 0 ? sortedBlogs[currentIndex - 1] : null;

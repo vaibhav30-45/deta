@@ -127,6 +127,20 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2);
 }
+ 
+.hero-services-line {
+  margin-top: 25px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  letter-spacing: 0.4px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+
+/* .hero-services-line::first-letter {
+  color: #00bfff;
+} */
 
 /* =========================================================
    SUBTITLE AND SECTION HEADERS (Reusable)
@@ -1247,4 +1261,50 @@
   font-size: 0.55rem;
   padding: 2px 5px;
 }
+}
+/* ===== Hero Mobile Content Fix ===== */
+
+@media (max-width: 480px) {
+
+  /* .hero-video-section-new {
+    min-height: 100vh;
+    height: auto;
+    padding: 80px 15px 40px;
+  } */
+
+  .hero-content-new {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .hero-content-new h1 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .hero-content-new p {
+    font-size: 0.75rem;
+    line-height: 1.45;
+    margin-bottom: 18px;
+  }
+
+  .hero-buttons-new {
+    gap: 10px;
+  }
+
+  .btn-primary-new,
+  .btn-secondary-new {
+    width: 90%;
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  .hero-services-line {
+    margin-top: 15px;
+    font-size: 0.65rem;
+    line-height: 1.4;
+    padding: 0 5px;
+  }
 }

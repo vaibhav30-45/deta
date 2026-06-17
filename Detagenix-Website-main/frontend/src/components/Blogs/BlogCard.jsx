@@ -12,12 +12,13 @@ const BlogCard = ({ blog }) => {
       })
     : "Recently published";
 
-  const tags = Array.isArray(blog?.tags) ? blog.tags : [];
+  // const tags = Array.isArray(blog?.tags) ? blog.tags : [];
   const image =
     blog?.bannerImage ||
     "https://via.placeholder.com/600x400?text=Detagenix+Blog";
 
   return (
+    
     <div className="blog-card-container">
       <div className="blog-card">
         <img src={image} alt={blog?.title} className="blog-card-img" />
@@ -26,7 +27,7 @@ const BlogCard = ({ blog }) => {
           <h3 className="blog-card-title">{blog?.title}</h3>
           <p className="blog-card-date">{formattedDate}</p>
 
-          {tags.length > 0 && (
+          {/* {tags.length > 0 && (
             <div className="blog-card-tags">
               {tags.map((tag, i) => (
                 <span key={i} className="blog-tag">
@@ -34,11 +35,15 @@ const BlogCard = ({ blog }) => {
                 </span>
               ))}
             </div>
-          )}
+          )} */}
 
           <Link to={`/blog/${blog?.slug}`} className="read-more-btn">
             Read →
           </Link>
+          <Link 
+  to={`/blog/${blog?.slug}`} 
+  className="card-click-link"
+/>
         </div>
       </div>
     </div>

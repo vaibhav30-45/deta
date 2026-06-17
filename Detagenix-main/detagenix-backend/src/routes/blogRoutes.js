@@ -1,6 +1,7 @@
 import express from "express";
 import Blog from "../models/Blog.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
+import upload from "../middlewares/fileUpload.js";
 
 const router = express.Router();
 
@@ -26,9 +27,13 @@ router.get("/:slug", async (req, res) => {
 });
 
 // ✅ CREATE NEW BLOG
-router.post("/", verifyToken, async (req, res) => {
+router.post(
+  "/",
+  verifyToken,
+  upload.single("bannerImage"),
+  async (req, res) =>  {
   try {
-    const { title, slug, author, bannerImage, tags, category, content } = req.body;
+    const { title, slug, author, tags, category, content } = req.body;
 
     // Check if slug already exists
     const existingBlog = await Blog.findOne({ slug });
@@ -36,15 +41,26 @@ router.post("/", verifyToken, async (req, res) => {
       return res.status(400).json({ error: "Slug already exists" });
     }
 
+    // const newBlog = new Blog({
+    //   title,
+    //   slug,
+    //   author,
+    //   bannerImage,
+    //   tags,
+    //   category,
+    //   content,
+    // });
     const newBlog = new Blog({
-      title,
-      slug,
-      author,
-      bannerImage,
-      tags,
-      category,
-      content,
-    });
+  title,
+  slug,
+  author,
+
+  bannerImage: req.file?.path,
+
+  tags,
+  category,
+  content,
+});
 
     await newBlog.save();
     res.status(201).json({ message: "Blog created successfully", blog: newBlog });
@@ -55,9 +71,9 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 // ✅ UPDATE BLOG
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
-    const { title, slug, author, bannerImage, tags, category, content } = req.body;
+    const { title, slug, author, tags, category, content } = req.body;
 
     // Check if new slug already exists (if slug is being changed)
     if (slug) {
@@ -68,19 +84,21 @@ router.put("/:id", verifyToken, async (req, res) => {
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(
-      req.params.id,
-      {
-        title,
-        slug,
-        author,
-        bannerImage,
-        tags,
-        category,
-        content,
-        updatedAt: new Date(),
-      },
-      { new: true }
-    );
+ req.params.id,
+ {
+  title,
+  slug,
+  author,
+
+  bannerImage: req.file?.path,
+
+  tags,
+  category,
+  content,
+  updatedAt:new Date()
+ },
+ {new:true}
+)
 
     if (!updatedBlog) return res.status(404).json({ error: "Blog not found" });
     res.json({ message: "Blog updated successfully", blog: updatedBlog });

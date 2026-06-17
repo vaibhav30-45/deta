@@ -8,6 +8,7 @@ import receptionImage from "../../asset/detagenix.jpeg";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
+import FAQ from "../../components/FAQ/FAQ";
 import axios from "axios";
 import SEO from "../../components/SEO"
 import { createPortal } from "react-dom";
@@ -163,16 +164,20 @@ const [blogLoading, setBlogLoading] = useState(true);
         </video>
         <div className="video-overlay-new"></div>
         <div className="hero-content-new">
-          <h1>Transforming Businesses with Smart Digital Innovation</h1>
-          <p>We build custom software solutions to modernise your business and scale operations.</p>
+          <h1>Digitize, Automate & Scale Your Business With Technology </h1>
+          <p>We help startups, SMEs, and enterprises streamline operations, automate workflows, strengthen their digital presence, and generate measurable business growth through custom software, AI solutions, and modern web platforms.</p>
           <div className="hero-buttons-new">
             <button onClick={() => setIsOpenForm(true)} className="btn-primary-new">
-              Get Started
+              Book Free Consultation 
             </button>
-            {/* <button onClick={() => navigate("/about")} className="btn-secondary-new">
-              Partner With Us
-            </button> */}
+            <button onClick={() => navigate("/about")} className="btn-secondary-new">
+             View Our Work 
+            </button>
           </div>
+           <div className="hero-services-line">
+    Website Development | CRM & ERP Solutions | AI Integration |
+    Business Automation | SEO & Digital Growth
+  </div>
         </div>
       </section>
 
@@ -502,11 +507,14 @@ const [blogLoading, setBlogLoading] = useState(true);
   ) : latestBlogs.length > 0 ? (
     latestBlogs.map((blog) => (
       
-      <div
-    
-        className="project-card-new"
-        key={blog._id || blog.id || blog.slug}
-      >
+     <div
+  className="project-card-new"
+  key={blog._id || blog.id || blog.slug}
+  onClick={() =>
+    navigate(`/blog/${blog.slug || blog._id}`)
+  }
+  style={{ cursor: "pointer" }}
+>
         <div className="project-image-box-new">
          <img
   src={blog.bannerImage || blog.coverImage || blog.image}
@@ -523,11 +531,11 @@ const [blogLoading, setBlogLoading] = useState(true);
     .replace(/&nbsp;/g, " ")  // &nbsp; remove
     .substring(0, 120) + "..."}
 </p>
-          <div className="project-tech-tags-new">
+          {/* <div className="project-tech-tags-new">
             {blog.tags?.slice(0, 2).map((tag, index) => (
               <span key={index}>{tag}</span>
             ))}
-          </div>
+          </div> */}
 
           <button
             className="project-link-new"
@@ -560,6 +568,8 @@ const [blogLoading, setBlogLoading] = useState(true);
         </div>
         <Testimonial />
       </section>
+       
+       <FAQ />
 
       {/* 10. MODAL FORM PORTAL */}
       {isOpenForm &&
