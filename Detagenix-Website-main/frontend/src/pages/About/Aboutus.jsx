@@ -350,7 +350,7 @@ function About() {
   title="About Us | Detagenix"
   description="Learn about Detagenix, our mission, vision, and expertise in web development, mobile app development, software solutions, and digital transformation services."
   keywords="About Detagenix, software company, web development company, mobile app development, IT solutions, digital transformation"
-  canonical="https://unique-moxie-9ac77b.netlify.app/about"
+  canonical="https://detagenix.com/about"
 />
      
       <section className="about-intro container text-center fade-up">

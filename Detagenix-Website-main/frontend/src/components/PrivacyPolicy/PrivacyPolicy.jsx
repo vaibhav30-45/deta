@@ -116,7 +116,7 @@ const PrivacyPolicy = () => {
   title="Privacy Policy | Detagenix"
   description="Read Detagenix's Privacy Policy to understand how we collect, use, protect, and manage your personal information."
   keywords="Privacy Policy, Data Protection, User Privacy, Detagenix Privacy"
-  canonical="https://unique-moxie-9ac77b.netlify.app/privacy-policy"
+  canonical="https://detagenix.com/policy"
 />
       <h1>Privacy Policy</h1>
 

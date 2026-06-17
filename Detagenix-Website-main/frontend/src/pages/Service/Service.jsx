@@ -383,7 +383,7 @@ const Service = () => {
   title="Our Services | Detagenix"
   description="Explore our web development, mobile app development, AI, cloud solutions, blockchain, cybersecurity, and digital transformation services."
   keywords="web development services, mobile app development, AI development, cloud solutions, blockchain development, cybersecurity services"
-  canonical="https://unique-moxie-9ac77b.netlify.app/services"
+  canonical="https://detagenix.com/services"
 />
       <div className="services-header">
           <button

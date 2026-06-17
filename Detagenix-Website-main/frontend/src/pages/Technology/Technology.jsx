@@ -499,7 +499,7 @@ useEffect(() => {
   title="Technologies We Use | Detagenix"
   description="Discover the cutting-edge technologies used by Detagenix including React, Node.js, MERN Stack, AI/ML, Blockchain, Cloud Computing, and Cybersecurity solutions."
   keywords="React.js, Node.js, MERN Stack, AI ML, Blockchain, Cloud Computing, Cybersecurity, Software Technologies"
-  canonical="https://unique-moxie-9ac77b.netlify.app/technologies"
+  canonical="https://detagenix.com/technology"
 />
       <div className="container text-center fade-up">
         <h1 className="section-title">Technologies We Work With</h1>

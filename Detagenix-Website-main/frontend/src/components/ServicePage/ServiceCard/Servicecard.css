@@ -8,7 +8,8 @@
   flex-direction: column;
     justify-content: space-between;
 
-    height: 450px; /*add */
+   min-height: 450px;
+  height: auto;
   align-items: center;
   gap: 0.5rem;
   padding: 18px;
@@ -138,8 +139,18 @@ line-height: 1.5;
 
   .service-card {
     padding: 20px;
+    min-height: 350px;
+    height: auto;
   }
+  .service-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
+.learn-more {
+  margin-top: auto;
+}
   .service-card img {
     width: 100%;
     height: 160px;
@@ -158,6 +169,7 @@ line-height: 1.5;
 @media (max-width: 480px) {
   .service-card {
     width: 100%;
+     min-height:250px;
     max-width: 320px;
     margin: 0 auto;
     padding: 15px;

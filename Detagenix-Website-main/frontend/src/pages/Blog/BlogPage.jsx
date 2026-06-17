@@ -13,7 +13,7 @@ const BlogPage = () => {
         title="Blog | Detagenix"
         description="Explore the latest insights, technology trends, software development guides, AI innovations, and digital transformation articles from Detagenix."
         keywords="Detagenix blog, software development blog, AI blog, technology articles, web development"
-        canonical="https://unique-moxie-9ac77b.netlify.app/blog"
+        canonical="https://detagenix.com/blog"
       />
       <BlogList />
     </div>
