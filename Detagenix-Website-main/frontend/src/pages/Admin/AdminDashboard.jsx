@@ -7,6 +7,13 @@ import { FaUsers, FaFileAlt, FaPhone, FaBriefcase, FaGift, FaChartBar, FaSync, F
 import logo from "../../asset/logo.webp";
 import { Editor } from "@tinymce/tinymce-react";
 import { FaQuoteRight } from "react-icons/fa";
+import * as Icons from "react-icons/fa";
+
+const DynamicIcon = ({ iconName, ...props }) => {
+  const IconComponent = Icons[iconName];
+  if (!IconComponent) return <Icons.FaCog {...props} />; // Fallback icon
+  return <IconComponent {...props} />;
+};
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -16,7 +23,6 @@ const AdminDashboard = () => {
     contacts: [],
     jobs: [],
     services: [],
-    users: [],
     bookings: [],
     Testimonials: [],
   });
@@ -31,7 +37,6 @@ const AdminDashboard = () => {
     totalApplications: 0,
     totalContacts: 0,
     totalJobs: 0,
-    totalUsers: 0,
     totalBookings: 0,
     totalTestimonials: 0,
     totalEnquiries: 0,
@@ -118,7 +123,6 @@ const AdminDashboard = () => {
         totalApplications: adminRes.data.applications?.length || 0,
         totalContacts: adminRes.data.contacts?.length || 0,
         totalJobs: adminRes.data.jobs?.length || 0,
-        totalUsers: adminRes.data.users?.length || 0,
         totalBookings: adminRes.data.bookings?.length || 0,
         
       });
@@ -287,7 +291,16 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-
+ const handleUpdateEnquiryStatus = async (enquiryId, newStatus) => {
+  try {
+    await api.put(`/api/enquiry/${enquiryId}/status`, { status: newStatus });
+    alert("Status updated successfully! ");
+    fetchData(); 
+  } catch (err) {
+    console.error("Error updating status:", err);
+    alert(err.response?.data?.error || "Failed to update status");
+  }
+};
   const DataTable = ({ data, columns, title }) => (
     <div className="data-table-container">
       <h2 className="table-title">{title}</h2>
@@ -409,12 +422,12 @@ const AdminDashboard = () => {
         >
           <FaGift /> Bookings
         </button>
-        <button
+        {/* <button
           className={`nav-btn ${activeTab === "users" ? "active" : ""}`}
           onClick={() => setActiveTab("users")}
         >
           <FaUsers /> Users
-        </button>
+        </button> */}
         <button
           className={`nav-btn ${activeTab === "blogs" ? "active" : ""}`}
           onClick={() => setActiveTab("blogs")}
@@ -647,13 +660,13 @@ const AdminDashboard = () => {
         )}
 
         {/* Users Tab */}
-        {activeTab === "users" && (
+        {/* {activeTab === "users" && (
           <DataTable
             data={data.users}
             columns={["_id", "email", "role", "createdAt"]}
             title="All Registered Users"
           />
-        )}
+        )} */}
 
         {/* Blogs Tab */}
         {activeTab === "blogs" && (
@@ -875,7 +888,7 @@ const AdminDashboard = () => {
                     rows="4"
                   ></textarea>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <input
                     type="text"
                     value={serviceForm.icon}
@@ -884,7 +897,21 @@ const AdminDashboard = () => {
                     }
                     placeholder="Icon Image URL: https://example.com/icon.jpg"
                   />
-                </div>
+                </div> */}
+                {/* Dropdown ki jagah fir se Input Field (Dynamic Icon Name ke liye) */}
+    <div className="form-group">
+      <input
+        type="text"
+        value={serviceForm.icon}
+        onChange={(e) =>
+          setServiceForm({ ...serviceForm, icon: e.target.value })
+        }
+        placeholder="Icon Name (e.g., FaLaptop, FaShieldAlt, FaCog)"
+      />
+      <small style={{ color: "#888", fontSize: "11px", marginTop: "4px", display: "block" }}>
+        Tip: Use FontAwesome icon names like FaLaptop, FaShieldAlt, FaBriefcase, etc.
+      </small>
+    </div>
                 <div className="form-group">
                   <textarea 
                     value={serviceForm.link}
@@ -922,8 +949,11 @@ const AdminDashboard = () => {
             <div className="items-grid">
               {blogServices.map((service) => (
                 <div key={service._id} className="service-card">
-                  <div className="service-icon">
+                  {/* <div className="service-icon">
                     <img src={service.icon} alt={service.title} />
+                  </div> */}
+                  <div className="service-icon" style={{ fontSize: "32px", color: "#00bfff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                       <DynamicIcon iconName={service.icon} />
                   </div>
                   <div className="service-content">
                     <h4>{service.title}</h4>
@@ -957,7 +987,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-        {activeTab === "enquiries" && (
+        {/* {activeTab === "enquiries" && (
   <DataTable
     data={enquiries}
     columns={[
@@ -968,10 +998,80 @@ const AdminDashboard = () => {
       "project_type",
       "budget",
       "timeline",
-      "createdAt"
+      "createdAt",
+      "description"
     ]}
     title="All Enquiries"
   />
+)} */}
+  {/* Enquiries Tab */}
+{activeTab === "enquiries" && (
+  <div className="data-table-container">
+    <h2 className="table-title">All Enquiries Management</h2>
+    <div className="table-wrapper">
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Project Type</th>
+            <th>Budget</th>
+            <th>Timeline</th>
+            <th>Message</th>
+            <th>Received At</th>
+            <th>Status (Admin Only)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {enquiries && enquiries.length > 0 ? (
+            enquiries.map((row) => (
+              <tr key={row._id}>
+                <td>{row._id}</td>
+                <td>{row.full_name}</td>
+                <td>{row.email}</td>
+                <td>{row.phone}</td>
+                 <td>{row.project_type}</td>
+                 <td>{row.budget}</td>
+                 <td>{row.timeline}</td>
+                <td>{row.description || "-"}</td>
+                <td>{row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "-"}</td>
+                <td>
+                  {/* Status Dropdown Selection */}
+                  <select
+                    
+                    value={row.status || "pending"}
+                    onChange={(e) => handleUpdateEnquiryStatus(row._id, e.target.value)}
+                    style={{
+                      padding: "6px 12px",
+                      borderRadius: "4px",
+                      border: "1px solid #00bfff",
+                      fontFamily: "inherit",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      backgroundColor: " rgba(0, 191, 255, 0.1)",
+                      color:  "#00bfff",   
+                    }}
+                     
+                  >
+                    <option  style={{ color:"#00bfff", backgroundColor: "#0d1b2a" }}  value="pending"> Pending</option>
+                    <option style={{ color:"#00bfff", backgroundColor: "#0d1b2a"  }}  value="connected"> Connected</option>
+                  </select>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="no-data">
+                No enquiries available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
 )}
         {activeTab === "testimonials" && <Testimonials />}
       </div>

@@ -12,6 +12,11 @@ const enquirySchema = new mongoose.Schema({
   budget: String,
   timeline: String,
   goal: String,
+  status: {
+    type: String,
+    enum: ["pending", "connected"],
+    default: "pending" // Nayi enquiry aate hi automatically 'pending' ho jayegi
+  },
   createdAt: {
     type: Date,
     default: Date.now
