@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import RenderStars from "./RenderStars";
 
 const Testimonials = () => {
   const [form, setForm] = useState({
@@ -42,7 +43,7 @@ const Testimonials = () => {
     try {
       await fetch(`${BASE_URL}/api/testimonials`, {
         method: "POST",
-        headers: getAuthHeaders(), // Yahan headers update kiye
+        headers: getAuthHeaders(), 
         body: JSON.stringify(form),
       });
 
@@ -58,7 +59,7 @@ const Testimonials = () => {
     try {
       await fetch(`${BASE_URL}/api/testimonials/${id}`, {
         method: "DELETE",
-        headers: getAuthHeaders(), // Yahan bhi headers add kiye kyunki delete route bhi protected hoga
+        headers: getAuthHeaders(), 
       });
       fetchData();
     } catch (error) {
@@ -137,6 +138,14 @@ const Testimonials = () => {
               value={form.rating}
               placeholder="Rating (1-5)"
               onChange={(e) => setForm({ ...form, rating: e.target.value })}
+              min="1" max="5"
+              step="0.1"
+              onInvalid={(e) => {
+                   e.target.setCustomValidity("Rating (1 to 5).");
+                     }}
+              onInput={(e) => {
+                  e.target.setCustomValidity("");
+                         }}
             />
 
             <button
@@ -177,11 +186,15 @@ const Testimonials = () => {
             <p style={{ color: "#cbd5f5", marginBottom: "10px" }}>
               {item.message}
             </p>
-
-            <div style={{ color: "#facc15", marginBottom: "8px" }}>
+{/* 
+            <div style={{ color: "#bab8b3", marginBottom: "8px" }}>
               {"⭐".repeat(item.rating)}
-            </div>
+            </div> */}
 
+            <div style={{ marginBottom: "8px" }}>
+              
+              <RenderStars rating = {item.rating}/>
+           </div>
             <h4>{item.name}</h4>
             <span style={{ fontSize: "13px", color: "#94a3b8" }}>
               {item.company}

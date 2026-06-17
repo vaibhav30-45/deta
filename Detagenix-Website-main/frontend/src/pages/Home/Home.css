@@ -214,6 +214,7 @@
 
 .about-content-new {
   max-width: 550px;
+  
 }
 
 .about-content-new h2 {
@@ -1260,6 +1261,15 @@
 .tech-tags-new span {
   font-size: 0.55rem;
   padding: 2px 5px;
+}
+.about-content-new p.lead {
+ 
+  text-align: center;
+}
+
+.about-content-new p.subtext {
+  
+  text-align: center;
 }
 }
 /* ===== Hero Mobile Content Fix ===== */

@@ -27,4 +27,32 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
+router.put("/:id/status", verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  // Validation: 
+  const validStatuses = ["pending", "connected"];
+  if (!validStatuses.includes(status)) {
+    return res.status(400).json({ error: "Invalid status value" });
+  }
+
+  try {
+    const updatedEnquiry = await Enquiry.findByIdAndUpdate(
+      id,
+      { status: status },
+      { new: true, runValidators: true } // {new: true} 
+    );
+
+    if (!updatedEnquiry) {
+      return res.status(404).json({ error: "Enquiry not found" });
+    }
+
+    res.json({ message: "Status updated successfully", updatedEnquiry });
+  } catch (err) {
+    console.error("Error updating enquiry status:", err);
+    res.status(500).json({ error: "Error updating enquiry status" });
+  }
+});
+
 export default router;
