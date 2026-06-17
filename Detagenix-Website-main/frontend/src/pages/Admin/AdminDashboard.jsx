@@ -3,7 +3,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminDashboard.css";
 import Testimonials from "../../components/Testimonial/Testimonials";
-import { FaUsers, FaFileAlt, FaPhone, FaBriefcase, FaGift, FaChartBar, FaSync, FaBlog, FaCog, FaTrash, FaEdit, FaPlus, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaUsers,
+  FaFileAlt,
+  FaPhone,
+  FaBriefcase,
+  FaGift,
+  FaChartBar,
+  FaSync,
+  FaBlog,
+  FaCog,
+  FaTrash,
+  FaEdit,
+  FaPlus,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import logo from "../../asset/logo.webp";
 import { Editor } from "@tinymce/tinymce-react";
 import { FaQuoteRight } from "react-icons/fa";
@@ -21,11 +35,20 @@ const AdminDashboard = () => {
     Testimonials: [],
   });
 
+  const changeTab = (tab) => {
+    setActiveTab(tab);
+    localStorage.setItem("adminActiveTab", tab);
+  };
+
   const [blogs, setBlogs] = useState([]);
   const [blogServices, setBlogServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [enquiries, setEnquiries] = useState([]);
-  const [activeTab, setActiveTab] = useState("overview");
+  // const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("adminActiveTab") || "overview",
+  );
+
   const [stats, setStats] = useState({
     totalAdmins: 0,
     totalApplications: 0,
@@ -55,17 +78,18 @@ const AdminDashboard = () => {
   const [editingJob, setEditingJob] = useState(null);
 
   const [blogForm, setBlogForm] = useState({
-  title: "",
-  slug: "",
-  author: "Detagenix Team",
-  bannerImage: "",
-  tags: "",
-  category: "",
-  content: [
-    { type: "heading", value: "" },
-    { type: "paragraph", value: "" }
-  ]
-});
+    title: "",
+    slug: "",
+    author: "Detagenix Team",
+    bannerImage: "",
+    tags: "",
+    metaKeywords: "",
+    category: "",
+    content: [
+      { type: "heading", value: "" },
+      { type: "paragraph", value: "" },
+    ],
+  });
 
   const [serviceForm, setServiceForm] = useState({
     title: "",
@@ -90,8 +114,8 @@ const AdminDashboard = () => {
   };
 
   const fetchData = async () => {
-     console.log("fetchData called 🔥");
-  
+    console.log("fetchData called 🔥");
+
     setLoading(true);
     try {
       const token = localStorage.getItem("adminToken");
@@ -100,14 +124,16 @@ const AdminDashboard = () => {
         return;
       }
 
-      const [adminRes, blogsRes, servicesRes, enquiriesRes] = await Promise.all([
-        api.get(`/api/admin/data`),
-        api.get(`/api/blogs`),
-        api.get(`/api/blog-services`),
-        api.get(`/api/enquiry`),
-      ]);
-      
-      console.log("Enquiry Data:", enquiriesRes.data); 
+      const [adminRes, blogsRes, servicesRes, enquiriesRes] = await Promise.all(
+        [
+          api.get(`/api/admin/data`),
+          api.get(`/api/blogs`),
+          api.get(`/api/blog-services`),
+          api.get(`/api/enquiry`),
+        ],
+      );
+
+      console.log("Enquiry Data:", enquiriesRes.data);
 
       setData(adminRes.data);
       setBlogs(blogsRes.data);
@@ -120,7 +146,6 @@ const AdminDashboard = () => {
         totalJobs: adminRes.data.jobs?.length || 0,
         totalUsers: adminRes.data.users?.length || 0,
         totalBookings: adminRes.data.bookings?.length || 0,
-        
       });
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -131,8 +156,8 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-     console.log("Component Loaded ✅");
-  fetchData();
+    console.log("Component Loaded ✅");
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -153,6 +178,7 @@ const AdminDashboard = () => {
         await api.post(`/api/blogs`, {
           ...blogForm,
           tags: blogForm.tags.split(",").map((t) => t.trim()),
+          metaKeywords: blogForm.metaKeywords.split(",").map((t) => t.trim()),
         });
         alert("Blog created successfully");
       }
@@ -307,12 +333,20 @@ const AdminDashboard = () => {
                   {columns.map((col) => (
                     <td key={col}>
                       {col === "resumeUrl" && row[col] ? (
-                        <a 
-                          href={row[col].startsWith('http') ? row[col] : `${BASE_URL}${row[col]}`} 
-                          target="_blank" 
+                        <a
+                          href={
+                            row[col].startsWith("http")
+                              ? row[col]
+                              : `${BASE_URL}${row[col]}`
+                          }
+                          target="_blank"
                           rel="noopener noreferrer"
                           download
-                          style={{ color: "#007bff", textDecoration: "underline", fontWeight: "500" }}
+                          style={{
+                            color: "#007bff",
+                            textDecoration: "underline",
+                            fontWeight: "500",
+                          }}
                         >
                           📄 Download Resume
                         </a>
@@ -374,65 +408,64 @@ const AdminDashboard = () => {
       <div className="dashboard-nav">
         <button
           className={`nav-btn ${activeTab === "overview" ? "active" : ""}`}
-          onClick={() => setActiveTab("overview")}
+          onClick={() => changeTab("overview")}
         >
           <FaChartBar /> Overview
         </button>
         <button
           className={`nav-btn ${activeTab === "applications" ? "active" : ""}`}
-          onClick={() => setActiveTab("applications")}
+          onClick={() => changeTab("applications")}
         >
           <FaFileAlt /> Applications
         </button>
         <button
           className={`nav-btn ${activeTab === "contacts" ? "active" : ""}`}
-          onClick={() => setActiveTab("contacts")}
+          onClick={() => changeTab("contacts")}
         >
           <FaPhone /> Contacts
         </button>
         <button
           className={`nav-btn ${activeTab === "jobs" ? "active" : ""}`}
-          onClick={() => setActiveTab("jobs")}
+          onClick={() => changeTab("jobs")}
         >
-        
           <FaBriefcase /> Jobs
         </button>
         <button
-  className={`nav-btn ${activeTab === "enquiries" ? "active" : ""}`}
-  onClick={() => setActiveTab("enquiries")}
->
-  📩 Enquiries
-</button>
+          className={`nav-btn ${activeTab === "enquiries" ? "active" : ""}`}
+          onClick={() => changeTab("enquiries")}
+        >
+          📩 Enquiries
+        </button>
         <button
           className={`nav-btn ${activeTab === "bookings" ? "active" : ""}`}
-          onClick={() => setActiveTab("bookings")}
+          onClick={() => changeTab("bookings")}
         >
           <FaGift /> Bookings
         </button>
         <button
           className={`nav-btn ${activeTab === "users" ? "active" : ""}`}
-          onClick={() => setActiveTab("users")}
+          onClick={() => changeTab("users")}
         >
           <FaUsers /> Users
         </button>
         <button
           className={`nav-btn ${activeTab === "blogs" ? "active" : ""}`}
-          onClick={() => setActiveTab("blogs")}
+          onClick={() => changeTab("blogs")}
         >
           <FaBlog /> Blogs
         </button>
         <button
           className={`nav-btn ${activeTab === "services" ? "active" : ""}`}
-          onClick={() => setActiveTab("services")}
+          onClick={() => changeTab("services")}
         >
           <FaCog /> Services
         </button>
         <button
-  className={`nav-btn ${activeTab === "testimonials" ? "active" : ""}`}
-  onClick={() => setActiveTab("testimonials")}
->
-  <FaQuoteRight /> Testimonials
-</button>
+          className={`nav-btn ${activeTab === "testimonials" ? "active" : ""}`}
+          onClick={() => changeTab("testimonials")}
+        >
+          <FaQuoteRight /> Testimonials
+        </button>
       </div>
 
       {/* Dashboard Content */}
@@ -500,7 +533,15 @@ const AdminDashboard = () => {
         {activeTab === "applications" && (
           <DataTable
             data={data.applications}
-            columns={["_id", "name", "email", "role", "message", "resumeUrl", "appliedAt"]}
+            columns={[
+              "_id",
+              "name",
+              "email",
+              "role",
+              "message",
+              "resumeUrl",
+              "appliedAt",
+            ]}
             title="All Job Applications"
           />
         )}
@@ -517,36 +558,89 @@ const AdminDashboard = () => {
         {/* Jobs Tab */}
         {activeTab === "jobs" && (
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
               <h2 className="section-title">Job Openings Management</h2>
               <button
                 className="btn-add"
                 onClick={() => {
-                  setJobForm({ title: "", type: "Full-time", duration: "N/A", location: "", stipend: "Competitive", description: "" });
+                  setJobForm({
+                    title: "",
+                    type: "Full-time",
+                    duration: "N/A",
+                    location: "",
+                    stipend: "Competitive",
+                    description: "",
+                  });
                   setEditingJob(null);
                   setShowJobForm(true);
                 }}
-                style={{ display: "flex", alignItems: "center", gap: "8px", backgroundColor: "#007bff", color: "white", padding: "10px 20px", border: "none", borderRadius: "5px", cursor: "pointer" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
               >
                 <FaPlus /> Add New Job
               </button>
             </div>
 
             {showJobForm && (
-              <div className="form-modal" style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px", marginBottom: "20px", border: "1px solid #dee2e6" }}>
+              <div
+                className="form-modal"
+                style={{
+                  backgroundColor: "#f8f9fa",
+                  padding: "20px",
+                  borderRadius: "8px",
+                  marginBottom: "20px",
+                  border: "1px solid #dee2e6",
+                }}
+              >
                 <h3>{editingJob ? "Edit Job" : "Create New Job"}</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "15px",
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Job Title"
                     value={jobForm.title}
-                    onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
-                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                    onChange={(e) =>
+                      setJobForm({ ...jobForm, title: e.target.value })
+                    }
+                    style={{
+                      padding: "10px",
+                      border: "1px solid #ddd",
+                      borderRadius: "4px",
+                      fontFamily: "inherit",
+                    }}
                   />
                   <select
                     value={jobForm.type}
-                    onChange={(e) => setJobForm({ ...jobForm, type: e.target.value })}
-                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                    onChange={(e) =>
+                      setJobForm({ ...jobForm, type: e.target.value })
+                    }
+                    style={{
+                      padding: "10px",
+                      border: "1px solid #ddd",
+                      borderRadius: "4px",
+                      fontFamily: "inherit",
+                    }}
                   >
                     <option value="Internship">Internship</option>
                     <option value="Full-time">Full-time</option>
@@ -556,34 +650,75 @@ const AdminDashboard = () => {
                     type="text"
                     placeholder="Duration (e.g., 6 months, 3-6 months)"
                     value={jobForm.duration}
-                    onChange={(e) => setJobForm({ ...jobForm, duration: e.target.value })}
-                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                    onChange={(e) =>
+                      setJobForm({ ...jobForm, duration: e.target.value })
+                    }
+                    style={{
+                      padding: "10px",
+                      border: "1px solid #ddd",
+                      borderRadius: "4px",
+                      fontFamily: "inherit",
+                    }}
                   />
                   <input
                     type="text"
                     placeholder="Location"
                     value={jobForm.location}
-                    onChange={(e) => setJobForm({ ...jobForm, location: e.target.value })}
-                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                    onChange={(e) =>
+                      setJobForm({ ...jobForm, location: e.target.value })
+                    }
+                    style={{
+                      padding: "10px",
+                      border: "1px solid #ddd",
+                      borderRadius: "4px",
+                      fontFamily: "inherit",
+                    }}
                   />
                   <input
                     type="text"
                     placeholder="Stipend (e.g., Paid, Competitive)"
                     value={jobForm.stipend}
-                    onChange={(e) => setJobForm({ ...jobForm, stipend: e.target.value })}
-                    style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px", fontFamily: "inherit" }}
+                    onChange={(e) =>
+                      setJobForm({ ...jobForm, stipend: e.target.value })
+                    }
+                    style={{
+                      padding: "10px",
+                      border: "1px solid #ddd",
+                      borderRadius: "4px",
+                      fontFamily: "inherit",
+                    }}
                   />
                 </div>
                 <textarea
                   placeholder="Job Description"
                   value={jobForm.description}
-                  onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
-                  style={{ width: "100%", padding: "10px", border: "1px solid #ddd", borderRadius: "4px", marginTop: "15px", fontFamily: "inherit", minHeight: "100px" }}
+                  onChange={(e) =>
+                    setJobForm({ ...jobForm, description: e.target.value })
+                  }
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                    marginTop: "15px",
+                    fontFamily: "inherit",
+                    minHeight: "100px",
+                  }}
                 />
-                <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+                <div
+                  style={{ display: "flex", gap: "10px", marginTop: "15px" }}
+                >
                   <button
                     onClick={handleCreateJob}
-                    style={{ backgroundColor: "#28a745", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", flex: 1 }}
+                    style={{
+                      backgroundColor: "#28a745",
+                      color: "white",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      flex: 1,
+                    }}
                   >
                     {editingJob ? "Update Job" : "Create Job"}
                   </button>
@@ -591,9 +726,24 @@ const AdminDashboard = () => {
                     onClick={() => {
                       setShowJobForm(false);
                       setEditingJob(null);
-                      setJobForm({ title: "", type: "Full-time", duration: "N/A", location: "", stipend: "Competitive", description: "" });
+                      setJobForm({
+                        title: "",
+                        type: "Full-time",
+                        duration: "N/A",
+                        location: "",
+                        stipend: "Competitive",
+                        description: "",
+                      });
                     }}
-                    style={{ backgroundColor: "#6c757d", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", flex: 1 }}
+                    style={{
+                      backgroundColor: "#6c757d",
+                      color: "white",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      flex: 1,
+                    }}
                   >
                     Cancel
                   </button>
@@ -604,25 +754,111 @@ const AdminDashboard = () => {
             <div className="jobs-list" style={{ display: "grid", gap: "15px" }}>
               {data.jobs && data.jobs.length > 0 ? (
                 data.jobs.map((job) => (
-                  <div key={job._id} style={{ backgroundColor: "white", padding: "15px", borderRadius: "8px", border: "1px solid #dee2e6", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
+                  <div
+                    key={job._id}
+                    style={{
+                      backgroundColor: "white",
+                      padding: "15px",
+                      borderRadius: "8px",
+                      border: "1px solid #dee2e6",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "start",
+                      }}
+                    >
                       <div style={{ flex: 1 }}>
-                        <h4 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#333" }}>{job.title}</h4>
-                        <p style={{ margin: "5px 0", color: "#666", fontSize: "14px" }}><strong>Type:</strong> {job.type} | <strong>Duration:</strong> {job.duration}</p>
-                        <p style={{ margin: "5px 0", color: "#666", fontSize: "14px" }}><strong>Location:</strong> {job.location} | <strong>Stipend:</strong> {job.stipend}</p>
-                        <p style={{ margin: "8px 0", color: "#555", fontSize: "13px", lineHeight: "1.5" }}>{job.description.substring(0, 150)}...</p>
-                        <p style={{ margin: "5px 0", fontSize: "12px", color: "#999" }}>Posted: {new Date(job.postedAt).toLocaleDateString()}</p>
+                        <h4
+                          style={{
+                            margin: "0 0 8px 0",
+                            fontSize: "18px",
+                            color: "#333",
+                          }}
+                        >
+                          {job.title}
+                        </h4>
+                        <p
+                          style={{
+                            margin: "5px 0",
+                            color: "#666",
+                            fontSize: "14px",
+                          }}
+                        >
+                          <strong>Type:</strong> {job.type} |{" "}
+                          <strong>Duration:</strong> {job.duration}
+                        </p>
+                        <p
+                          style={{
+                            margin: "5px 0",
+                            color: "#666",
+                            fontSize: "14px",
+                          }}
+                        >
+                          <strong>Location:</strong> {job.location} |{" "}
+                          <strong>Stipend:</strong> {job.stipend}
+                        </p>
+                        <p
+                          style={{
+                            margin: "8px 0",
+                            color: "#555",
+                            fontSize: "13px",
+                            lineHeight: "1.5",
+                          }}
+                        >
+                          {job.description.substring(0, 150)}...
+                        </p>
+                        <p
+                          style={{
+                            margin: "5px 0",
+                            fontSize: "12px",
+                            color: "#999",
+                          }}
+                        >
+                          Posted: {new Date(job.postedAt).toLocaleDateString()}
+                        </p>
                       </div>
-                      <div style={{ display: "flex", gap: "8px", marginLeft: "10px" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "8px",
+                          marginLeft: "10px",
+                        }}
+                      >
                         <button
                           onClick={() => handleEditJob(job)}
-                          style={{ backgroundColor: "#0d6efd", color: "white", padding: "8px 12px", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center", gap: "5px", fontSize: "12px" }}
+                          style={{
+                            backgroundColor: "#0d6efd",
+                            color: "white",
+                            padding: "8px 12px",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            fontSize: "12px",
+                          }}
                         >
                           <FaEdit /> Edit
                         </button>
                         <button
                           onClick={() => handleDeleteJob(job._id)}
-                          style={{ backgroundColor: "#dc3545", color: "white", padding: "8px 12px", border: "none", borderRadius: "4px", cursor: "pointer", display: "flex", alignItems: "center", gap: "5px", fontSize: "12px" }}
+                          style={{
+                            backgroundColor: "#dc3545",
+                            color: "white",
+                            padding: "8px 12px",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            fontSize: "12px",
+                          }}
                         >
                           <FaTrash /> Delete
                         </button>
@@ -631,7 +867,15 @@ const AdminDashboard = () => {
                   </div>
                 ))
               ) : (
-                <p style={{ textAlign: "center", color: "#999", padding: "30px" }}>No jobs posted yet. Create one to get started!</p>
+                <p
+                  style={{
+                    textAlign: "center",
+                    color: "#999",
+                    padding: "30px",
+                  }}
+                >
+                  No jobs posted yet. Create one to get started!
+                </p>
               )}
             </div>
           </div>
@@ -641,7 +885,14 @@ const AdminDashboard = () => {
         {activeTab === "bookings" && (
           <DataTable
             data={data.bookings}
-            columns={["_id", "name", "email", "service", "technology", "bookingDate"]}
+            columns={[
+              "_id",
+              "name",
+              "email",
+              "service",
+              "technology",
+              "bookingDate",
+            ]}
             title="All Service Bookings"
           />
         )}
@@ -662,22 +913,22 @@ const AdminDashboard = () => {
               <h2 className="section-title">Manage Blogs</h2>
               <button
                 className="add-btn"
-             onClick={() => {
-  setShowBlogForm(true);
-  setEditingBlog(null);
-  setBlogForm({
-    title: "",
-    slug: "",
-    author: "Detagenix Team",
-    bannerImage: "",
-    tags: "",
-    category: "",
-    content: [
-      { type: "heading", value: "" },
-      { type: "paragraph", value: "" }
-    ]
-  });
-}}
+                onClick={() => {
+                  setShowBlogForm(true);
+                  setEditingBlog(null);
+                  setBlogForm({
+                    title: "",
+                    slug: "",
+                    author: "Detagenix Team",
+                    bannerImage: "",
+                    tags: "",
+                    category: "",
+                    content: [
+                      { type: "heading", value: "" },
+                      { type: "paragraph", value: "" },
+                    ],
+                  });
+                }}
               >
                 <FaPlus /> Add New Blog
               </button>
@@ -718,22 +969,26 @@ const AdminDashboard = () => {
                 </div>
                 <div className="form-group">
                   <input
-                    type="text"
-                    value={blogForm.bannerImage}
+                    type="file"
+                    accept="image/*"
                     onChange={(e) =>
-                      setBlogForm({ ...blogForm, bannerImage: e.target.value })
+                      setBlogForm({
+                        ...blogForm,
+                        bannerImage: e.target.files[0],
+                      })
                     }
-                    placeholder="Banner Image URL: https://example.com/image.jpg"
                   />
                 </div>
                 <div className="form-group">
                   <input
-                    type="text"
-                    value={blogForm.tags}
+                    value={blogForm.metaKeywords}
                     onChange={(e) =>
-                      setBlogForm({ ...blogForm, tags: e.target.value })
+                      setBlogForm({
+                        ...blogForm,
+                        metaKeywords: e.target.value,
+                      })
                     }
-                    placeholder="Tags (comma-separated): AI, Technology, Development"
+                    placeholder="SEO Keywords: AI, Technology, Development"
                   />
                 </div>
                 <div className="form-group">
@@ -746,31 +1001,44 @@ const AdminDashboard = () => {
                     placeholder="Category: Technology"
                   />
                 </div>
-               <div className="form-group">
-  <label>Blog Content</label>
+                <div className="form-group">
+                  <label>Blog Content</label>
 
-  <Editor
-    apiKey="vls4npqn6e2dtdv8mw43rk3w1txinqmt5m1vdn8h56dx1130"
-    value={blogForm.content}
-    init={{
-      height: 400,
-      menubar: true,
-     plugins: [
-      "advlist", "autolink", "lists", "link", "image",
-      "charmap", "preview", "anchor", "searchreplace",
-      "visualblocks", "code", "fullscreen",
-      "insertdatetime", "media", "table", "help", "wordcount"
-    ],
-      toolbar:
-        "undo redo | formatselect | bold italic | \
+                  <Editor
+                    apiKey="vls4npqn6e2dtdv8mw43rk3w1txinqmt5m1vdn8h56dx1130"
+                    value={blogForm.content}
+                    init={{
+                      height: 400,
+                      menubar: true,
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "help",
+                        "wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | bold italic | \
         alignleft aligncenter alignright | \
         bullist numlist | link image | code fullscreen",
-    }}
-    onEditorChange={(content) =>
-      setBlogForm({ ...blogForm, content })
-    }
-  />
-</div>
+                    }}
+                    onEditorChange={(content) =>
+                      setBlogForm({ ...blogForm, content })
+                    }
+                  />
+                </div>
                 <div className="form-buttons">
                   <button className="submit-btn" onClick={handleCreateBlog}>
                     {editingBlog ? "Update Blog" : "Create Blog"}
@@ -796,7 +1064,9 @@ const AdminDashboard = () => {
                   </div>
                   <div className="item-content">
                     <h4>{blog.title}</h4>
-                    <p className="item-meta">By {blog.author} • {blog.category}</p>
+                    <p className="item-meta">
+                      By {blog.author} • {blog.category}
+                    </p>
                     <div className="item-actions">
                       <button
                         className="edit-icon"
@@ -809,7 +1079,7 @@ const AdminDashboard = () => {
                             bannerImage: blog.bannerImage,
                             tags: blog.tags.join(", "),
                             category: blog.category,
-                            content: blog.content || ""
+                            content: blog.content || "",
                           });
                           setShowBlogForm(true);
                         }}
@@ -854,7 +1124,9 @@ const AdminDashboard = () => {
 
             {showServiceForm && (
               <div className="form-container">
-                <h3>{editingService ? "Edit Service" : "Create New Service"}</h3>
+                <h3>
+                  {editingService ? "Edit Service" : "Create New Service"}
+                </h3>
                 <div className="form-group">
                   <input
                     type="text"
@@ -869,7 +1141,10 @@ const AdminDashboard = () => {
                   <textarea
                     value={serviceForm.description}
                     onChange={(e) =>
-                      setServiceForm({ ...serviceForm, description: e.target.value })
+                      setServiceForm({
+                        ...serviceForm,
+                        description: e.target.value,
+                      })
                     }
                     placeholder="Service description"
                     rows="4"
@@ -886,7 +1161,7 @@ const AdminDashboard = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <textarea 
+                  <textarea
                     value={serviceForm.link}
                     onChange={(e) =>
                       setServiceForm({ ...serviceForm, link: e.target.value })
@@ -958,21 +1233,21 @@ const AdminDashboard = () => {
           </div>
         )}
         {activeTab === "enquiries" && (
-  <DataTable
-    data={enquiries}
-    columns={[
-      "_id",
-      "full_name",
-      "email",
-      "phone",
-      "project_type",
-      "budget",
-      "timeline",
-      "createdAt"
-    ]}
-    title="All Enquiries"
-  />
-)}
+          <DataTable
+            data={enquiries}
+            columns={[
+              "_id",
+              "full_name",
+              "email",
+              "phone",
+              "project_type",
+              "budget",
+              "timeline",
+              "createdAt",
+            ]}
+            title="All Enquiries"
+          />
+        )}
         {activeTab === "testimonials" && <Testimonials />}
       </div>
     </div>
