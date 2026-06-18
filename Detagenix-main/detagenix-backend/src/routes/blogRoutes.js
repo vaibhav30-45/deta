@@ -1,9 +1,13 @@
 import express from "express";
 import Blog from "../models/Blog.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
-import upload from "../middlewares/fileUpload.js";
+import upload from "../middlewares/blogUpload.js";
 
 const router = express.Router();
+router.use((req,res,next)=>{
+  console.log("BLOG ROUTE HIT:", req.method, req.url);
+  next();
+});
 
 // ✅ GET ALL BLOGS
 router.get("/", async (req, res) => {
@@ -30,11 +34,24 @@ router.get("/:slug", async (req, res) => {
 router.post(
   "/",
   verifyToken,
-  upload.single("bannerImage"),
+  (req,res,next)=>{
+    upload.single("bannerImage")(req,res,(err)=>{
+      if(err){
+        console.log("UPLOAD ERROR:", err);
+        return res.status(500).json({
+          error: err.message
+        });
+      }
+      next();
+    })
+  },
   async (req, res) =>  {
   try {
-    const { title, slug, author, tags, category, content } = req.body;
-
+    const { title, slug, author,  metaKeywords, category, content } = req.body;
+    
+     const keywordsArray = metaKeywords
+  ? metaKeywords.split(",").map(k => k.trim())
+  : [];
     // Check if slug already exists
     const existingBlog = await Blog.findOne({ slug });
     if (existingBlog) {
@@ -50,6 +67,14 @@ router.post(
     //   category,
     //   content,
     // });
+    console.log("BLOG FILE:", req.file);
+console.log("BLOG DATA:", {
+  title,
+  slug,
+  author,
+  metaKeywords: keywordsArray,
+  category,
+});
     const newBlog = new Blog({
   title,
   slug,
@@ -57,7 +82,7 @@ router.post(
 
   bannerImage: req.file?.path,
 
-  tags,
+  metaKeywords: keywordsArray,
   category,
   content,
 });
@@ -66,14 +91,17 @@ router.post(
     res.status(201).json({ message: "Blog created successfully", blog: newBlog });
   } catch (err) {
     console.error("Error creating blog:", err);
-    res.status(500).json({ error: "Failed to create blog" });
+    res.status(500).json({ 
+  error: err.message 
+});
   }
 });
+
 
 // ✅ UPDATE BLOG
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
-    const { title, slug, author, tags, category, content } = req.body;
+    const { title, slug, author,  metaKeywords, category, content } = req.body;
 
     // Check if new slug already exists (if slug is being changed)
     if (slug) {
@@ -92,7 +120,7 @@ router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> 
 
   bannerImage: req.file?.path,
 
-  tags,
+  metaKeywords,
   category,
   content,
   updatedAt:new Date()

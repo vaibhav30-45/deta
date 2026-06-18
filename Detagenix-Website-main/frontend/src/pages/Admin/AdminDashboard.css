@@ -769,6 +769,137 @@
 .service-card:hover .service-icon img {
   transform: scale(1.05);
 }
+/* FAQ Section */
+
+/* FAQ Section */
+
+.faq-container {
+  background: #172746;
+  padding: 25px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 191, 255, 0.25);
+}
+
+
+/* Form */
+
+.faq-form {
+  background: #1d3154;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  border: 1px solid rgba(0,191,255,0.25);
+}
+
+
+.faq-form input,
+.faq-form textarea {
+
+  width:100%;
+  background:#0f1d35;
+  color:#fff;
+
+  padding:12px;
+  margin-bottom:15px;
+
+  border-radius:8px;
+  border:1px solid rgba(0,191,255,0.4);
+
+  outline:none;
+  font-family:inherit;
+}
+
+
+.faq-form input::placeholder,
+.faq-form textarea::placeholder{
+  color:#9bb3d1;
+}
+
+
+.faq-form input:focus,
+.faq-form textarea:focus{
+  border-color:#00bfff;
+}
+
+
+/* FAQ Card */
+
+.faq-card {
+
+  background:#1d3154;
+
+  padding:20px;
+  margin-bottom:15px;
+
+  border-radius:12px;
+
+  border:1px solid rgba(0,191,255,0.25);
+
+  box-shadow:0 5px 20px rgba(0,0,0,0.25);
+
+  transition:0.3s;
+}
+
+
+.faq-card:hover{
+
+ transform:translateY(-3px);
+ border-color:#00bfff;
+
+}
+
+
+.faq-card h4{
+
+ color:#00bfff;
+ margin-bottom:10px;
+ font-size:18px;
+
+}
+
+
+.faq-card p{
+
+ color:#d5e5ff;
+ line-height:1.6;
+
+}
+
+
+/* Delete Button */
+
+.faq-delete-btn {
+
+ background:#00bfff;
+
+ color:#081426;
+
+ border:none;
+
+ padding:8px 16px;
+
+ border-radius:6px;
+
+ cursor:pointer;
+
+ display:flex;
+ align-items:center;
+ gap:6px;
+
+ font-weight:600;
+
+ transition:0.3s;
+
+}
+
+
+.faq-delete-btn:hover{
+
+ background:#0099cc;
+
+ transform:scale(1.05);
+
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

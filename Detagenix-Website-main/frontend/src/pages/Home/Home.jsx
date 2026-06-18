@@ -40,6 +40,9 @@ const Home = () => {
   const [latestBlogs, setLatestBlogs] = useState([]);
 const [blogLoading, setBlogLoading] = useState(true);
 
+ const [faqs, setFaqs] = useState([]);
+const [faqLoading, setFaqLoading] = useState(true);
+
   const navigate = useNavigate();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -96,6 +99,21 @@ const [blogLoading, setBlogLoading] = useState(true);
       alert("Server error ❌");
     }
   };
+
+   useEffect(() => {
+  const fetchFaqs = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/faqs`);
+      setFaqs(res.data);
+    } catch (error) {
+      console.error("Failed to fetch FAQs:", error);
+    } finally {
+      setFaqLoading(false);
+    }
+  };
+
+  fetchFaqs();
+}, [BASE_URL]);
 
   useEffect(() => {
   const fetchLatestBlogs = async () => {
@@ -569,7 +587,7 @@ const [blogLoading, setBlogLoading] = useState(true);
         <Testimonial />
       </section>
        
-       <FAQ />
+       <FAQ faqs={faqs} loading={faqLoading} />
 
       {/* 10. MODAL FORM PORTAL */}
       {isOpenForm &&
