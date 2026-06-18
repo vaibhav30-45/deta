@@ -1,7 +1,7 @@
 import express from "express";
 import Blog from "../models/Blog.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
-import upload from "../middlewares/fileUpload.js";
+import upload from "../middlewares/imageUpload.js";
 
 const router = express.Router();
 
@@ -25,50 +25,62 @@ router.get("/:slug", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch blog" });
   }
 });
-
 // ✅ CREATE NEW BLOG
 router.post(
   "/",
   verifyToken,
   upload.single("bannerImage"),
-  async (req, res) =>  {
-  try {
-    const { title, slug, author, tags, category, content } = req.body;
+  async (req, res) => {
+    try {
+      console.log("BODY =>", req.body);
+      console.log("FILE =>", req.file);
 
-    // Check if slug already exists
-    const existingBlog = await Blog.findOne({ slug });
-    if (existingBlog) {
-      return res.status(400).json({ error: "Slug already exists" });
+      const { title, slug, author, tags, category, content } = req.body;
+
+      // Check image
+      if (!req.file) {
+        return res.status(400).json({
+          error: "Banner image is required",
+        });
+      }
+
+      // Check slug
+      const existingBlog = await Blog.findOne({ slug });
+
+      if (existingBlog) {
+        return res.status(400).json({
+          error: "Slug already exists",
+        });
+      }
+
+      const newBlog = new Blog({
+        title,
+        slug,
+        author,
+        bannerImage: req.file.path, // Cloudinary URL
+        tags,
+        category,
+        content,
+      });
+
+      await newBlog.save();
+
+      res.status(201).json({
+        success: true,
+        message: "Blog created successfully",
+        blog: newBlog,
+      });
+    } catch (err) {
+      console.error("Error creating blog:", err);
+
+      res.status(500).json({
+        success: false,
+        error: err.message,
+      });
     }
-
-    // const newBlog = new Blog({
-    //   title,
-    //   slug,
-    //   author,
-    //   bannerImage,
-    //   tags,
-    //   category,
-    //   content,
-    // });
-    const newBlog = new Blog({
-  title,
-  slug,
-  author,
-
-  bannerImage: req.file?.path,
-
-  tags,
-  category,
-  content,
-});
-
-    await newBlog.save();
-    res.status(201).json({ message: "Blog created successfully", blog: newBlog });
-  } catch (err) {
-    console.error("Error creating blog:", err);
-    res.status(500).json({ error: "Failed to create blog" });
   }
-});
+);
+
 
 // ✅ UPDATE BLOG
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
