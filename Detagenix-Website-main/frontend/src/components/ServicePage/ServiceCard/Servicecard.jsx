@@ -23,12 +23,12 @@ import {
   MdAnalytics,
   MdApi,
 } from "react-icons/md";
-import * as Icons from "react-icons/fa";
+import * as FcIcons from "react-icons/fc";
 
 const DynamicIcon = ({ iconName, ...props }) => {
-  const IconComponent = Icons[iconName];
-  if (!IconComponent) return <Icons.FaCog {...props} />; // Fallback icon
-  return <IconComponent {...props} />;
+  const IconComponent = FcIcons[iconName];
+  if (!IconComponent) return <FcIcons.FcSettings {...props} />; // Fallback icon
+  return <IconComponent {...props} Size = {100} />;
 };
 
 const Servicecard = ({ service, title, desc, icon, link, onLearnMore }) => {
@@ -53,7 +53,7 @@ const Servicecard = ({ service, title, desc, icon, link, onLearnMore }) => {
   <div className="service-card-content">
     {/* <img src={cardData.icon} alt={cardData.title} className="icon" /> */}
      
-     <div className="service-icon" style={{ fontSize: "32px", color: "#00bfff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+     <div className="service-icon" style={{ fontSize: "120px", color: "#00bfff", display: "flex", alignItems: "center", justifyContent: "center" }}>
                        <DynamicIcon iconName={service.icon} />
                   </div>
   

@@ -34,7 +34,6 @@ router.post(
   async (req, res) =>  {
   try {
     const { title, slug, author, tags, category, content } = req.body;
-
     // Check if slug already exists
     const existingBlog = await Blog.findOne({ slug });
     if (existingBlog) {
@@ -55,13 +54,12 @@ router.post(
   slug,
   author,
 
-  bannerImage: req.file?.path,
+  bannerImage: req.file.path,
 
   tags,
   category,
   content,
 });
-
     await newBlog.save();
     res.status(201).json({ message: "Blog created successfully", blog: newBlog });
   } catch (err) {
@@ -74,7 +72,6 @@ router.post(
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
     const { title, slug, author, tags, category, content } = req.body;
-
     // Check if new slug already exists (if slug is being changed)
     if (slug) {
       const existingBlog = await Blog.findOne({ slug, _id: { $ne: req.params.id } });
@@ -90,7 +87,7 @@ router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> 
   slug,
   author,
 
-  bannerImage: req.file?.path,
+  bannerImage: req.file.path,
 
   tags,
   category,

@@ -21,11 +21,11 @@ import {
 import logo from "../../asset/logo.webp";
 import { Editor } from "@tinymce/tinymce-react";
 import { FaQuoteRight } from "react-icons/fa";
-import * as Icons from "react-icons/fa";
+import * as FcIcons from "react-icons/fc";
 
 const DynamicIcon = ({ iconName, ...props }) => {
-  const IconComponent = Icons[iconName];
-  if (!IconComponent) return <Icons.FaCog {...props} />; // Fallback icon
+  const IconComponent = FcIcons[iconName];
+  if (!IconComponent) return <FcIcons.FcSettings {...props} />; // Fallback icon
   return <IconComponent {...props} />;
 };
 
@@ -88,7 +88,6 @@ const AdminDashboard = () => {
     author: "Detagenix Team",
     bannerImage: "",
     tags: "",
-    metaKeywords: "",
     category: "",
     content: [
       { type: "heading", value: "" },
@@ -170,7 +169,6 @@ const AdminDashboard = () => {
       alert("Please fill all required fields");
       return;
     }
-
     try {
       if (editingBlog) {
         await api.put(`/api/blogs/${editingBlog._id}`, {
@@ -182,7 +180,7 @@ const AdminDashboard = () => {
         await api.post(`/api/blogs`, {
           ...blogForm,
           tags: blogForm.tags.split(",").map((t) => t.trim()),
-          metaKeywords: blogForm.metaKeywords.split(",").map((t) => t.trim()),
+          
         });
         alert("Blog created successfully");
       }
@@ -203,6 +201,7 @@ const AdminDashboard = () => {
       alert(err.response?.data?.error || "Failed to save blog");
     }
   };
+  
 
   const handleDeleteBlog = async (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
@@ -994,11 +993,11 @@ const AdminDashboard = () => {
                 </div>
                 <div className="form-group">
                   <input
-                    value={blogForm.metaKeywords}
+                    value={blogForm.tags}
                     onChange={(e) =>
                       setBlogForm({
                         ...blogForm,
-                        metaKeywords: e.target.value,
+                        tags: e.target.value,
                       })
                     }
                     placeholder="SEO Keywords: AI, Technology, Development"
@@ -1181,10 +1180,10 @@ const AdminDashboard = () => {
         onChange={(e) =>
           setServiceForm({ ...serviceForm, icon: e.target.value })
         }
-        placeholder="Icon Name (e.g., FaLaptop, FaShieldAlt, FaCog)"
+        placeholder="Icon Name (e.g., FcLaptop, FcShieldAlt, FcCog)"
       />
       <small style={{ color: "#888", fontSize: "11px", marginTop: "4px", display: "block" }}>
-        Tip: Use FontAwesome icon names like FaLaptop, FaShieldAlt, FaBriefcase, etc.
+        Tip: Use FontAwesome icon names like FcLaptop, FcShieldAlt, FcBriefcase, etc.
       </small>
     </div>
                 <div className="form-group">
