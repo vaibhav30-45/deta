@@ -86,7 +86,6 @@ router.post(
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
     const { title, slug, author, tags, category, content } = req.body;
-
     // Check if new slug already exists (if slug is being changed)
     if (slug) {
       const existingBlog = await Blog.findOne({ slug, _id: { $ne: req.params.id } });
@@ -102,7 +101,7 @@ router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> 
   slug,
   author,
 
-  bannerImage: req.file?.path,
+  bannerImage: req.file.path,
 
   tags,
   category,
