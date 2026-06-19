@@ -165,44 +165,101 @@ const AdminDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // const handleCreateBlog = async () => {
+  //   if (!blogForm.title || !blogForm.slug || !blogForm.content) {
+  //     alert("Please fill all required fields");
+  //     return;
+  //   }
+
+  //   try {
+  //     if (editingBlog) {
+  //       await api.put(`/api/blogs/${editingBlog._id}`, {
+  //         ...blogForm,
+  //         tags: blogForm.tags.split(",").map((t) => t.trim()),
+  //       });
+  //       alert("Blog updated successfully");
+  //     } else {
+  //       await api.post(`/api/blogs`, {
+  //         ...blogForm,
+  //         tags: blogForm.tags.split(",").map((t) => t.trim()),
+       
+  //       });
+  //       alert("Blog created successfully");
+  //     }
+  //     setBlogForm({
+  //       title: "",
+  //       slug: "",
+  //       author: "Detagenix Team",
+  //       bannerImage: "",
+  //       tags: "",
+  //       category: "",
+  //       content: "",
+  //     });
+  //     setEditingBlog(null);
+  //     setShowBlogForm(false);
+  //     fetchData();
+  //   } catch (err) {
+  //     console.error("Error saving blog:", err);
+  //     alert(err.response?.data?.error || "Failed to save blog");
+  //   }
+  // };
   const handleCreateBlog = async () => {
-    if (!blogForm.title || !blogForm.slug || !blogForm.content) {
-      alert("Please fill all required fields");
-      return;
+  if (!blogForm.title || !blogForm.slug || !blogForm.content) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  try {
+    // 1. Plain JSON ki jagah FormData object banayein
+    const formData = new FormData();
+    formData.append("title", blogForm.title);
+    formData.append("slug", blogForm.slug);
+    formData.append("author", blogForm.author);
+    formData.append("category", blogForm.category);
+    formData.append("content", blogForm.content);
+    
+    // Banner Image file append karein (Yeh string nahi, actual file object hona chahiye)
+    formData.append("bannerImage", blogForm.bannerImage);
+
+    // Tags ko process karke append karein
+    const tagsArray = blogForm.tags.split(",").map((t) => t.trim());
+    tagsArray.forEach(tag => formData.append("tags", tag));
+
+    // 2. Multer ke liye special config header lagayein
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    };
+
+    if (editingBlog) {
+      // Axios instance (api) ki jagah direct axios use kar rahe hain taaki naya config header sahi se apply ho
+      await axios.put(`${BASE_URL}/api/blogs/${editingBlog._id}`, formData, config);
+      alert("Blog updated successfully");
+    } else {
+      await axios.post(`${BASE_URL}/api/blogs`, formData, config);
+      alert("Blog created successfully");
     }
 
-    try {
-      if (editingBlog) {
-        await api.put(`/api/blogs/${editingBlog._id}`, {
-          ...blogForm,
-          tags: blogForm.tags.split(",").map((t) => t.trim()),
-        });
-        alert("Blog updated successfully");
-      } else {
-        await api.post(`/api/blogs`, {
-          ...blogForm,
-          tags: blogForm.tags.split(",").map((t) => t.trim()),
-          metaKeywords: blogForm.metaKeywords.split(",").map((t) => t.trim()),
-        });
-        alert("Blog created successfully");
-      }
-      setBlogForm({
-        title: "",
-        slug: "",
-        author: "Detagenix Team",
-        bannerImage: "",
-        tags: "",
-        category: "",
-        content: "",
-      });
-      setEditingBlog(null);
-      setShowBlogForm(false);
-      fetchData();
-    } catch (err) {
-      console.error("Error saving blog:", err);
-      alert(err.response?.data?.error || "Failed to save blog");
-    }
-  };
+    // Form reset karein
+    setBlogForm({
+      title: "",
+      slug: "",
+      author: "Detagenix Team",
+      bannerImage: "",
+      tags: "",
+      category: "",
+      content: "",
+    });
+    setEditingBlog(null);
+    setShowBlogForm(false);
+    fetchData();
+  } catch (err) {
+    console.error("Error saving blog:", err);
+    alert(err.response?.data?.error || "Failed to save blog");
+  }
+};
 
   const handleDeleteBlog = async (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
@@ -994,11 +1051,11 @@ const AdminDashboard = () => {
                 </div>
                 <div className="form-group">
                   <input
-                    value={blogForm.metaKeywords}
+                    value={blogForm.tags}
                     onChange={(e) =>
                       setBlogForm({
                         ...blogForm,
-                        metaKeywords: e.target.value,
+                        tags: e.target.value,
                       })
                     }
                     placeholder="SEO Keywords: AI, Technology, Development"
