@@ -21,11 +21,11 @@ import {
 import logo from "../../asset/logo.webp";
 import { Editor } from "@tinymce/tinymce-react";
 import { FaQuoteRight } from "react-icons/fa";
-import * as Icons from "react-icons/fa";
+import * as FcIcons from "react-icons/fc";
 
 const DynamicIcon = ({ iconName, ...props }) => {
-  const IconComponent = Icons[iconName];
-  if (!IconComponent) return <Icons.FaCog {...props} />; // Fallback icon
+  const IconComponent = FcIcons[iconName];
+  if (!IconComponent) return <FcIcons.FcSettings {...props} />; // Fallback icon
   return <IconComponent {...props} />;
 };
 
@@ -88,7 +88,6 @@ const AdminDashboard = () => {
     author: "Detagenix Team",
     bannerImage: "",
     tags: "",
-    metaKeywords: "",
     category: "",
     content: [
       { type: "heading", value: "" },
@@ -1238,10 +1237,10 @@ const AdminDashboard = () => {
         onChange={(e) =>
           setServiceForm({ ...serviceForm, icon: e.target.value })
         }
-        placeholder="Icon Name (e.g., FaLaptop, FaShieldAlt, FaCog)"
+        placeholder="Icon Name (e.g., FcLaptop, FcShieldAlt, FcCog)"
       />
       <small style={{ color: "#888", fontSize: "11px", marginTop: "4px", display: "block" }}>
-        Tip: Use FontAwesome icon names like FaLaptop, FaShieldAlt, FaBriefcase, etc.
+        Tip: Use FontAwesome icon names like FcLaptop, FcShieldAlt, FcBriefcase, etc.
       </small>
     </div>
                 <div className="form-group">

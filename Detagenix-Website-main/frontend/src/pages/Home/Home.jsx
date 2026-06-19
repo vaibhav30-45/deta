@@ -32,6 +32,13 @@ import {
   FaServer,
   FaHeart
 } from "react-icons/fa";
+import * as FcIcons from "react-icons/fc";
+
+const DynamicIcon = ({ iconName, ...props }) => {
+  const IconComponent = FcIcons[iconName];
+  if (!IconComponent) return <FcIcons.FcSettings {...props} />; // Fallback icon
+  return <IconComponent {...props} Size = {100} />;
+};
 
 const Home = () => {
   const BASE_URL =
@@ -39,6 +46,10 @@ const Home = () => {
 
   const [latestBlogs, setLatestBlogs] = useState([]);
 const [blogLoading, setBlogLoading] = useState(true);
+
+//service
+  const [dynamicServices, setDynamicServices] = useState([]);
+
 
   const navigate = useNavigate();
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -124,7 +135,33 @@ const [blogLoading, setBlogLoading] = useState(true);
       setBlogLoading(false);
     }
   };
+  const fetchServices = async () => {
+      try {
+        const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
+        // Use blog-services which stores title, description, icon and link
+        const response = await axios.get(`${BASE_URL}/api/blog-services`);
+       let data = response.data;
 
+      if (!data) data = [];
+
+      if (!Array.isArray(data) && data.value && Array.isArray(data.value)) {
+        data = data.value;
+      }
+
+      const sortedService = [...data].sort((a, b) => {
+        const dateA = new Date(a.createdAt  || 0);
+        const dateB = new Date(b.createdAt  || 0);
+        return dateB - dateA;
+      });
+
+      setDynamicServices(sortedService.slice(0, 6)); // Latest 3 blogs
+    } catch (error) {
+      console.error("Failed to fetch services:", error);
+    } finally {
+      
+    }
+    };
+   fetchServices();
   fetchLatestBlogs();
 }, [BASE_URL]);
 
@@ -218,48 +255,16 @@ const [blogLoading, setBlogLoading] = useState(true);
         </div>
 
         <div className="services-grid-new">
-          {/* Card 1 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaCode size={28} /></div>
-            <h3>Web Development Solutions</h3>
-            <p>From complex web applications to custom portals, we build high-performance web systems tailored to your goals.</p>
-            {/* <a href="/services#webdev" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
-          {/* Card 2 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaBrain size={28} /></div>
-            <h3>AI-Powered Solutions</h3>
-            <p>Leverage machine learning, LLMs, and computer vision to automate processes and generate actionable intelligence.</p>
-            {/* <a href="/services#ai" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
-          {/* Card 3 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaMobileAlt size={28} /></div>
-            <h3>Mobile App Development</h3>
-            <p>Creating seamless, native, and cross-platform mobile experiences for both iOS and Android platforms.</p>
-            {/* <a href="/services#mobile" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
-          {/* Card 4 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaCloud size={28} /></div>
-            <h3>Cloud & DevOps</h3>
-            <p>Scalable cloud infrastructure deployment, CI/CD pipelines, and robust automation for maximum uptime.</p>
-            {/* <a href="/services#cloud" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
-          {/* Card 5 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaShieldAlt size={28} /></div>
-            <h3>Cybersecurity Services</h3>
-            <p>Vulnerability testing, secure system design, and threat mitigation to protect your company's critical data.</p>
-            {/* <a href="/services#cyber" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
-          {/* Card 6 */}
-          <div className="service-card-new">
-            <div className="service-icon-box"><FaChartBar size={28} /></div>
-            <h3>Data Analytics</h3>
-            <p>Process big data, design dashboards, and construct data warehousing to power business intelligence.</p>
-            {/* <a href="/services#data" className="service-link-new">Learn More <FaArrowRight size={12} /></a> */}
-          </div>
+
+          {dynamicServices.map((service, index) => (
+               <div className="service-card-new" key={service._id || index}>
+            <div className="service-icon-box"><DynamicIcon iconName={service.icon} /></div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            </div>
+            
+        ))}
+         
           
         </div> <div className="projects-action-new">
           <button onClick={() => navigate("/services")} className="btn-primary-new">
@@ -339,6 +344,7 @@ const [blogLoading, setBlogLoading] = useState(true);
 
       {/* 5. PROCESS / WORKFLOW SECTION */}
       <section className="process-section-new" id="process">
+        
         <div className="section-header-new">
           {/* <span className="section-subtitle-new">Our <span className="highlight-blue">Process / How We Work</span></span> */}
           <h2>A step-by-step approach to bringing your digital projects to life.</h2>
@@ -394,6 +400,7 @@ const [blogLoading, setBlogLoading] = useState(true);
           {/* <span className="section-subtitle-new">Our Impact in <span className="highlight-blue">Numbers</span></span> */}
           <h2>Numbers That Define Us</h2>
         </div>
+
         <div className="stats-grid-new">
           <div className="stat-card-new">
             <div className="stat-icon-box-new"><FaProjectDiagram size={24} /></div>
