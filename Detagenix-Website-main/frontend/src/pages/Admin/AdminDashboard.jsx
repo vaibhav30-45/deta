@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminDashboard.css";
 import Testimonials from "../../components/Testimonial/Testimonials";
+import { useRef } from "react";
 import {
   FaUsers,
   FaFileAlt,
@@ -17,6 +18,7 @@ import {
   FaEdit,
   FaPlus,
   FaSignOutAlt,
+  FaQuestionCircle,
 } from "react-icons/fa";
 import logo from "../../asset/logo.webp";
 import { Editor } from "@tinymce/tinymce-react";
@@ -45,7 +47,9 @@ const AdminDashboard = () => {
     setActiveTab(tab);
     localStorage.setItem("adminActiveTab", tab);
   };
-
+   const serviceFormRef = useRef(null);
+  const blogFormRef = useRef(null);
+  const jobFormRef = useRef(null);
   const [blogs, setBlogs] = useState([]);
   const [blogServices, setBlogServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,6 +58,15 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("adminActiveTab") || "overview",
   );
+ 
+  const [faqs, setFaqs] = useState([]);
+
+  const [faqForm, setFaqForm] = useState({
+    question: "",
+    answer: "",
+  });
+
+  const [showFaqForm, setShowFaqForm] = useState(false);
 
   const [stats, setStats] = useState({
     totalAdmins: 0,
@@ -128,21 +141,23 @@ const AdminDashboard = () => {
         return;
       }
 
-      const [adminRes, blogsRes, servicesRes, enquiriesRes] = await Promise.all(
-        [
+      const [adminRes, blogsRes, servicesRes, enquiriesRes, faqsRes] =
+        await Promise.all([
           api.get(`/api/admin/data`),
           api.get(`/api/blogs`),
           api.get(`/api/blog-services`),
           api.get(`/api/enquiry`),
-        ],
-      );
+          api.get(`/api/faqs`),
+        ]);
 
       console.log("Enquiry Data:", enquiriesRes.data);
+      console.log("FAQ Data:", faqsRes.data);
 
       setData(adminRes.data);
       setBlogs(blogsRes.data);
       setBlogServices(servicesRes.data);
       setEnquiries(enquiriesRes.data);
+      setFaqs(faqsRes.data);
       setStats({
         totalAdmins: adminRes.data.admins?.length || 0,
         totalApplications: adminRes.data.applications?.length || 0,
@@ -356,11 +371,23 @@ const AdminDashboard = () => {
     }
   };
 
+  // const handleEditJob = (job) => {
+  //   setJobForm(job);
+  //   setEditingJob(job);
+  //   setShowJobForm(true);
+  // };
   const handleEditJob = (job) => {
-    setJobForm(job);
-    setEditingJob(job);
-    setShowJobForm(true);
-  };
+  setJobForm(job);
+  setEditingJob(job);
+  setShowJobForm(true);
+
+  setTimeout(() => {
+    jobFormRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, 100);
+};
 
   const StatCard = ({ icon: Icon, title, value, color }) => (
     <div className="stat-card" style={{ borderLeftColor: color }}>
@@ -373,16 +400,16 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
- const handleUpdateEnquiryStatus = async (enquiryId, newStatus) => {
-  try {
-    await api.put(`/api/enquiry/${enquiryId}/status`, { status: newStatus });
-    alert("Status updated successfully! ");
-    fetchData(); 
-  } catch (err) {
-    console.error("Error updating status:", err);
-    alert(err.response?.data?.error || "Failed to update status");
-  }
-};
+  const handleUpdateEnquiryStatus = async (enquiryId, newStatus) => {
+    try {
+      await api.put(`/api/enquiry/${enquiryId}/status`, { status: newStatus });
+      alert("Status updated successfully! ");
+      fetchData();
+    } catch (err) {
+      console.error("Error updating status:", err);
+      alert(err.response?.data?.error || "Failed to update status");
+    }
+  };
   const DataTable = ({ data, columns, title }) => (
     <div className="data-table-container">
       <h2 className="table-title">{title}</h2>
@@ -535,6 +562,12 @@ const AdminDashboard = () => {
         >
           <FaQuoteRight /> Testimonials
         </button>
+        <button
+          className={`nav-btn ${activeTab === "faq" ? "active" : ""}`}
+          onClick={() => changeTab("faq")}
+        >
+          <FaQuestionCircle /> FAQ
+        </button>
       </div>
 
       {/* Dashboard Content */}
@@ -667,7 +700,7 @@ const AdminDashboard = () => {
             </div>
 
             {showJobForm && (
-              <div
+              <div ref={jobFormRef}
                 className="form-modal"
                 style={{
                   backgroundColor: "#f8f9fa",
@@ -1004,7 +1037,7 @@ const AdminDashboard = () => {
             </div>
 
             {showBlogForm && (
-              <div className="form-container">
+              <div ref={blogFormRef} className="form-container">
                 <h3>{editingBlog ? "Edit Blog" : "Create New Blog"}</h3>
                 <div className="form-group">
                   <input
@@ -1075,6 +1108,7 @@ const AdminDashboard = () => {
 
                   <Editor
                     apiKey="vls4npqn6e2dtdv8mw43rk3w1txinqmt5m1vdn8h56dx1130"
+                    // apikey="5my20effb7vq95r4uvprk7kwhojuaybfbcwcnisda085sqm8"
                     value={blogForm.content}
                     init={{
                       height: 400,
@@ -1139,19 +1173,41 @@ const AdminDashboard = () => {
                     <div className="item-actions">
                       <button
                         className="edit-icon"
+                        // onClick={() => {
+                        //   setEditingBlog(blog);
+                        //   setBlogForm({
+                        //     title: blog.title,
+                        //     slug: blog.slug,
+                        //     author: blog.author,
+                        //     bannerImage: blog.bannerImage,
+                        //     tags: blog.tags.join(", "),
+                        //     category: blog.category,
+                        //     content: blog.content || "",
+                        //   });
+                        //   setShowBlogForm(true);
+                        // }}
                         onClick={() => {
-                          setEditingBlog(blog);
-                          setBlogForm({
-                            title: blog.title,
-                            slug: blog.slug,
-                            author: blog.author,
-                            bannerImage: blog.bannerImage,
-                            tags: blog.tags.join(", "),
-                            category: blog.category,
-                            content: blog.content || "",
-                          });
-                          setShowBlogForm(true);
-                        }}
+  setEditingBlog(blog);
+
+  setBlogForm({
+    title: blog.title,
+    slug: blog.slug,
+    author: blog.author,
+    bannerImage: blog.bannerImage,
+    tags: blog.tags.join(", "),
+    category: blog.category,
+    content: blog.content || "",
+  });
+
+  setShowBlogForm(true);
+
+  setTimeout(() => {
+    blogFormRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, 100);
+}}
                       >
                         <FaEdit /> Edit
                       </button>
@@ -1283,8 +1339,17 @@ const AdminDashboard = () => {
                   {/* <div className="service-icon">
                     <img src={service.icon} alt={service.title} />
                   </div> */}
-                  <div className="service-icon" style={{ fontSize: "32px", color: "#00bfff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                       <DynamicIcon iconName={service.icon} />
+                  <div
+                    className="service-icon"
+                    style={{
+                      fontSize: "32px",
+                      color: "#00bfff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <DynamicIcon iconName={service.icon} />
                   </div>
                   <div className="service-content">
                     <h4>{service.title}</h4>
@@ -1335,76 +1400,190 @@ const AdminDashboard = () => {
     title="All Enquiries"
   />
 )} */}
-  {/* Enquiries Tab */}
-{activeTab === "enquiries" && (
-  <div className="data-table-container">
-    <h2 className="table-title">All Enquiries Management</h2>
-    <div className="table-wrapper">
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Project Type</th>
-            <th>Budget</th>
-            <th>Timeline</th>
-            <th>Message</th>
-            <th>Received At</th>
-            <th>Status (Admin Only)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {enquiries && enquiries.length > 0 ? (
-            enquiries.map((row) => (
-              <tr key={row._id}>
-                <td>{row._id}</td>
-                <td>{row.full_name}</td>
-                <td>{row.email}</td>
-                <td>{row.phone}</td>
-                 <td>{row.project_type}</td>
-                 <td>{row.budget}</td>
-                 <td>{row.timeline}</td>
-                <td>{row.description || "-"}</td>
-                <td>{row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "-"}</td>
-                <td>
-                  {/* Status Dropdown Selection */}
-                  <select
-                    
-                    value={row.status || "pending"}
-                    onChange={(e) => handleUpdateEnquiryStatus(row._id, e.target.value)}
-                    style={{
-                      padding: "6px 12px",
-                      borderRadius: "4px",
-                      border: "1px solid #00bfff",
-                      fontFamily: "inherit",
-                      fontWeight: "500",
-                      cursor: "pointer",
-                      backgroundColor: " rgba(0, 191, 255, 0.1)",
-                      color:  "#00bfff",   
-                    }}
-                     
-                  >
-                    <option  style={{ color:"#00bfff", backgroundColor: "#0d1b2a" }}  value="pending"> Pending</option>
-                    <option style={{ color:"#00bfff", backgroundColor: "#0d1b2a"  }}  value="connected"> Connected</option>
-                  </select>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6" className="no-data">
-                No enquiries available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+        {/* Enquiries Tab */}
+        {activeTab === "enquiries" && (
+          <div className="data-table-container">
+            <h2 className="table-title">All Enquiries Management</h2>
+            <div className="table-wrapper">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Project Type</th>
+                    <th>Budget</th>
+                    <th>Timeline</th>
+                    <th>Message</th>
+                    <th>Received At</th>
+                    <th>Status (Admin Only)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {enquiries && enquiries.length > 0 ? (
+                    enquiries.map((row) => (
+                      <tr key={row._id}>
+                        <td>{row._id}</td>
+                        <td>{row.full_name}</td>
+                        <td>{row.email}</td>
+                        <td>{row.phone}</td>
+                        <td>{row.project_type}</td>
+                        <td>{row.budget}</td>
+                        <td>{row.timeline}</td>
+                        <td>{row.description || "-"}</td>
+                        <td>
+                          {row.createdAt
+                            ? new Date(row.createdAt).toLocaleDateString()
+                            : "-"}
+                        </td>
+                        <td>
+                          {/* Status Dropdown Selection */}
+                          <select
+                            value={row.status || "pending"}
+                            onChange={(e) =>
+                              handleUpdateEnquiryStatus(row._id, e.target.value)
+                            }
+                            style={{
+                              padding: "6px 12px",
+                              borderRadius: "4px",
+                              border: "1px solid #00bfff",
+                              fontFamily: "inherit",
+                              fontWeight: "500",
+                              cursor: "pointer",
+                              backgroundColor: " rgba(0, 191, 255, 0.1)",
+                              color: "#00bfff",
+                            }}
+                          >
+                            <option
+                              style={{
+                                color: "#00bfff",
+                                backgroundColor: "#0d1b2a",
+                              }}
+                              value="pending"
+                            >
+                              {" "}
+                              Pending
+                            </option>
+                            <option
+                              style={{
+                                color: "#00bfff",
+                                backgroundColor: "#0d1b2a",
+                              }}
+                              value="connected"
+                            >
+                              {" "}
+                              Connected
+                            </option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="6" className="no-data">
+                        No enquiries available
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        {activeTab === "testimonials" && <Testimonials />}
+       {activeTab === "faq" && (
+  <div className="faq-container">
+
+    <div className="form-header">
+      <h2>Manage FAQ</h2>
+
+      <button 
+        className="add-btn" 
+        onClick={() => setShowFaqForm(true)}
+      >
+        <FaPlus /> Add FAQ
+      </button>
     </div>
+
+
+    {showFaqForm && (
+      <div className="faq-form">
+
+        <input
+          placeholder="Question"
+          value={faqForm.question}
+          onChange={(e) =>
+            setFaqForm({
+              ...faqForm,
+              question: e.target.value,
+            })
+          }
+        />
+
+
+        <textarea
+          placeholder="Answer"
+          value={faqForm.answer}
+          onChange={(e) =>
+            setFaqForm({
+              ...faqForm,
+              answer: e.target.value,
+            })
+          }
+        />
+
+
+        <button
+          className="submit-btn"
+          onClick={async () => {
+            await api.post("/api/faqs", faqForm);
+
+            alert("FAQ Added");
+
+            setFaqForm({
+              question: "",
+              answer: "",
+            });
+
+            setShowFaqForm(false);
+
+            fetchData();
+          }}
+        >
+          Save FAQ
+        </button>
+
+      </div>
+    )}
+
+
+
+    {faqs.map((faq) => (
+      <div className="faq-card" key={faq._id}>
+
+        <h4>{faq.question}</h4>
+
+        <p>{faq.answer}</p>
+
+
+        <button
+          className="faq-delete-btn"
+          onClick={async () => {
+            await api.delete(`/api/faqs/${faq._id}`);
+            fetchData();
+          }}
+        >
+          <FaTrash /> Delete
+        </button>
+
+
+      </div>
+    ))}
+
+
   </div>
 )}
-        {activeTab === "testimonials" && <Testimonials />}
       </div>
     </div>
   );
