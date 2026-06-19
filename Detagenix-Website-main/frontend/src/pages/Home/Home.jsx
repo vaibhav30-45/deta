@@ -216,7 +216,7 @@ const [faqLoading, setFaqLoading] = useState(true);
             <p className="subtext">
               Specializing in robust technologies like the MERN Stack, AI/ML integrations, Blockchain,
               and Cybersecurity. Our team of skilled professionals works closely with you to deliver
-              secure, high-performance applications designed to scale.
+              secure, high-performance applications designed to scale...
             </p>
             <button onClick={() => navigate("/about")} className="about-btn-new">
               Read More
