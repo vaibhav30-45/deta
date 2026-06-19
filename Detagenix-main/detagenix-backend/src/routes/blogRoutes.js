@@ -4,6 +4,10 @@ import { verifyToken } from "../middlewares/authMiddleware.js";
 import upload from "../middlewares/imageUpload.js";
 
 const router = express.Router();
+router.use((req,res,next)=>{
+  console.log("BLOG ROUTE HIT:", req.method, req.url);
+  next();
+});
 
 // ✅ GET ALL BLOGS
 router.get("/", async (req, res) => {
@@ -82,6 +86,7 @@ router.post(
 );
 
 
+
 // ✅ UPDATE BLOG
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
@@ -103,7 +108,7 @@ router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> 
 
   bannerImage: req.file.path,
 
-  tags,
+  metaKeywords,
   category,
   content,
   updatedAt:new Date()

@@ -1,5 +1,4 @@
 // index.js
-
 import dns from "dns";
 
 dns.setDefaultResultOrder("ipv4first");
@@ -24,7 +23,11 @@ import blogRoutes from "./src/routes/blogRoutes.js";
 import blogServiceRoutes from "./src/routes/blogServiceRoutes.js"; 
 import testimonialRoutes from "./src/routes/testimonialRoutes.js";
 import enquiryRoutes from "./src/routes/enquiryRoutes.js";
+import faqRoutes from "./src/routes/faqRoutes.js";
 
+
+console.log("MONGO:", process.env.MONGO_URI);
+console.log("CLOUD:", process.env.CLOUDINARY_CLOUD_NAME);
 // dotenv.config();
 connectDB();
 
@@ -56,6 +59,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/blog-services", blogServiceRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/enquiry", enquiryRoutes);
+app.use("/api/faqs", faqRoutes);
 
 app.use("/uploads", express.static("uploads"));
 
