@@ -2,7 +2,12 @@ import mongoose from 'mongoose';
 
 const serviceSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true }
+  description: { type: String, required: true },
+  status:{
+ type:String,
+ enum:["published","draft"],
+ default:"published"
+}
 });
 
 const bookingSchema = new mongoose.Schema({

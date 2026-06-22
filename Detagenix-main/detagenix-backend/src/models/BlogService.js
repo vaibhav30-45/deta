@@ -5,6 +5,11 @@ const blogServiceSchema = new mongoose.Schema({
   description: { type: String, required: true },
   icon: { type: String, required: true },
   link: { type: String },
+  status:{
+ type:String,
+ enum:["published","draft"],
+ default:"published"
+},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
