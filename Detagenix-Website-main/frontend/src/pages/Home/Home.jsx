@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import Techslider from "../../components/Techslider/Techslider";
-import NeuralBG from "../../components/NeuralBG";
+
 import aboutusImage from "../../asset/culture2.png";
 import receptionImage from "../../asset/detagenix.jpeg";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
@@ -199,7 +199,7 @@ const [faqLoading, setFaqLoading] = useState(true);
 
   return (
     <>
-      <NeuralBG />
+     
     {/* SEO */}
     <SEO
         title="Detagenix | Web Development, Mobile Apps & Digital Solutions"
