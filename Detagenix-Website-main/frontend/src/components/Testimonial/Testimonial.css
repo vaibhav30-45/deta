@@ -61,6 +61,7 @@
 .testimonial-track {
   display: flex;
   animation: testimonial-scroll 20s linear infinite;
+    will-change: transform;
 }
 
 .testimonial-slider-wrapper.paused .testimonial-track {
@@ -81,6 +82,7 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .testimonial-card-tech:hover {
@@ -95,6 +97,12 @@
   color: #cbd5e1;
   line-height: 1.6;
   margin-bottom: 1rem;
+
+    display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
 }
 
 /* Stars */
@@ -136,6 +144,7 @@
 /* Company info */
 .testimonial-company {
   text-align: right;
+  color:#ffffff;
 }
 
 .company-logo {
@@ -147,7 +156,12 @@
   border-radius: 6px;
   margin-bottom: 0.2rem;
 }
-
+ .company-name {
+  color: #ffffff !important;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
 /* Animation */
 @keyframes testimonial-scroll {
   0% {

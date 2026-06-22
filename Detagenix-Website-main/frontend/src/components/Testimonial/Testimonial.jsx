@@ -48,7 +48,10 @@ const Testimonial = () => {
           {duplicatedSlides.map((item, index) => (
             <div key={item._id + "-" + index} className="testimonial-card-tech">
               {/* Feedback text */}
-              <div className="testimonial-text">{item.message}</div>
+              <div className="testimonial-text">
+  {item.message.split(" ").slice(0, 50).join(" ")}
+  {item.message.split(" ").length > 50 && "..."}
+</div>
                <div>
               {/* Stars */}
               <div className="testimonial-stars">
@@ -87,6 +90,9 @@ const Testimonial = () => {
                       className="company-logo"
                     />
                   )}
+                   <p className="company-name">
+    {item.company}
+  </p>
                 </div>
               </div>
               </div>
