@@ -33,7 +33,7 @@ const Testimonial = () => {
 
 
 
-  const duplicatedSlides = [ ...feedbackData];
+  const duplicatedSlides = [...feedbackData, ...feedbackData];
 
   return (
     <div className="testimonial-tech-container">

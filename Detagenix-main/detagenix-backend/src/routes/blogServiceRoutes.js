@@ -7,7 +7,8 @@ const router = express.Router();
 // ✅ GET ALL SERVICES
 router.get("/", async (req, res) => {
   try {
-    const services = await BlogService.find();
+    const services = await BlogService.find().sort({ createdAt: -1 });
+
     res.json(services);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch services" });
@@ -28,17 +29,20 @@ router.get("/:id", async (req, res) => {
 // ✅ CREATE NEW SERVICE
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const { title, description, icon, link } = req.body;
+    const { title, description, icon, link, status } = req.body;
 
     const newService = new BlogService({
       title,
       description,
       icon,
       link,
+      status: status || "published",
     });
 
     await newService.save();
-    res.status(201).json({ message: "Service created successfully", service: newService });
+    res
+      .status(201)
+      .json({ message: "Service created successfully", service: newService });
   } catch (err) {
     console.error("Error creating service:", err);
     res.status(500).json({ error: "Failed to create service" });
@@ -48,7 +52,7 @@ router.post("/", verifyToken, async (req, res) => {
 // ✅ UPDATE SERVICE
 router.put("/:id", verifyToken, async (req, res) => {
   try {
-    const { title, description, icon, link } = req.body;
+    const { title, description, icon, link, status } = req.body;
 
     const updatedService = await BlogService.findByIdAndUpdate(
       req.params.id,
@@ -57,13 +61,18 @@ router.put("/:id", verifyToken, async (req, res) => {
         description,
         icon,
         link,
+        status,
         updatedAt: new Date(),
       },
-      { new: true }
+      { new: true },
     );
 
-    if (!updatedService) return res.status(404).json({ error: "Service not found" });
-    res.json({ message: "Service updated successfully", service: updatedService });
+    if (!updatedService)
+      return res.status(404).json({ error: "Service not found" });
+    res.json({
+      message: "Service updated successfully",
+      service: updatedService,
+    });
   } catch (err) {
     res.status(500).json({ error: "Failed to update service" });
   }
