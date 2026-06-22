@@ -131,14 +131,14 @@ const Techslider = () => {
     isCategory: true,
     icon: <FaCloud />,
     name: "DevOps & Cloud",
-    tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "CI/CD"]
+    tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Nginx"]
   },
   {
     id: 1,
     isCategory: true,
     icon: <FaRobot />,
     name: "Artificial Intelligence",
-    tags: ["Machine Learning", "Deep Learning", "NLP", "Python", "TensorFlow", "OpenAI"]
+    tags: ["ML", "DL", "NLP", "Python", "TensorFlow", "OpenAI"]
   },
   {
     id: 2,

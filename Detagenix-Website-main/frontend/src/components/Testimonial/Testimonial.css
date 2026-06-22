@@ -60,7 +60,10 @@
 
 .testimonial-track {
   display: flex;
-  animation: testimonial-scroll 20s linear infinite;
+  width: max-content;
+  gap: 0;
+  animation: testimonial-scroll 30s linear infinite;
+  will-change: transform;
 }
 
 .testimonial-slider-wrapper.paused .testimonial-track {

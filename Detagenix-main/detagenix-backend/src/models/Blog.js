@@ -11,6 +11,11 @@ const blogSchema = new mongoose.Schema({
  content: {
   type: String
 },
+status: {
+  type: String,
+  enum: ["published", "draft"],
+  default: "published"
+},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

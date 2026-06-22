@@ -47,18 +47,20 @@ const AdminDashboard = () => {
     setActiveTab(tab);
     localStorage.setItem("adminActiveTab", tab);
   };
-   const serviceFormRef = useRef(null);
+  const serviceFormRef = useRef(null);
   const blogFormRef = useRef(null);
   const jobFormRef = useRef(null);
   const [blogs, setBlogs] = useState([]);
   const [blogServices, setBlogServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [enquiries, setEnquiries] = useState([]);
+  const [blogFilter, setBlogFilter] = useState("published");
   // const [activeTab, setActiveTab] = useState("overview");
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("adminActiveTab") || "overview",
   );
- 
+  const filteredBlogs = blogs.filter((blog) => blog.status === blogFilter);
+
   const [faqs, setFaqs] = useState([]);
 
   const [faqForm, setFaqForm] = useState({
@@ -102,6 +104,7 @@ const AdminDashboard = () => {
     bannerImage: "",
     tags: "",
     category: "",
+    status: "published",
     content: [
       { type: "heading", value: "" },
       { type: "paragraph", value: "" },
@@ -113,6 +116,7 @@ const AdminDashboard = () => {
     description: "",
     icon: "",
     link: "",
+    status: "published",
   });
 
   const [jobForm, setJobForm] = useState({
@@ -144,10 +148,12 @@ const AdminDashboard = () => {
       const [adminRes, blogsRes, servicesRes, enquiriesRes, faqsRes] =
         await Promise.all([
           api.get(`/api/admin/data`),
-          api.get(`/api/blogs`),
+          // api.get(`/api/blogs`),
+          api.get(`/api/blogs/admin/all`),
           api.get(`/api/blog-services`),
           api.get(`/api/enquiry`),
           api.get(`/api/faqs`),
+          // api.get(`/api/blogs/admin/all`)
         ]);
 
       console.log("Enquiry Data:", enquiriesRes.data);
@@ -196,7 +202,7 @@ const AdminDashboard = () => {
   //       await api.post(`/api/blogs`, {
   //         ...blogForm,
   //         tags: blogForm.tags.split(",").map((t) => t.trim()),
-       
+
   //       });
   //       alert("Blog created successfully");
   //     }
@@ -218,62 +224,69 @@ const AdminDashboard = () => {
   //   }
   // };
   const handleCreateBlog = async () => {
-  if (!blogForm.title || !blogForm.slug || !blogForm.content) {
-    alert("Please fill all required fields");
-    return;
-  }
-
-  try {
-    // 1. Plain JSON ki jagah FormData object banayein
-    const formData = new FormData();
-    formData.append("title", blogForm.title);
-    formData.append("slug", blogForm.slug);
-    formData.append("author", blogForm.author);
-    formData.append("category", blogForm.category);
-    formData.append("content", blogForm.content);
-    
-    // Banner Image file append karein (Yeh string nahi, actual file object hona chahiye)
-    formData.append("bannerImage", blogForm.bannerImage);
-
-    // Tags ko process karke append karein
-    const tagsArray = blogForm.tags.split(",").map((t) => t.trim());
-    tagsArray.forEach(tag => formData.append("tags", tag));
-
-    // 2. Multer ke liye special config header lagayein
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-    };
-
-    if (editingBlog) {
-      // Axios instance (api) ki jagah direct axios use kar rahe hain taaki naya config header sahi se apply ho
-      await axios.put(`${BASE_URL}/api/blogs/${editingBlog._id}`, formData, config);
-      alert("Blog updated successfully");
-    } else {
-      await axios.post(`${BASE_URL}/api/blogs`, formData, config);
-      alert("Blog created successfully");
+    if (!blogForm.title || !blogForm.slug || !blogForm.content) {
+      alert("Please fill all required fields");
+      return;
     }
 
-    // Form reset karein
-    setBlogForm({
-      title: "",
-      slug: "",
-      author: "Detagenix Team",
-      bannerImage: "",
-      tags: "",
-      category: "",
-      content: "",
-    });
-    setEditingBlog(null);
-    setShowBlogForm(false);
-    fetchData();
-  } catch (err) {
-    console.error("Error saving blog:", err);
-    alert(err.response?.data?.error || "Failed to save blog");
-  }
-};
+    try {
+      // 1. Plain JSON ki jagah FormData object banayein
+      const formData = new FormData();
+      formData.append("title", blogForm.title);
+      formData.append("slug", blogForm.slug);
+      formData.append("author", blogForm.author);
+      formData.append("category", blogForm.category);
+      formData.append("content", blogForm.content);
+      console.log("STATUS BEFORE SEND:", blogForm.status);
+      formData.append("status", blogForm.status);
+
+      // Banner Image file append karein (Yeh string nahi, actual file object hona chahiye)
+      formData.append("bannerImage", blogForm.bannerImage);
+
+      // Tags ko process karke append karein
+      const tagsArray = blogForm.tags.split(",").map((t) => t.trim());
+      tagsArray.forEach((tag) => formData.append("tags", tag));
+
+      // 2. Multer ke liye special config header lagayein
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      };
+
+      if (editingBlog) {
+        // Axios instance (api) ki jagah direct axios use kar rahe hain taaki naya config header sahi se apply ho
+        await axios.put(
+          `${BASE_URL}/api/blogs/${editingBlog._id}`,
+          formData,
+          config,
+        );
+        alert("Blog updated successfully");
+      } else {
+        await axios.post(`${BASE_URL}/api/blogs`, formData, config);
+        alert("Blog created successfully");
+      }
+
+      // Form reset karein
+      setBlogForm({
+        title: "",
+        slug: "",
+        author: "Detagenix Team",
+        bannerImage: "",
+        tags: "",
+        category: "",
+        status: "published",
+        content: "",
+      });
+      setEditingBlog(null);
+      setShowBlogForm(false);
+      fetchData();
+    } catch (err) {
+      console.error("Error saving blog:", err);
+      alert(err.response?.data?.error || "Failed to save blog");
+    }
+  };
 
   const handleDeleteBlog = async (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
@@ -306,6 +319,7 @@ const AdminDashboard = () => {
         description: "",
         icon: "",
         link: "",
+        status: "published",
       });
       setEditingService(null);
       setShowServiceForm(false);
@@ -377,17 +391,17 @@ const AdminDashboard = () => {
   //   setShowJobForm(true);
   // };
   const handleEditJob = (job) => {
-  setJobForm(job);
-  setEditingJob(job);
-  setShowJobForm(true);
+    setJobForm(job);
+    setEditingJob(job);
+    setShowJobForm(true);
 
-  setTimeout(() => {
-    jobFormRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, 100);
-};
+    setTimeout(() => {
+      jobFormRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  };
 
   const StatCard = ({ icon: Icon, title, value, color }) => (
     <div className="stat-card" style={{ borderLeftColor: color }}>
@@ -700,7 +714,8 @@ const AdminDashboard = () => {
             </div>
 
             {showJobForm && (
-              <div ref={jobFormRef}
+              <div
+                ref={jobFormRef}
                 className="form-modal"
                 style={{
                   backgroundColor: "#f8f9fa",
@@ -1012,6 +1027,21 @@ const AdminDashboard = () => {
         {activeTab === "blogs" && (
           <div className="section-with-form">
             <div className="form-header">
+              <div className="blog-filter-buttons">
+                <button
+                  onClick={() => setBlogFilter("published")}
+                  className={blogFilter === "published" ? "active-filter" : ""}
+                >
+                  Published
+                </button>
+
+                <button
+                  onClick={() => setBlogFilter("draft")}
+                  className={blogFilter === "draft" ? "active-filter" : ""}
+                >
+                  Draft
+                </button>
+              </div>
               <h2 className="section-title">Manage Blogs</h2>
               <button
                 className="add-btn"
@@ -1025,6 +1055,7 @@ const AdminDashboard = () => {
                     bannerImage: "",
                     tags: "",
                     category: "",
+                    status: "published",
                     content: [
                       { type: "heading", value: "" },
                       { type: "paragraph", value: "" },
@@ -1103,6 +1134,19 @@ const AdminDashboard = () => {
                     placeholder="Category: Technology"
                   />
                 </div>
+                <select
+                  value={blogForm.status}
+                  onChange={(e) =>
+                    setBlogForm({
+                      ...blogForm,
+                      status: e.target.value,
+                    })
+                  }
+                >
+                  <option value="published">Publish</option>
+
+                  <option value="draft">Save Draft</option>
+                </select>
                 <div className="form-group">
                   <label>Blog Content</label>
 
@@ -1160,57 +1204,97 @@ const AdminDashboard = () => {
             )}
 
             <div className="items-grid">
-              {blogs.map((blog) => (
+              {filteredBlogs.map((blog) => (
                 <div key={blog._id} className="item-card">
                   <div className="item-image">
                     <img src={blog.bannerImage} alt={blog.title} />
                   </div>
                   <div className="item-content">
                     <h4>{blog.title}</h4>
+                    <span
+                      style={{
+                        background:
+                          blog.status === "published" ? "#22c55e" : "#f59e0b",
+                        color: "white",
+                        padding: "5px 12px",
+                        borderRadius: "20px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {blog.status}
+                    </span>
                     <p className="item-meta">
                       By {blog.author} • {blog.category}
                     </p>
                     <div className="item-actions">
-                      <button
-                        className="edit-icon"
-                        // onClick={() => {
-                        //   setEditingBlog(blog);
-                        //   setBlogForm({
-                        //     title: blog.title,
-                        //     slug: blog.slug,
-                        //     author: blog.author,
-                        //     bannerImage: blog.bannerImage,
-                        //     tags: blog.tags.join(", "),
-                        //     category: blog.category,
-                        //     content: blog.content || "",
-                        //   });
-                        //   setShowBlogForm(true);
-                        // }}
-                        onClick={() => {
-  setEditingBlog(blog);
+                      {blog.status === "draft" && (
+                        <button
+                          className="submit-btn"
+                          onClick={async () => {
+                            try {
+                              const formData = new FormData();
 
-  setBlogForm({
-    title: blog.title,
-    slug: blog.slug,
-    author: blog.author,
-    bannerImage: blog.bannerImage,
-    tags: blog.tags.join(", "),
-    category: blog.category,
-    content: blog.content || "",
-  });
+                              formData.append("title", blog.title);
+                              formData.append("slug", blog.slug);
+                              formData.append("author", blog.author);
+                              formData.append("category", blog.category);
+                              formData.append("content", blog.content);
+                              formData.append("status", "published");
 
-  setShowBlogForm(true);
+                              if (blog.tags) {
+                                blog.tags.forEach((tag) => {
+                                  formData.append("tags", tag);
+                                });
+                              }
 
-  setTimeout(() => {
-    blogFormRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, 100);
-}}
-                      >
-                        <FaEdit /> Edit
-                      </button>
+                              await axios.put(
+                                `${BASE_URL}/api/blogs/${blog._id}`,
+                                formData,
+                                {
+                                  headers: {
+                                    "Content-Type": "multipart/form-data",
+                                    Authorization: token
+                                      ? `Bearer ${token}`
+                                      : "",
+                                  },
+                                },
+                              );
+
+                              alert("Blog published");
+
+                              fetchData();
+                            } catch (err) {
+                              console.log(err.response?.data);
+                              alert("Publish failed");
+                            }
+                          }}
+                        >
+                          Publish
+                        </button>
+                      )}
+                      {blog.status === "published" && (
+                        <button
+                          className="edit-icon"
+                          onClick={() => {
+                            setEditingBlog(blog);
+
+                            setBlogForm({
+                              title: blog.title,
+                              slug: blog.slug,
+                              author: blog.author,
+                              bannerImage: blog.bannerImage,
+                              tags: blog.tags.join(", "),
+                              category: blog.category,
+                              content: blog.content || "",
+                              status: "published",
+                            });
+
+                            setShowBlogForm(true);
+                          }}
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                      )}
                       <button
                         className="delete-icon"
                         onClick={() => handleDeleteBlog(blog._id)}
@@ -1286,19 +1370,54 @@ const AdminDashboard = () => {
                   />
                 </div> */}
                 {/* Dropdown ki jagah fir se Input Field (Dynamic Icon Name ke liye) */}
-    <div className="form-group">
-      <input
-        type="text"
-        value={serviceForm.icon}
-        onChange={(e) =>
-          setServiceForm({ ...serviceForm, icon: e.target.value })
-        }
-        placeholder="Icon Name (e.g., FcLaptop, FcShieldAlt, FcCog)"
-      />
-      <small style={{ color: "#888", fontSize: "11px", marginTop: "4px", display: "block" }}>
-        Tip: Use FontAwesome icon names like FcLaptop, FcShieldAlt, FcBriefcase, etc.
-      </small>
-    </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    value={serviceForm.icon}
+                    onChange={(e) =>
+                      setServiceForm({ ...serviceForm, icon: e.target.value })
+                    }
+                    placeholder="Icon Name (e.g., FcLaptop, FcShieldAlt, FcCog)"
+                  />
+                  <small
+                    style={{
+                      color: "#888",
+                      fontSize: "11px",
+                      marginTop: "4px",
+                      display: "block",
+                    }}
+                  >
+                    Tip: Use FontAwesome icon names like FcLaptop, FcShieldAlt,
+                    FcBriefcase, etc.
+                  </small>
+                </div>
+                <select
+                  value={serviceForm.status}
+                  onChange={(e) =>
+                    setServiceForm({
+                      ...serviceForm,
+                      status: e.target.value,
+                    })
+                  }
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    marginTop: "10px",
+                    marginBottom: "15px",
+                    borderRadius: "8px",
+                    border: "1px solid #ddd",
+                    backgroundColor: "#fff",
+                    color: "#333",
+                    fontSize: "14px",
+                    fontFamily: "inherit",
+                    cursor: "pointer",
+                    outline: "none",
+                    transition: "0.3s",
+                  }}
+                >
+                  <option value="published">Publish</option>
+                  <option value="draft">Save Draft</option>
+                </select>
                 <div className="form-group">
                   <textarea
                     value={serviceForm.link}
@@ -1353,23 +1472,67 @@ const AdminDashboard = () => {
                   </div>
                   <div className="service-content">
                     <h4>{service.title}</h4>
+                    <span
+                      style={{
+                        background:
+                          service.status === "published"
+                            ? "#22c55e"
+                            : "#f59e0b",
+                        color: "white",
+                        padding: "5px 12px",
+                        borderRadius: "20px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {service.status}
+                    </span>
                     <p>{service.description.substring(0, 100)}...</p>
                     <div className="service-actions">
-                      <button
-                        className="edit-icon"
-                        onClick={() => {
-                          setEditingService(service);
-                          setServiceForm({
-                            title: service.title,
-                            description: service.description,
-                            icon: service.icon,
-                            link: service.link,
-                          });
-                          setShowServiceForm(true);
-                        }}
-                      >
-                        <FaEdit /> Edit
-                      </button>
+                      {service.status === "draft" && (
+                        <button
+                          className="submit-btn"
+                          onClick={async () => {
+                            try {
+                              await api.put(
+                                `/api/blog-services/${service._id}`,
+                                {
+                                  ...service,
+                                  status: "published",
+                                },
+                              );
+
+                              alert("Service Published");
+                              fetchData();
+                            } catch (err) {
+                              alert("Publish failed");
+                            }
+                          }}
+                        >
+                          Publish
+                        </button>
+                      )}
+
+                      {service.status === "published" && (
+                        <button
+                          className="edit-icon"
+                          onClick={() => {
+                            setEditingService(service);
+
+                            setServiceForm({
+                              title: service.title,
+                              description: service.description,
+                              icon: service.icon,
+                              link: service.link,
+                              status: service.status,
+                            });
+
+                            setShowServiceForm(true);
+                          }}
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                      )}
+
                       <button
                         className="delete-icon"
                         onClick={() => handleDeleteService(service._id)}
@@ -1492,98 +1655,81 @@ const AdminDashboard = () => {
           </div>
         )}
         {activeTab === "testimonials" && <Testimonials />}
-       {activeTab === "faq" && (
-  <div className="faq-container">
+        {activeTab === "faq" && (
+          <div className="faq-container">
+            <div className="form-header">
+              <h2>Manage FAQ</h2>
 
-    <div className="form-header">
-      <h2>Manage FAQ</h2>
+              <button className="add-btn" onClick={() => setShowFaqForm(true)}>
+                <FaPlus /> Add FAQ
+              </button>
+            </div>
 
-      <button 
-        className="add-btn" 
-        onClick={() => setShowFaqForm(true)}
-      >
-        <FaPlus /> Add FAQ
-      </button>
-    </div>
+            {showFaqForm && (
+              <div className="faq-form">
+                <input
+                  placeholder="Question"
+                  value={faqForm.question}
+                  onChange={(e) =>
+                    setFaqForm({
+                      ...faqForm,
+                      question: e.target.value,
+                    })
+                  }
+                />
 
+                <textarea
+                  placeholder="Answer"
+                  value={faqForm.answer}
+                  onChange={(e) =>
+                    setFaqForm({
+                      ...faqForm,
+                      answer: e.target.value,
+                    })
+                  }
+                />
 
-    {showFaqForm && (
-      <div className="faq-form">
+                <button
+                  className="submit-btn"
+                  onClick={async () => {
+                    await api.post("/api/faqs", faqForm);
 
-        <input
-          placeholder="Question"
-          value={faqForm.question}
-          onChange={(e) =>
-            setFaqForm({
-              ...faqForm,
-              question: e.target.value,
-            })
-          }
-        />
+                    alert("FAQ Added");
 
+                    setFaqForm({
+                      question: "",
+                      answer: "",
+                    });
 
-        <textarea
-          placeholder="Answer"
-          value={faqForm.answer}
-          onChange={(e) =>
-            setFaqForm({
-              ...faqForm,
-              answer: e.target.value,
-            })
-          }
-        />
+                    setShowFaqForm(false);
 
+                    fetchData();
+                  }}
+                >
+                  Save FAQ
+                </button>
+              </div>
+            )}
 
-        <button
-          className="submit-btn"
-          onClick={async () => {
-            await api.post("/api/faqs", faqForm);
+            {faqs.map((faq) => (
+              <div className="faq-card" key={faq._id}>
+                <h4>{faq.question}</h4>
 
-            alert("FAQ Added");
+                <p>{faq.answer}</p>
 
-            setFaqForm({
-              question: "",
-              answer: "",
-            });
-
-            setShowFaqForm(false);
-
-            fetchData();
-          }}
-        >
-          Save FAQ
-        </button>
-
-      </div>
-    )}
-
-
-
-    {faqs.map((faq) => (
-      <div className="faq-card" key={faq._id}>
-
-        <h4>{faq.question}</h4>
-
-        <p>{faq.answer}</p>
-
-
-        <button
-          className="faq-delete-btn"
-          onClick={async () => {
-            await api.delete(`/api/faqs/${faq._id}`);
-            fetchData();
-          }}
-        >
-          <FaTrash /> Delete
-        </button>
-
-
-      </div>
-    ))}
-
-
-  </div>
-)}
+                <button
+                  className="faq-delete-btn"
+                  onClick={async () => {
+                    await api.delete(`/api/faqs/${faq._id}`);
+                    fetchData();
+                  }}
+                >
+                  <FaTrash /> Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

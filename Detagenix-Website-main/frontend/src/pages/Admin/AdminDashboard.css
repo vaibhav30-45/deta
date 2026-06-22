@@ -696,6 +696,39 @@
   margin: 0 0 15px 0;
 }
 
+.blog-filter-buttons{
+  display:flex;
+  gap:12px;
+  margin:20px 0;
+  align-items:center;
+}
+
+
+.blog-filter-buttons button{
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  background:#e5e7eb;
+  color:#333;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+
+.blog-filter-buttons button:hover{
+  transform:translateY(-2px);
+  background:#d1d5db;
+}
+
+
+.blog-filter-buttons .active-filter{
+  background:#00bfff;
+  color:white;
+  box-shadow:0 4px 12px rgba(0,191,255,0.35);
+}
+
 .service-content p {
   color: #a0aec0;
   font-size: 0.9rem;

@@ -10,12 +10,41 @@ router.use((req,res,next)=>{
 });
 
 // ✅ GET ALL BLOGS
+// router.get("/", async (req, res) => {
+//   try {
+//     const blogs = await Blog.find().sort({ createdAt: -1 });
+//     res.json(blogs);
+//   } catch (err) {
+//     res.status(500).json({ error: "Failed to fetch blogs" });
+//   }
+// });
 router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
+
+    const blogs = await Blog.find({
+      status: { $ne: "draft" }
+    }).sort({ createdAt: -1 });
+
     res.json(blogs);
+
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch blogs" });
+    res.status(500).json({ 
+      error: "Failed to fetch blogs" 
+    });
+  }
+});
+router.get("/admin/all", verifyToken, async(req,res)=>{
+  try{
+
+    const blogs = await Blog.find()
+      .sort({createdAt:-1});
+
+    res.json(blogs);
+
+  }catch(err){
+    res.status(500).json({
+      error:"Failed to fetch admin blogs"
+    })
   }
 });
 
@@ -39,7 +68,7 @@ router.post(
       console.log("BODY =>", req.body);
       console.log("FILE =>", req.file);
 
-      const { title, slug, author, tags, category, content } = req.body;
+      const { title, slug, author, tags, category, content, status  } = req.body;
 
       // Check image
       if (!req.file) {
@@ -65,6 +94,7 @@ router.post(
         tags,
         category,
         content,
+        status: status || "published",
       });
 
       await newBlog.save();
@@ -88,38 +118,122 @@ router.post(
 
 
 // ✅ UPDATE BLOG
+// router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
+//   try {
+//     const { title, slug, author, tags, category, content } = req.body;
+//     // Check if new slug already exists (if slug is being changed)
+//     if (slug) {
+//       const existingBlog = await Blog.findOne({ slug, _id: { $ne: req.params.id } });
+//       if (existingBlog) {
+//         return res.status(400).json({ error: "Slug already exists" });
+//       }
+//     }
+
+//     const updatedBlog = await Blog.findByIdAndUpdate(
+//  req.params.id,
+//  {
+//   title,
+//   slug,
+//   author,
+
+//   bannerImage: req.file.path,
+
+//   metaKeywords,
+//   category,
+//   content,
+//   updatedAt:new Date()
+//  },
+//  {new:true}
+// )
+
+//     if (!updatedBlog) return res.status(404).json({ error: "Blog not found" });
+//     res.json({ message: "Blog updated successfully", blog: updatedBlog });
+//   } catch (err) {
+//     res.status(500).json({ error: "Failed to update blog" });
+//   }
+// });
+// ✅ UPDATE BLOG
 router.put("/:id", verifyToken, upload.single("bannerImage"), async (req,res)=> {
   try {
-    const { title, slug, author, tags, category, content } = req.body;
-    // Check if new slug already exists (if slug is being changed)
+
+    const { 
+      title, 
+      slug, 
+      author, 
+      tags, 
+      category, 
+      content,
+      status 
+    } = req.body;
+
+
     if (slug) {
-      const existingBlog = await Blog.findOne({ slug, _id: { $ne: req.params.id } });
+      const existingBlog = await Blog.findOne({
+        slug,
+        _id: { $ne: req.params.id }
+      });
+
       if (existingBlog) {
-        return res.status(400).json({ error: "Slug already exists" });
+        return res.status(400).json({
+          error:"Slug already exists"
+        });
       }
     }
 
+
+    const updateData = {
+      updatedAt:new Date()
+    };
+
+
+    if(title) updateData.title = title;
+    if(slug) updateData.slug = slug;
+    if(author) updateData.author = author;
+    if(category) updateData.category = category;
+    if(content) updateData.content = content;
+    if(tags) updateData.tags = tags;
+
+
+    // publish / draft change
+    if(status){
+      updateData.status = status;
+    }
+
+
+    // only update image if new image uploaded
+    if(req.file){
+      updateData.bannerImage = req.file.path;
+    }
+
+
     const updatedBlog = await Blog.findByIdAndUpdate(
- req.params.id,
- {
-  title,
-  slug,
-  author,
+      req.params.id,
+      updateData,
+      {new:true}
+    );
 
-  bannerImage: req.file.path,
 
-  metaKeywords,
-  category,
-  content,
-  updatedAt:new Date()
- },
- {new:true}
-)
+    if(!updatedBlog){
+      return res.status(404).json({
+        error:"Blog not found"
+      });
+    }
 
-    if (!updatedBlog) return res.status(404).json({ error: "Blog not found" });
-    res.json({ message: "Blog updated successfully", blog: updatedBlog });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to update blog" });
+
+    res.json({
+      message:"Blog updated successfully",
+      blog:updatedBlog
+    });
+
+
+  } catch(err){
+
+    console.log(err);
+
+    res.status(500).json({
+      error:err.message
+    });
+
   }
 });
 
@@ -130,6 +244,21 @@ router.delete("/:id", verifyToken, async (req, res) => {
     res.json({ message: "Blog deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete blog" });
+  }
+});
+router.put("/publish/:id", verifyToken, async(req,res)=>{
+  try{
+
+    const blog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { status:"published" },
+      {new:true}
+    );
+
+    res.json(blog);
+
+  }catch(err){
+    res.status(500).json({error:err.message});
   }
 });
 

@@ -1,7 +1,31 @@
 /* =========================================================
    GENERAL LAYOUT AND VARIABLES
+ 
    ========================================================= */
-:root {
+body{
+  background:
+    linear-gradient(rgba(0,191,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,191,255,.06) 1px, transparent 1px),
+    #020b1b;
+
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.about-section-new,
+.services-section-new,
+.why-choose-section-new,
+.process-section-new,
+.tech-stack-section-new,
+.stats-section-new,
+.projects-section-new,
+.testimonials-section-new {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+   :root {
   --primary-glow: rgba(0, 191, 255, 0.15);
   --accent-cyan: #00bfff;
   --accent-blue: #007bff;
@@ -11,6 +35,17 @@
   --text-gray: #94a3b8;
   --text-sub: #cbd5e1;
 }
+
+.global-neural-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
 
 /*
  1. HERO SECTION
@@ -188,10 +223,10 @@
 /* =========================================================
    2. ABOUT US SECTION
    ========================================================= */
-.about-section-new {
+/* .about-section-new {
   padding: 40px 20px;
   background: var(--dark-slate);
-}
+} */
 
 .about-container-new {
   display: grid;
@@ -262,11 +297,11 @@
 /* =========================================================
    3. SERVICES SECTION
    ========================================================= */
-.services-section-new {
+/* .services-section-new {
   padding: 40px 20px;
-  /* background: radial-gradient(circle at 50% 50%, #13223f 0%, #0f172a 100%);*/
+  
   background: var(--dark-slate);
-}
+} */
 
 .services-grid-new {
   display: grid;
@@ -341,10 +376,10 @@
 /* =========================================================
    4. WHY CHOOSE US SECTION
    ========================================================= */
-.why-choose-section-new {
+/* .why-choose-section-new {
   padding: 40px 20px;
   background: var(--dark-slate);
-}
+} */
 
 .why-choose-grid-new {
   display: grid;
@@ -423,11 +458,11 @@
 /* =========================================================
    5. PROCESS / WORKFLOW SECTION
    ========================================================= */
-.process-section-new {
+/* .process-section-new {
   padding: 40px 20px;
-  /*background: radial-gradient(circle at 10% 80%, #0c1932 0%, #0f172a 100%); */
+ 
   background: var(--dark-slate);
-}
+} */
 
 .process-workflow-container-new {
   display: grid;
@@ -493,10 +528,10 @@
 /* =========================================================
    6. TECHNOLOGY STACK SECTION
    ========================================================= */
-.tech-stack-section-new {
+/* .tech-stack-section-new {
   padding: 40px 20px;
   background: var(--dark-slate);
-}
+} */
 
 .tech-categories-grid-new {
   display: grid;
@@ -555,11 +590,11 @@
 /* =========================================================
    7. IMPACT / STATS SECTION
    ========================================================= */
-.stats-section-new {
+/* .stats-section-new {
   padding: 40px 20px;
-  /* background: #090f1e; */
+ 
   background: var(--dark-slate);
-}
+} */
 
 .stats-grid-new {
   display: grid;
@@ -607,10 +642,10 @@
 /* =========================================================
    8. RECENT PROJECTS SECTION
    ========================================================= */
-.projects-section-new {
+/* .projects-section-new {
   padding: 40px 20px;
   background: var(--dark-slate);
-}
+} */
 
 .projects-grid-new {
   display: grid;
@@ -719,12 +754,12 @@
 /* =========================================================
    9. TESTIMONIALS SECTION
    ========================================================= */
-.testimonials-section-new {
+/* .testimonials-section-new {
   padding: 40px 20px;
-  /* background: radial-gradient(circle at 90% 80%, #11213c 0%, #0f172a 100%); */
+  
   background: var(--dark-slate);
 
-}
+} */
 
 /* =========================================================
    10. RESPONSIVE DESIGN (MEDIA QUERIES)
