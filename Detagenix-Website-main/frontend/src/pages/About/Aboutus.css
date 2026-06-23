@@ -1,7 +1,7 @@
 .about-section {
   /* background: linear-gradient(135deg, #0c1b3d, #1a2f6b); */
-   background: var(--dark-slate);
-  color: #fff;
+   /* background: var(--dark-slate);
+  color: #fff; */
   padding: 60px 0;
   overflow: hidden;
 }

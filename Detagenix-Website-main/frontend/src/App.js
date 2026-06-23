@@ -17,6 +17,7 @@ import Navbar from "./layout/Navbar/Navbar.jsx";
 import ChatBot from "./components/Chatbot/Chatbot.jsx";
 import Footer from "./layout/Footer/Footer.jsx";
 import BlogDetails from "./pages/Blog/BlogDetailPage.jsx"; 
+import NeuralBG from "./components/NeuralBG.jsx";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,8 @@ function App() {
 
   return (
     <>
+    {!isAdminRoute && <NeuralBG />}
+
       {!isAdminRoute && <Navbar />}
       {!isAdminRoute && <ChatBot />}
       <div className="main-content">
