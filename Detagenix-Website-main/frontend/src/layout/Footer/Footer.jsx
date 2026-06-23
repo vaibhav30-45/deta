@@ -10,9 +10,12 @@ import {
   FaUsers,
   FaLock,
   FaClock,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import { useState } from "react";
 import logo from "../../asset/logo.webp";
+
+
 
 const initialEnquiryForm = {
   full_name: "",
@@ -79,6 +82,10 @@ const Footer = () => {
 
           <p className="footer-desc">
             We provide smart digital solutions to transform businesses, scaling your operations with custom software development.
+          </p>
+          
+          <p>
+            <FaMapMarkerAlt />    Khandelwal Nagar, Samvad Nagar, Indore, Madhya Pradesh 452001,India
           </p>
           <div className="footer-socials">
             <a

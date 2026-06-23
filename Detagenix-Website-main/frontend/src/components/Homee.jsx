@@ -8,6 +8,7 @@ import crmImg from "../asset/CRM_HRM.png";
 import hospitalImg from "../asset/healthcare.jpeg";
 import sgfood from "../asset/sgfoods.jpeg";
 import { useNavigate } from "react-router-dom";
+import CustomTypewriter from "./CustomTypeWriter";
 
 const PROJECTS = [
   {
@@ -146,7 +147,7 @@ background-size:45px 45px;
 }
 
 .hero-title {
-  font-size: 40px !important;   /* thoda reduce kiya */
+  font-size: 40px;   /* thoda reduce kiya */
   line-height: 1.2;
   white-space: nowrap;  /* line break rok dega */
 }
@@ -174,7 +175,8 @@ z-index:2;
   line-height:1.15;
   font-weight:900;
 }
-
+.next-line{
+  display:none;}
 
 
 .blue{
@@ -764,6 +766,9 @@ width:90px;
     font-size: 10px;
     padding: 6px;
   }
+    .next-line{
+  display:block;}
+    
 }
 
 
@@ -810,7 +815,10 @@ width:90px;
     font-size: 8px;
     padding: 4px;
   }
+    .next-line{
+  display:block;}
 }
+  
 
 `}</style>
 
@@ -819,26 +827,9 @@ width:90px;
       <div className="hero-grid" />
 
       <div className="left">
-       <h1 className="hero-title">
-  Digitize, Automate & Scale Your <br /> Business With{" "}
-  <span className="blue" style={{ display: "inline-block"}}>
-    <Typewriter
-      options={{
-        strings: [
-          "Technology",
-          "AI Solutions",
-          "Custom Software",
-          "Smart Automation",
-          "Digital Innovation"
-        ],
-        autoStart: true,
-        loop: true,
-        delay: 75,       // Type hone ki speed
-        deleteSpeed: 50, // Mite (delete) hone ki speed
-        pauseFor: 1500,  // Pura word type hone ke baad rukne ka samay (1.5 seconds)
-      }}
-    />
-  </span>
+       <h1 className="hero-title" >
+  Digitize, Automate & Scale Your <br /> Business With{" "} <br className="next-line"/>
+  <CustomTypewriter />
 </h1>
 
         <p>
