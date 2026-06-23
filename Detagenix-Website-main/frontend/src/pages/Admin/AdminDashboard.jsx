@@ -424,25 +424,100 @@ const AdminDashboard = () => {
       alert(err.response?.data?.error || "Failed to update status");
     }
   };
+  // const DataTable = ({ data, columns, title }) => (
+  //   <div className="data-table-container">
+  //     <h2 className="table-title">{title}</h2>
+  //     <div className="table-wrapper">
+  //       <table className="data-table">
+  //         <thead>
+  //           <tr>
+  //             {columns.map((col) => (
+  //               <th key={col}>{col}</th>
+  //             ))}
+  //           </tr>
+  //         </thead>
+  //         <tbody>
+  //           {data && data.length > 0 ? (
+  //             data.map((row, idx) => (
+  //               <tr key={idx}>
+  //                 {columns.map((col) => (
+  //                   <td key={col}>
+  //                     {col === "resumeUrl" && row[col] ? (
+  //                       <a
+  //                         href={
+  //                           row[col].startsWith("http")
+  //                             ? row[col]
+  //                             : `${BASE_URL}${row[col]}`
+  //                         }
+  //                         target="_blank"
+  //                         rel="noopener noreferrer"
+  //                         download
+  //                         style={{
+  //                           color: "#007bff",
+  //                           textDecoration: "underline",
+  //                           fontWeight: "500",
+  //                         }}
+  //                       >
+  //                         📄 Download Resume
+  //                       </a>
+  //                     ) : typeof row[col] === "object" ? (
+  //                       JSON.stringify(row[col]).substring(0, 50) + "..."
+  //                     ) : (
+  //                       String(row[col] || "-").substring(0, 50)
+  //                     )}
+  //                   </td>
+  //                 ))}
+  //               </tr>
+  //             ))
+  //           ) : (
+  //             <tr>
+  //               <td colSpan={columns.length} className="no-data">
+  //                 No data available
+  //               </td>
+  //             </tr>
+  //           )}
+  //         </tbody>
+  //       </table>
+  //     </div>
+  //   </div>
+  // );
   const DataTable = ({ data, columns, title }) => (
-    <div className="data-table-container">
-      <h2 className="table-title">{title}</h2>
-      <div className="table-wrapper">
-        <table className="data-table">
-          <thead>
-            <tr>
-              {columns.map((col) => (
-                <th key={col}>{col}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data && data.length > 0 ? (
-              data.map((row, idx) => (
-                <tr key={idx}>
-                  {columns.map((col) => (
-                    <td key={col}>
-                      {col === "resumeUrl" && row[col] ? (
+  <div className="data-table-container">
+    <h2 className="table-title">{title}</h2>
+    <div className="table-wrapper">
+      <table className="data-table">
+        <thead>
+          <tr>
+            {columns.map((col) => (
+              <th key={col}>{col}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data && data.length > 0 ? (
+            data.map((row, idx) => (
+              <tr key={idx}>
+                {columns.map((col) => {
+                  // 1. Check karein kya yeh resume link hai
+                  const isResume = col === "resumeUrl" && row[col];
+                  
+                  // 2. Normal text ya object ko string me convert karein
+                  const fullText = isResume 
+                    ? "" 
+                    : typeof row[col] === "object" 
+                      ? JSON.stringify(row[col]) 
+                      : String(row[col] || "-");
+
+                  // 3. Check karein kya character count 40 se zyada hai
+                  const isLongText = !isResume && fullText.length > 40;
+
+                  return (
+                    <td 
+                      key={col}
+                      className={isLongText ? "truncated-cell" : ""}
+                      data-full-text={isLongText ? fullText : undefined} // Hover box ke liye full text pass kiya
+                    >
+                      {isResume ? (
                         <a
                           href={
                             row[col].startsWith("http")
@@ -460,27 +535,30 @@ const AdminDashboard = () => {
                         >
                           📄 Download Resume
                         </a>
-                      ) : typeof row[col] === "object" ? (
-                        JSON.stringify(row[col]).substring(0, 50) + "..."
+                      ) : isLongText ? (
+                        // Agar 40 se bada hai toh 40 letters + ... dikhao
+                        `${fullText.substring(0, 40)}...`
                       ) : (
-                        String(row[col] || "-").substring(0, 50)
+                        // Chota text hai toh poora dikhao
+                        fullText
                       )}
                     </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length} className="no-data">
-                  No data available
-                </td>
+                  );
+                })}
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length} className="no-data">
+                No data available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
-  );
+  </div>
+);
 
   if (loading) {
     return (
@@ -1564,7 +1642,7 @@ const AdminDashboard = () => {
   />
 )} */}
         {/* Enquiries Tab */}
-        {activeTab === "enquiries" && (
+        {/* {activeTab === "enquiries" && (
           <div className="data-table-container">
             <h2 className="table-title">All Enquiries Management</h2>
             <div className="table-wrapper">
@@ -1601,7 +1679,7 @@ const AdminDashboard = () => {
                             : "-"}
                         </td>
                         <td>
-                          {/* Status Dropdown Selection */}
+                          
                           <select
                             value={row.status || "pending"}
                             onChange={(e) =>
@@ -1653,7 +1731,111 @@ const AdminDashboard = () => {
               </table>
             </div>
           </div>
-        )}
+        )} */}
+        {activeTab === "enquiries" && (
+  <div className="data-table-container">
+    <h2 className="table-title">All Enquiries Management</h2>
+    <div className="table-wrapper">
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Project Type</th>
+            <th>Budget</th>
+            <th>Timeline</th>
+            <th>Message</th>
+            <th>Received At</th>
+            <th>Status (Admin Only)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {enquiries && enquiries.length > 0 ? (
+            enquiries.map((row) => {
+              // Message text ko safe nikalna aur check karna
+              const msgText = row.description || "-";
+              const isLongMessage = msgText.length > 40;
+
+              return (
+                <tr key={row._id}>
+                  <td>{row._id}</td>
+                  <td>{row.full_name}</td>
+                  <td>{row.email}</td>
+                  <td>{row.phone}</td>
+                  <td>{row.project_type}</td>
+                  <td>{row.budget}</td>
+                  <td>{row.timeline}</td>
+                  
+                  {/* Message Column: Truncation aur Tooltip yahan add kiya hai */}
+                  <td
+                    className={isLongMessage ? "truncated-cell" : ""}
+                    data-full-text={isLongMessage ? msgText : undefined}
+                  >
+                    {isLongMessage ? `${msgText.substring(0, 40)}...` : msgText}
+                  </td>
+
+                  <td>
+                    {row.createdAt
+                      ? new Date(row.createdAt).toLocaleDateString()
+                      : "-"}
+                  </td>
+                  <td>
+                    {/* Status Dropdown Selection */}
+                    <select
+                      value={row.status || "pending"}
+                      onChange={(e) =>
+                        handleUpdateEnquiryStatus(row._id, e.target.value)
+                      }
+                      style={{
+                        padding: "6px 12px",
+                        borderRadius: "4px",
+                        border: "1px solid #00bfff",
+                        fontFamily: "inherit",
+                        fontWeight: "500",
+                        cursor: "pointer",
+                        backgroundColor: "rgba(0, 191, 255, 0.1)",
+                        color: "#00bfff",
+                        
+                      }}
+                    >
+                      <option
+                        style={{
+                          color: "#00bfff",
+                          backgroundColor: "#0d1b2a",
+                        }}
+                        value="pending"
+                      >
+                        Pending
+                      </option>
+                      <option
+                        style={{
+                          color: "#00bfff",
+                          backgroundColor: "#0d1b2a",
+                        }}
+                        value="connected"
+                      >
+                        Connected
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              
+              <td colSpan="10" className="no-data">
+                No enquiries available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
         {activeTab === "testimonials" && <Testimonials />}
         {activeTab === "faq" && (
           <div className="faq-container">
