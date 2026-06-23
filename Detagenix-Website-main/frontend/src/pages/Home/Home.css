@@ -1356,7 +1356,7 @@ body{
 }
 
 
-@media (min-width: 460px)and (max-width: 1200px) {
+@media (min-width: 524px)and (max-width: 1200px) {
      .why-choose-right,.why-choose-left{
       display: flex;
      }

@@ -47,6 +47,7 @@ const AdminDashboard = () => {
     setActiveTab(tab);
     localStorage.setItem("adminActiveTab", tab);
   };
+  const formTopRef = React.useRef(null);
   const serviceFormRef = useRef(null);
   const blogFormRef = useRef(null);
   const jobFormRef = useRef(null);
@@ -1024,7 +1025,14 @@ const AdminDashboard = () => {
                         }}
                       >
                         <button
-                          onClick={() => handleEditJob(job)}
+                          onClick={() => {handleEditJob(job)
+                            setTimeout(() => {
+                     jobFormRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }, 80)
+                          }}
                           style={{
                             backgroundColor: "#0d6efd",
                             color: "white",
@@ -1037,6 +1045,7 @@ const AdminDashboard = () => {
                             gap: "5px",
                             fontSize: "12px",
                           }}
+                          
                         >
                           <FaEdit /> Edit
                         </button>
@@ -1104,7 +1113,7 @@ const AdminDashboard = () => {
         {/* Blogs Tab */}
         {activeTab === "blogs" && (
           <div className="section-with-form">
-            <div className="form-header">
+            <div className="form-header" ref={blogFormRef}>
               <div className="blog-filter-buttons">
                 <button
                   onClick={() => setBlogFilter("published")}
@@ -1139,6 +1148,9 @@ const AdminDashboard = () => {
                       { type: "paragraph", value: "" },
                     ],
                   });
+                  setTimeout(() => {
+            blogFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 50)
                 }}
               >
                 <FaPlus /> Add New Blog
@@ -1368,8 +1380,15 @@ const AdminDashboard = () => {
                             });
 
                             setShowBlogForm(true);
+                            setTimeout(() => {
+                     blogFormRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }, 80)
                           }}
                         >
+                          
                           <FaEdit /> Edit
                         </button>
                       )}
@@ -1388,7 +1407,7 @@ const AdminDashboard = () => {
         )}
 
         {/* Services Tab */}
-        {activeTab === "services" && (
+        {/* {activeTab === "services" && (
           <div className="section-with-form">
             <div className="form-header">
               <h2 className="section-title">Manage Services</h2>
@@ -1437,17 +1456,7 @@ const AdminDashboard = () => {
                     rows="4"
                   ></textarea>
                 </div>
-                {/* <div className="form-group">
-                  <input
-                    type="text"
-                    value={serviceForm.icon}
-                    onChange={(e) =>
-                      setServiceForm({ ...serviceForm, icon: e.target.value })
-                    }
-                    placeholder="Icon Image URL: https://example.com/icon.jpg"
-                  />
-                </div> */}
-                {/* Dropdown ki jagah fir se Input Field (Dynamic Icon Name ke liye) */}
+               
                 <div className="form-group">
                   <input
                     type="text"
@@ -1504,14 +1513,7 @@ const AdminDashboard = () => {
                     }
                     placeholder="Points"
                   />
-                  {/* <input
-                    type="text"
-                    value={serviceForm.link}
-                    onChange={(e) =>
-                      setServiceForm({ ...serviceForm, link: e.target.value })
-                    }
-                    placeholder="Link (Optional): /services#cybersecurity"
-                  /> */}
+                  
                 </div>
                 <div className="form-buttons">
                   <button className="submit-btn" onClick={handleCreateService}>
@@ -1533,9 +1535,7 @@ const AdminDashboard = () => {
             <div className="items-grid">
               {blogServices.map((service) => (
                 <div key={service._id} className="service-card">
-                  {/* <div className="service-icon">
-                    <img src={service.icon} alt={service.title} />
-                  </div> */}
+                 
                   <div
                     className="service-icon"
                     style={{
@@ -1623,7 +1623,238 @@ const AdminDashboard = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
+        {/* Services Tab */}
+{activeTab === "services" && (
+  <div className="section-with-form">
+  
+    <div className="form-header" ref={formTopRef}>
+      <h2 className="section-title">Manage Services</h2>
+      <button
+        className="add-btn"
+        onClick={() => {
+          setShowServiceForm(!showServiceForm);
+          setEditingService(null);
+          setServiceForm({
+            title: "",
+            description: "",
+            icon: "",
+            link: "",
+          });
+          
+        
+          setTimeout(() => {
+            formTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 50);
+        }}
+      >
+        <FaPlus /> Add New Service
+      </button>
+    </div>
+
+    {showServiceForm && (
+      <div className="form-container">
+        <h3>
+          {editingService ? "Edit Service" : "Create New Service"}
+        </h3>
+        <div className="form-group">
+          <input
+            type="text"
+            value={serviceForm.title}
+            onChange={(e) =>
+              setServiceForm({ ...serviceForm, title: e.target.value })
+            }
+            placeholder="Service Title: e.g., CyberSecurity"
+          />
+        </div>
+        <div className="form-group">
+          <textarea
+            value={serviceForm.description}
+            onChange={(e) =>
+              setServiceForm({
+                ...serviceForm,
+                description: e.target.value,
+              })
+            }
+            placeholder="Service description"
+            rows="4"
+          ></textarea>
+        </div>
+
+  
+        <div className="form-group">
+          <input
+            type="text"
+            value={serviceForm.icon}
+            onChange={(e) =>
+              setServiceForm({ ...serviceForm, icon: e.target.value })
+            }
+            placeholder="Icon Name (e.g., FcLaptop, FcShieldAlt, FcCog)"
+          />
+          <small
+            style={{
+              color: "#888",
+              fontSize: "11px",
+              marginTop: "4px",
+              display: "block",
+            }}
+          >
+            Tip: Use FontAwesome icon names like FcLaptop, FcShieldAlt,
+            FcBriefcase, etc.
+          </small>
+        </div>
+        <select
+          value={serviceForm.status}
+          onChange={(e) =>
+            setServiceForm({
+              ...serviceForm,
+              status: e.target.value,
+            })
+          }
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginTop: "10px",
+            marginBottom: "15px",
+            borderRadius: "8px",
+            border: "1px solid #ddd",
+            backgroundColor: "#fff",
+            color: "#333",
+            fontSize: "14px",
+            fontFamily: "inherit",
+            cursor: "pointer",
+            outline: "none",
+            transition: "0.3s",
+          }}
+        >
+          <option value="published">Publish</option>
+          <option value="draft">Save Draft</option>
+        </select>
+        <div className="form-group">
+          <textarea
+            value={serviceForm.link}
+            onChange={(e) =>
+              setServiceForm({ ...serviceForm, link: e.target.value })
+            }
+            placeholder="Points"
+          />
+        </div>
+        <div className="form-buttons">
+          <button className="submit-btn" onClick={handleCreateService}>
+            {editingService ? "Update Service" : "Create Service"}
+          </button>
+          <button
+            className="cancel-btn"
+            onClick={() => {
+              setShowServiceForm(false);
+              setEditingService(null);
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )}
+
+    <div className="items-grid">
+      {blogServices.map((service) => (
+        <div key={service._id} className="service-card">
+          <div
+            className="service-icon"
+            style={{
+              fontSize: "32px",
+              color: "#00bfff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <DynamicIcon iconName={service.icon} />
+          </div>
+          <div className="service-content">
+            <h4>{service.title}</h4>
+            <span
+              style={{
+                background:
+                  service.status === "published"
+                    ? "#22c55e"
+                    : "#f59e0b",
+                color: "white",
+                padding: "5px 12px",
+                borderRadius: "20px",
+                fontSize: "12px",
+              }}
+            >
+              {service.status}
+            </span>
+            <p>{service.description.substring(0, 100)}...</p>
+            <div className="service-actions">
+              {service.status === "draft" && (
+                <button
+                  className="submit-btn"
+                  onClick={async () => {
+                    try {
+                      await api.put(
+                        `/api/blog-services/${service._id}`,
+                        {
+                          ...service,
+                          status: "published",
+                        },
+                      );
+
+                      alert("Service Published");
+                      fetchData();
+                    } catch (err) {
+                      alert("Publish failed");
+                    }
+                  }}
+                >
+                  Publish
+                </button>
+              )}
+
+              {service.status === "published" && (
+                <button
+                  className="edit-icon"
+                  onClick={() => {
+                    setEditingService(service);
+
+                    setServiceForm({
+                      title: service.title,
+                      description: service.description,
+                      icon: service.icon,
+                      link: service.link,
+                      status: service.status,
+                    });
+
+                    setShowServiceForm(true);
+
+                   
+                    setTimeout(() => {
+                      formTopRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }, 80); 
+                  }}
+                >
+                  <FaEdit /> Edit
+                </button>
+              )}
+
+              <button
+                className="delete-icon"
+                onClick={() => handleDeleteService(service._id)}
+              >
+                <FaTrash /> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
         {/* {activeTab === "enquiries" && (
   <DataTable
     data={enquiries}
