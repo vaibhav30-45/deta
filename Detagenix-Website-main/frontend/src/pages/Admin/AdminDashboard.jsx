@@ -518,7 +518,8 @@ const AdminDashboard = () => {
       <div className="dashboard-nav">
         <button
           className={`nav-btn ${activeTab === "overview" ? "active" : ""}`}
-          onClick={() => changeTab("overview.")}
+         // onClick={() => changeTab("overview.")}
+         onClick={() => changeTab("overview")}
         >
           <FaChartBar /> Overview
         </button>
