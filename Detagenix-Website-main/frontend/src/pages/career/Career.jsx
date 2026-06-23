@@ -125,13 +125,13 @@ function Careers() {
         "Interning at Detagenix gave me real projects, mentorship and an opportunity to ship code. Highly recommended!",
     },
     {
-      name: "Rohit Sharma",
+      name: "surya",
       role: "Full Stack Dev",
       quote:
         "Great culture and rapid learning. The team supported my growth and gave me responsibility early on.",
     },
     {
-      name: "Meera Patel",
+      name: "prashasti",
       role: "Product Intern",
       quote:
         "Hands-on mentorship and challenging tasks. Portfolio-level work and real product impact.",
