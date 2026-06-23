@@ -9,7 +9,12 @@ const faqSchema = new mongoose.Schema(
   answer:{
     type:String,
     required:true
-  }
+  },
+  page: {
+  type: String,
+  enum: ["home", "service"],
+  required: true,
+}
 },
 {
   timestamps:true

@@ -6,7 +6,7 @@ import Testimonial from "../../components/Testimonial/Testimonial";
 import Techslider from "../../components/Techslider/Techslider";
 
 import aboutusImage from "../../asset/culture2.png";
-import receptionImage from "../../asset/detagenix.jpeg";
+import receptionImage from "../../asset/SPAcard.png";
 import ecommerceImg from "../../asset/projects/ecommerce-platform.jpeg";
 import aiChatbotImg from "../../asset/projects/ai-chatbot.avif";
 import mobileBankingImg from "../../asset/projects/mobile-banking-app.avif";
@@ -116,8 +116,8 @@ const [faqLoading, setFaqLoading] = useState(true);
    useEffect(() => {
   const fetchFaqs = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/faqs`);
-      setFaqs(res.data);
+      const res = await axios.get(`${BASE_URL}/api/faqs/home`);
+setFaqs(res.data);
     } catch (error) {
       console.error("Failed to fetch FAQs:", error);
     } finally {

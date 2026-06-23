@@ -6,28 +6,43 @@ const router = express.Router();
 
 
 // GET ALL FAQ
-router.get("/", async(req,res)=>{
- try{
-   const faqs = await FAQ.find().sort({createdAt:-1});
-   res.json(faqs);
- }
- catch(err){
-   res.status(500).json({
-    error:"Failed to fetch FAQ"
-   });
- }
+// Admin ke liye saare FAQs
+router.get("/", async (req, res) => {
+  try {
+    const faqs = await FAQ.find().sort({ createdAt: -1 });
+    res.json(faqs);
+  } catch (err) {
+    res.status(500).json({
+      error: "Failed to fetch FAQ",
+    });
+  }
 });
 
+// Home / Service page ke liye
+router.get("/:page", async (req, res) => {
+  try {
+    const faqs = await FAQ.find({
+      page: req.params.page,
+    }).sort({ createdAt: -1 });
+
+    res.json(faqs);
+  } catch (err) {
+    res.status(500).json({
+      error: "Failed to fetch FAQ",
+    });
+  }
+});
 
 // ADD FAQ
 router.post("/", verifyToken, async(req,res)=>{
  try{
 
- const {question,answer}=req.body;
+ const {question,answer, page}=req.body;
 
  const faq = new FAQ({
    question,
-   answer
+   answer,
+     page,
  });
 
  await faq.save();
@@ -57,6 +72,7 @@ try{
  {
   question:req.body.question,
   answer:req.body.answer,
+   page: req.body.page,
   updatedAt:new Date()
  },
  {new:true}

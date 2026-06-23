@@ -807,8 +807,8 @@ const Service = () => {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/faqs`);
-        setFaqs(res.data);
+       const res = await axios.get(`${BASE_URL}/api/faqs/service`);
+setFaqs(res.data);
       } catch (error) {
         console.error("Failed to fetch FAQs:", error);
       } finally {
