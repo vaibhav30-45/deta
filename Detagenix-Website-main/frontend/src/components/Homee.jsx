@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import logo from "../asset/logo.webp";
 import ecommerceImg from "../asset/Trendora.jpeg";
@@ -9,141 +8,98 @@ import hospitalImg from "../asset/healthcare.jpeg";
 import sgfood from "../asset/sgfoods.jpeg";
 import { useNavigate } from "react-router-dom";
 
-
-const PROJECTS=[
-{
- img:ecommerceImg,
- title:"E-Commerce",
- text:"Web Platform"
-},
-{
- img:aiChatbotImg,
- title:"AI Solution",
- text:"Automation"
-},
-{
- img:crmImg,
- title:"CRM + HRM System",
- text:"Enterprise"
-},
-{
- img:hospitalImg,
- title:"Healthcare",
- text:"Technology"
-},
-{
- img:InventoryImg,
- title:"Inventory Management",
- text:"Infrastructure"
-},
-{
- img:sgfood,
- title:"SG Foods",
- text:"Restaurant Management"
-}
+const PROJECTS = [
+  {
+    img: ecommerceImg,
+    title: "E-Commerce",
+    text: "Web Platform",
+  },
+  {
+    img: aiChatbotImg,
+    title: "AI Solution",
+    text: "Automation",
+  },
+  {
+    img: crmImg,
+    title: "CRM + HRM System",
+    text: "Enterprise",
+  },
+  {
+    img: hospitalImg,
+    title: "Healthcare",
+    text: "Technology",
+  },
+  {
+    img: InventoryImg,
+    title: "Inventory Management",
+    text: "Infrastructure",
+  },
+  {
+    img: sgfood,
+    title: "SG Foods",
+    text: "Restaurant Management",
+  },
 ];
 
+function NeuralBG() {
+  const ref = useRef();
 
+  useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext("2d");
 
-function NeuralBG(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
-const ref=useRef();
- 
+    let nodes = Array.from({ length: 45 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+    }));
 
-useEffect(()=>{
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-const canvas=ref.current;
-const ctx=canvas.getContext("2d");
+      nodes.forEach((n, i) => {
+        n.x += n.vx;
+        n.y += n.vy;
 
-canvas.width=canvas.offsetWidth;
-canvas.height=canvas.offsetHeight;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
 
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0,170,255,.8)";
+        ctx.fill();
 
-let nodes=Array.from({length:45},()=>({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-vx:(Math.random()-.5)*.5,
-vy:(Math.random()-.5)*.5
-}));
+        nodes.slice(i + 1).forEach((m) => {
+          let d = Math.hypot(n.x - m.x, n.y - m.y);
 
+          if (d < 120) {
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.strokeStyle = "rgba(0,150,255,.18)";
+            ctx.stroke();
+          }
+        });
+      });
 
-function draw(){
+      requestAnimationFrame(draw);
+    }
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+    draw();
+  }, []);
 
-
-nodes.forEach((n,i)=>{
-
-
-n.x+=n.vx;
-n.y+=n.vy;
-
-
-if(n.x<0||n.x>canvas.width)n.vx*=-1;
-if(n.y<0||n.y>canvas.height)n.vy*=-1;
-
-
-
-ctx.beginPath();
-ctx.arc(n.x,n.y,2,0,Math.PI*2);
-ctx.fillStyle="rgba(0,170,255,.8)";
-ctx.fill();
-
-
-
-nodes.slice(i+1).forEach(m=>{
-
-let d=Math.hypot(n.x-m.x,n.y-m.y);
-
-if(d<120){
-
-ctx.beginPath();
-ctx.moveTo(n.x,n.y);
-ctx.lineTo(m.x,m.y);
-ctx.strokeStyle="rgba(0,150,255,.18)";
-ctx.stroke();
-
+  return <canvas ref={ref} className="neural" />;
 }
 
-})
-
-
-})
-
-
-requestAnimationFrame(draw);
-
-}
-
-draw();
-
-
-},[])
-
-
-return(
-<canvas
-ref={ref}
-className="neural"
-/>
-)
-
-}
-
-
-
-
-
-export default function DetagenixHero({ setIsOpenForm }){
-
-const navigate = useNavigate();
-return(
-
-<div className="hero">
-
-
-
-<style>{`
+export default function DetagenixHero({ setIsOpenForm }) {
+  const navigate = useNavigate();
+  return (
+    <div className="hero">
+      <style>{`
 
 .hero{
 
@@ -188,7 +144,11 @@ background-size:45px 45px;
 
 }
 
-
+.hero-title {
+  font-size: 40px !important;   /* thoda reduce kiya */
+  line-height: 1.2;
+  white-space: nowrap;  /* line break rok dega */
+}
 
 .left{
 
@@ -201,7 +161,8 @@ z-index:2;
 .service-tags{
   margin-top:25px;
   color:#8ddcff;
-  font-size:15px;
+   font-size: 13px;
+  white-space: nowrap;
   font-weight:500;
   line-height:1.8;
   max-width:550px;
@@ -225,7 +186,7 @@ color:#00aaff;
 
 .left p{
 
-width:430px;
+width: 580px;
 color:#b7c7dc;
 line-height:1.8;
 
@@ -749,6 +710,10 @@ width:90px;
     text-align:center;
     max-width:100%;
   }
+    .hero-title {
+    white-space: normal;
+    font-size: 30px;
+  }
   .left h1{
     font-size: 32px;
   }
@@ -848,167 +813,78 @@ width:90px;
 
 `}</style>
 
+      <NeuralBG />
 
+      <div className="hero-grid" />
 
-
-<NeuralBG/>
-
-<div className="hero-grid"/>
-
-
-
-<div className="left">
-
-
-<h1>
-
-Digitize, Automate & Scale Your 
-
-<br/>
-
-Business With <span className="blue">
-Technology
-</span>
-
+      <div className="left">
+       <h1 className="hero-title">
+  Digitize, Automate & Scale Your <br /> Business With{" "}
+  <span className="blue">Technology</span>
 </h1>
 
+        <p>
+          We help startups, SMEs, and enterprises streamline operations,
+          automate workflows, strengthen their digital presence, and generate
+          measurable business growth through custom software, AI solutions, and
+          modern web platforms.
+        </p>
 
-<p>
+        <div className="btns">
+          <button className="secondary" onClick={() => setIsOpenForm(true)}>
+            Book Free Consultation
+          </button>
 
-We help startups, SMEs, and enterprises streamline operations, automate workflows, strengthen their digital presence, 
-and generate measurable business growth through custom software, 
-AI solutions, and modern web platforms.
+          <button className="primary" onClick={() => navigate("/about")}>
+            View Our Work
+          </button>
+        </div>
+        <div className="service-tags">
+          Website Development | CRM & ERP Solutions | AI Integration | Business
+          Automation | SEO & Digital Growth
+        </div>
+      </div>
 
-</p>
+      <div className="right">
+        <div className="orbit-area">
+          <div className="orbit">
+            {PROJECTS.map((p, i) => {
+              const angle = (i / PROJECTS.length) * 360;
 
+              const radius = 180;
 
-<div className="btns">
+              const x = Math.sin((angle * Math.PI) / 180) * radius;
 
-<button
-  className="secondary"
-  onClick={() => setIsOpenForm(true)}
->
-  Book Free Consultation
-</button>
+              const y = -Math.cos((angle * Math.PI) / 180) * radius;
 
-
-<button
-  className="primary"
-  onClick={() => navigate("/about")}
->
-  View Our Work
-</button>
-
-</div>
-<div className="service-tags">
-  Website Development | CRM & ERP Solutions | AI Integration |
-  Business Automation | SEO & Digital Growth
-</div>
-
-
-</div>
-
-
-
-
-
-<div className="right">
-
-
-<div className="orbit-area">
-
-
-<div className="orbit">
-
-
-{
-PROJECTS.map((p,i)=>{
-
-
-const angle =
-(i / PROJECTS.length) * 360;
-
-
-const radius=180;
-
-
-const x =
-Math.sin(angle*Math.PI/180)*radius;
-
-
-const y =
--Math.cos(angle*Math.PI/180)*radius;
-
-
-
-return(
-
-<div
-key={i}
-className="orbit-card"
-style={{
-left:"50%",
-top:"50%",
-transform:`
+              return (
+                <div
+                  key={i}
+                  className="orbit-card"
+                  style={{
+                    left: "50%",
+                    top: "50%",
+                    transform: `
 translate(-50%,-50%)
 translate(${x}px,${y}px)
-`
-}}
->
+`,
+                  }}
+                >
+                  <div className="orbit-card-inner">
+                    <img src={p.img} />
 
+                    <div className="card-title">{p.title}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-<div className="orbit-card-inner">
-
-
-<img
-src={p.img}
-/>
-
-
-<div className="card-title">
-
-{p.title}
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-)
-
-
-})
-
-}
-
-
-
-</div>
-
-
-
-<div className="logo-core">
-
-<img src={logo}/>
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-</div>
-
-)
-
+          <div className="logo-core">
+            <img src={logo} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
