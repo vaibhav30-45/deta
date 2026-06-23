@@ -1488,3 +1488,56 @@
     font-size: 0.8rem;
   }
 }
+/* ====================================================
+   TABLE TEXT TRUNCATION & HOVER TOOLTIP
+   ==================================================== */
+
+
+.truncated-cell {
+  position: relative;
+  cursor: pointer;
+  color: #00bfff !important;
+}
+
+
+.truncated-cell:hover {
+  z-index: 9999 !important;
+}
+
+
+.truncated-cell:hover::after {
+  content: attr(data-full-text);
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px; 
+  background: #0f172a; 
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #00bfff;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: normal;
+  width: max-content;
+  max-width: 300px;
+  z-index: 10000 !important; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  word-break: break-word;
+}
+
+
+.truncated-cell:hover::before {
+  content: '';
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+  border-width: 6px;
+  border-style: solid;
+  
+  border-color: transparent transparent #00bfff transparent; 
+  z-index: 10000 !important;
+}

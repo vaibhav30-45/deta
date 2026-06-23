@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Typewriter from "typewriter-effect";
 import logo from "../asset/logo.webp";
 import ecommerceImg from "../asset/Trendora.jpeg";
 import aiChatbotImg from "../asset/AI.jpeg";
@@ -820,7 +821,24 @@ width:90px;
       <div className="left">
        <h1 className="hero-title">
   Digitize, Automate & Scale Your <br /> Business With{" "}
-  <span className="blue">Technology</span>
+  <span className="blue" style={{ display: "inline-block"}}>
+    <Typewriter
+      options={{
+        strings: [
+          "Technology",
+          "AI Solutions",
+          "Custom Software",
+          "Smart Automation",
+          "Digital Innovation"
+        ],
+        autoStart: true,
+        loop: true,
+        delay: 75,       // Type hone ki speed
+        deleteSpeed: 50, // Mite (delete) hone ki speed
+        pauseFor: 1500,  // Pura word type hone ke baad rukne ka samay (1.5 seconds)
+      }}
+    />
+  </span>
 </h1>
 
         <p>
