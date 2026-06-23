@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  background-color: #ffffff;
+  background: transparent;
 }
 
 /* 🔥 MAIN FIX */
@@ -31,7 +31,26 @@ body {
   padding: 0 20px;
   box-sizing: border-box;
 }
+.neural-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 
+  z-index: -1;
+  pointer-events: none;
+}
+
+body {
+  position: relative;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 0;
+}
 /* * {
   margin: 0;
   padding: 0;
